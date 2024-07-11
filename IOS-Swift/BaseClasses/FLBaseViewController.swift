@@ -130,8 +130,19 @@ extension FLBaseViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        FLPrint("Cell at \(indexPath.row) selected")
-        delegate?.didSelectCell(at: indexPath)
+        if headDataArray.count == 0 {
+            FLPrint("Cell at \(indexPath.row) selected")
+            delegate?.didSelectCell(at: indexPath)
+        }else{
+            let rowString = "\(indexPath.row + 1)".fl.prefixAddZero(2)
+            let selectorName = "test\(indexPath.section + 1)\(rowString)"
+            let selector = Selector("\(selectorName)")
+            guard self.responds(to: selector) else {
+                FLPrint("没有该方法：\(selector)")
+                return
+            }
+            perform(selector)
+        }
     }
     
     // 设置cell的显示 3D缩放动画

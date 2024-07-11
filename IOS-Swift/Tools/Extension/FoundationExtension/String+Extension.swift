@@ -69,6 +69,12 @@ public extension FLPop where Base: ExpressibleByStringLiteral {
     func toDouble() -> Double? {
         return Double(base as! String)
     }
+    
+    // MARK: 5.7、字符串转 NSString
+    /// 字符串转 NSString
+    var toNSString: NSString {
+        return (base as! String) as NSString
+    }
 }
 
 // MARK: - 六、字符串UI的处理
@@ -92,5 +98,32 @@ extension FLPop where Base: ExpressibleByStringLiteral {
         let option = NSStringDrawingOptions.usesLineFragmentOrigin
         let rect: CGRect = (base as! String).boundingRect(with: size, options: option, attributes: attributes, context: nil)
         return rect.size
+    }
+}
+
+// MARK: - 十一、字符串截取的操作
+extension FLPop where Base: ExpressibleByStringLiteral {
+    
+    // MARK: 11.13、字符串长度不足前面补0
+    /// 字符串长度不足前面补0
+    public func prefixAddZero(_ length: Int) -> String {
+        return insufficientLengthAdZero(length)
+    }
+    
+    // MARK: 11.14、字符串长度不足后面补0
+    /// 字符串长度不足后面补0
+    public func suffixAddZero(_ length: Int) -> String {
+        return insufficientLengthAdZero(length, isPrefixAddZer: false)
+    }
+    
+    // MARK: 字符串长度不足补0
+    /// 字符串长度不足后面补0
+    private func insufficientLengthAdZero(_ length: Int, isPrefixAddZer: Bool = true) -> String {
+        let string = base as! String
+        guard string.count < length else {
+            return string
+        }
+        let zero = String(repeating: "0", count: length - string.count)
+        return isPrefixAddZer ? (zero + string) : (string + zero)
     }
 }

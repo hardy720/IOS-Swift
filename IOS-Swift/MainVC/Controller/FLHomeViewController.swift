@@ -27,14 +27,18 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
     private func initData()
     {
         delegate = self
-        dataArray = ["Extension","SmallTools"];
+        dataArray = ["Extension","Summary","SmallTools"];
     }
     
     func didSelectCell(at indexPath: IndexPath) {
-//        FLPrint("Cell at \(indexPath.row) selected")
         switch indexPath.row {
         case 0:
             self.navigationController?.pushViewController(FLExtensionHomeVC.init(), animated: true)
+            break
+           
+        case 1:
+            self.navigationController?.pushViewController(SummaryHomeVC.init(), animated: true)
+            break
         default:
             break
         }
