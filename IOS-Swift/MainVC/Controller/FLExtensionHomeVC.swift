@@ -15,16 +15,21 @@ class FLExtensionHomeVC: FLBaseViewController,FLBaseViewControllerDelegate {
         // Do any additional setup after loading the view.
         
         self.setData()
+        self.initUI()
+    }
+    
+    private func initUI()
+    {
+        self.title = "Extension"
+        view.addSubview(tableView)
     }
     
     func setData() {
-        self.title = "Extension"
         dataArray = ["FoundationExtension","UIKitExtension"]
         delegate = self
     }
     
     func didSelectCell(at indexPath: IndexPath) {
-//        FLPrint("Cell at \(indexPath.row) selected")
         switch indexPath.row {
         case 0:
             self.navigationController?.pushViewController(FLFoundationExtensionVC.init(), animated: true)

@@ -40,7 +40,6 @@ class FLBaseViewController: UIViewController {
     private func initUI()
     {
         self.view.backgroundColor = .white
-        view.addSubview(tableView)
     }
     
     // MARK: Lazy
@@ -55,11 +54,12 @@ class FLBaseViewController: UIViewController {
             tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: screenW, height: 20))
             tableView.estimatedSectionFooterHeight = 0
             tableView.estimatedSectionHeaderHeight = 0
+            tableView.register(BaseGroupTableViewCell.self, forCellReuseIdentifier:FLBaseViewController.BaseViewControllerCellIdentifier_Group)
+        }else{
+            tableView.register(BasePlainTableViewCell.self, forCellReuseIdentifier:FLBaseViewController.BaseViewControllerCellIdentifier_Plain)
         }
         tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.register(BaseGroupTableViewCell.self, forCellReuseIdentifier:FLBaseViewController.BaseViewControllerCellIdentifier_Group)
-        tableView.register(BasePlainTableViewCell.self, forCellReuseIdentifier:FLBaseViewController.BaseViewControllerCellIdentifier_Plain)
         return tableView
     }()
 }

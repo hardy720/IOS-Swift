@@ -13,15 +13,15 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.initUI()
         self.initData()
-        let ss = Date.fl.secondStamp
-//        let year = Date.fl.year
+        self.initUI()
+        self.Test1()
     }
     
     private func initUI()
     {
         self.title = "IOS-Swift"
+        view.addSubview(tableView)
     }
     
     private func initData()
@@ -51,5 +51,12 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
     }
     */
 
+}
+
+extension FLHomeViewController
+{
+    func Test1() {
+        
+    }
 }
 

@@ -14,10 +14,15 @@ class FLFoundationExtensionVC: FLBaseViewController,FLBaseViewControllerDelegate
 
         // Do any additional setup after loading the view.
         self.setData()
+        self.initUI()
+    }
+    
+    func initUI() {
+        self.title = "FoundationExtension"
+        view.addSubview(tableView)
     }
     
     func setData() {
-        self.title = "FoundationExtension"
         dataArray = ["Array+Extension", "CGPoint+Extension", "DispatchQueue+Extension", "NumberFormatter+Extension", "CLLocation+Extension", "NSRange+Extension", "Range+Extension", "AVAssetExportSession+Extension", "NSIndexPath+Extension", "Bundle+Extension", "UserDefaults+Extension", "Date+Extension", "NSObject+Extension", "String+Extension", "UIDevice+Extension", "UIFont+Extension", "Timer+Extension", "Int+Extension", "Double+Extension", "UInt+Extension", "Int64+Extension", "Float+Extension", "Data+Extension", "Bool+Extension", "CGFloat+Extension", "Character+Extension", "DateFormatter+Extension", "Dictionary+Extension", "FileManager+Extension", "URL+Extension", "NSDecimalNumberHandler+Extension", "NSAttributedString+Extension", "NSMutableAttributedString+Extension"]
         delegate = self
     }

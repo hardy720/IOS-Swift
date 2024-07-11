@@ -8,7 +8,6 @@
 import UIKit
 import Foundation
 
-
 public struct FLPop<Base> {
     let base: Base
     init(_ base: Base) {

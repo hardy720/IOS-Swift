@@ -9,16 +9,27 @@ import UIKit
 
 class FLArrayExtensionVC: FLBaseViewController,FLBaseViewControllerDelegate {
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setData()
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.setData()
+        self.initUI()
+    }
+    
+    func initUI() {
+        self.title = "Array+Extension"
+        view.addSubview(tableView)
     }
     
     func setData()
     {
-        self.title = "Array+Extension"
         delegate = self
 
         headDataArray = ["一、数组 的基本扩展", "二、数组 有关索引 的扩展方法", "三、遵守 Equatable 协议的数组 (增删改查) 扩展", "四、遵守 NSObjectProtocol 协议对应数组的扩展方法", "五、针对数组元素是 String 的扩展"]

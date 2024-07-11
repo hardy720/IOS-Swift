@@ -45,11 +45,10 @@ private func appendText(fileURL: URL, string: String, currentDate: String) {
         // 如果文件不存在则新建一个
         FileManager.fl.createFile(filePath: fileURL.path)
         let fileHandle = try FileHandle(forWritingTo: fileURL)
-        let stringToWrite = "\n" + "\(currentDate)：" + string
+        let stringToWrite = "\n" + string
         // 找到末尾位置并添加
         fileHandle.seekToEndOfFile()
         fileHandle.write(stringToWrite.data(using: String.Encoding.utf8)!)
-        
     } catch let error as NSError {
         print("failed to append: \(error)")
     }

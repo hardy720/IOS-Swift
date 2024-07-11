@@ -14,10 +14,15 @@ class FLUIKitExtensionVC: FLBaseViewController,FLBaseViewControllerDelegate {
 
         // Do any additional setup after loading the view.
         self.setData()
+        self.initUI()
+    }
+    
+    func initUI() {
+        self.title = "UIKitExtension"
+        view.addSubview(tableView)
     }
     
     func setData() {
-        self.title = "UIKitExtension"
         dataArray = ["UITabBarController+Extension", "WKWebView+Extension", "CAGradientLayer+Extension", "UITabbar+Extension", "UIView+Extension", "UITableViewCell+Extension", "UISlider+Extension", "UICollectionView+Extension", "UINavigationBar+Extension", "CALayer+Extension", "CATextLayer+Extension", "UIAlertController+Extension", "UIApplication+Extension", "UIBarButtonItem+Extension", "UIBezierPath+Extension", "UIButton+Extension", "UIControl+Extension", "UIImage+Extension", "UIImageView+Extension", "UILabel+Extension", "UINavigationController+Extension", "UIColor+Extension", "UIScreen+Extension", "UIScrollView+Extension", "UIStackView+Extension", "UISwitch+Extension", "UITableView+Extension", "UITextField+Extension", "UITextView+Extension", "UIViewController+Extension", "UIVisualEffectView+Extension"]
         delegate = self
     }
