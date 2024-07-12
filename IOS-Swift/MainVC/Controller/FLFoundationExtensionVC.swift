@@ -28,7 +28,6 @@ class FLFoundationExtensionVC: FLBaseViewController,FLBaseViewControllerDelegate
     }
     
     func didSelectCell(at indexPath: IndexPath) {
-        print("Cell at \(indexPath.row) selected")
         switch indexPath.row {
         case 0:
             self.navigationController?.pushViewController(FLArrayExtensionVC.init(), animated: true)

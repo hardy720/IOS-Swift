@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SummaryHomeVC: FLBaseViewController ,FLBaseViewControllerDelegate{
+class SummaryHomeVC: FLBaseViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +20,8 @@ class SummaryHomeVC: FLBaseViewController ,FLBaseViewControllerDelegate{
     
     func initData() 
     {
-        delegate = self
-        dataArray = ["struct","泛型"]
+        headDataArray = ["一、语言基础"]
+        dataArray = [["struct","泛型","Where","元组","枚举"]]
     }
     
     func initUI()  
@@ -29,20 +29,14 @@ class SummaryHomeVC: FLBaseViewController ,FLBaseViewControllerDelegate{
         self.title = "Summary"
         view.addSubview(tableView)
     }
-    
-    func didSelectCell(at indexPath: IndexPath) {
-        
+}
+
+// MARK: - 一、语言基础
+extension SummaryHomeVC
+{
+    // MARK: 1.01 struct
+    @objc func test101()
+    {
+        self.navigationController?.pushViewController(StructDetailVC.init(), animated: true)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

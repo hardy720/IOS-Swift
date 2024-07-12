@@ -16,6 +16,7 @@
 		4322EEFF2C3AE52E000D20BD /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4322EEFE2C3AE52E000D20BD /* UIColor+Extension.swift */; };
 		433072A12C3FC23E007FADED /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072A02C3FC23E007FADED /* Array+Extension.swift */; };
 		433072A32C3FD21B007FADED /* SummaryHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072A22C3FD21B007FADED /* SummaryHomeVC.swift */; };
+		433072A52C40D32E007FADED /* StructDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072A42C40D32E007FADED /* StructDetailVC.swift */; };
 		437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */; };
 		43F1513E2C392EFA003584DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1513D2C392EFA003584DD /* AppDelegate.swift */; };
 		43F151402C392EFA003584DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1513F2C392EFA003584DD /* SceneDelegate.swift */; };
@@ -69,6 +70,7 @@
 		4322EEFE2C3AE52E000D20BD /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		433072A02C3FC23E007FADED /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		433072A22C3FD21B007FADED /* SummaryHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SummaryHomeVC.swift; path = Controller/SummaryHomeVC.swift; sourceTree = "<group>"; };
+		433072A42C40D32E007FADED /* StructDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StructDetailVC.swift; path = Controller/StructDetailVC.swift; sourceTree = "<group>"; };
 		437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasePlainTableViewCell.swift; path = BaseClasses/View/BasePlainTableViewCell.swift; sourceTree = "<group>"; };
 		43F1513A2C392EFA003584DD /* IOS-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IOS-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F1513D2C392EFA003584DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				43FF21B52C3D6EF9007F386C /* FLFoundationExtensionVC.swift */,
 				43FF21B72C3E2460007F386C /* FLArrayExtensionVC.swift */,
 				433072A22C3FD21B007FADED /* SummaryHomeVC.swift */,
+				433072A42C40D32E007FADED /* StructDetailVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				43FF21C12C3E4001007F386C /* DateFormatter+Extension.swift in Sources */,
 				4322EEEE2C3A8488000D20BD /* FLHomeViewController.swift in Sources */,
 				43FF21B42C3D6B83007F386C /* FLUIKitExtensionVC.swift in Sources */,
+				433072A52C40D32E007FADED /* StructDetailVC.swift in Sources */,
 				433072A12C3FC23E007FADED /* Array+Extension.swift in Sources */,
 				4322EEFF2C3AE52E000D20BD /* UIColor+Extension.swift in Sources */,
 				43FF21BF2C3E3353007F386C /* Date+Extension.swift in Sources */,
