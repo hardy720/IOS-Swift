@@ -42,6 +42,6 @@ extension SummaryHomeVC
     // MARK: 1.02. struct
     @objc func test102()
     {
-        self.navigationController?.pushViewController(StructDetailVC.init(), animated: true)
+//        self.navigationController?.pushViewController(StructDetailVC.init(), animated: true)
     }
 }

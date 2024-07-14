@@ -31,6 +31,10 @@ class FLFoundationExtensionVC: FLBaseViewController,FLBaseViewControllerDelegate
         switch indexPath.row {
         case 0:
             self.navigationController?.pushViewController(FLArrayExtensionVC.init(), animated: true)
+            break
+        case 1:
+            self.navigationController?.pushViewController(CGPointExtensionVC.init(), animated: true)
+            break
         default:
             break
         }
