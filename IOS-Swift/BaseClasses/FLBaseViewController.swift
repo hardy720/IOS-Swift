@@ -64,6 +64,18 @@ class FLBaseViewController: UIViewController {
     }()
 }
 
+// MARK: 适配横竖屏
+extension FLBaseViewController
+{
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
+    {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { _ in
+            self.tableView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        }, completion: nil)
+    }
+}
+
 // MARK: TableviewDelegate,TableviewDatasource
 extension FLBaseViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -21,7 +21,7 @@ class SummaryHomeVC: FLBaseViewController{
     func initData() 
     {
         headDataArray = ["一、语言基础"]
-        dataArray = [["struct","泛型","Where","元组","枚举"]]
+        dataArray = [["引用类型和值类型","泛型","Where"]]
     }
     
     func initUI()  
@@ -34,8 +34,13 @@ class SummaryHomeVC: FLBaseViewController{
 // MARK: - 一、语言基础
 extension SummaryHomeVC
 {
-    // MARK: 1.01 struct
+    // MARK: 1.01. 引用类型和值类型
     @objc func test101()
+    {
+        self.navigationController?.pushViewController(SystemTypeVC.init(), animated: true)
+    }
+    // MARK: 1.02. struct
+    @objc func test102()
     {
         self.navigationController?.pushViewController(StructDetailVC.init(), animated: true)
     }

@@ -17,6 +17,9 @@
 		433072A12C3FC23E007FADED /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072A02C3FC23E007FADED /* Array+Extension.swift */; };
 		433072A32C3FD21B007FADED /* SummaryHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072A22C3FD21B007FADED /* SummaryHomeVC.swift */; };
 		433072A52C40D32E007FADED /* StructDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072A42C40D32E007FADED /* StructDetailVC.swift */; };
+		433072A72C40EBAB007FADED /* SystemTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072A62C40EBAB007FADED /* SystemTypeVC.swift */; };
+		433072A92C40F15D007FADED /* SystemValueTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072A82C40F15D007FADED /* SystemValueTypeVC.swift */; };
+		433072AB2C40F178007FADED /* SystemReferenceTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072AA2C40F178007FADED /* SystemReferenceTypeVC.swift */; };
 		437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */; };
 		43F1513E2C392EFA003584DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1513D2C392EFA003584DD /* AppDelegate.swift */; };
 		43F151402C392EFA003584DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1513F2C392EFA003584DD /* SceneDelegate.swift */; };
@@ -71,6 +74,9 @@
 		433072A02C3FC23E007FADED /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		433072A22C3FD21B007FADED /* SummaryHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SummaryHomeVC.swift; path = Controller/SummaryHomeVC.swift; sourceTree = "<group>"; };
 		433072A42C40D32E007FADED /* StructDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StructDetailVC.swift; path = Controller/StructDetailVC.swift; sourceTree = "<group>"; };
+		433072A62C40EBAB007FADED /* SystemTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemTypeVC.swift; path = Controller/SystemTypeVC.swift; sourceTree = "<group>"; };
+		433072A82C40F15D007FADED /* SystemValueTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemValueTypeVC.swift; path = Controller/SystemValueTypeVC.swift; sourceTree = "<group>"; };
+		433072AA2C40F178007FADED /* SystemReferenceTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemReferenceTypeVC.swift; path = Controller/SystemReferenceTypeVC.swift; sourceTree = "<group>"; };
 		437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasePlainTableViewCell.swift; path = BaseClasses/View/BasePlainTableViewCell.swift; sourceTree = "<group>"; };
 		43F1513A2C392EFA003584DD /* IOS-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IOS-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F1513D2C392EFA003584DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -173,6 +179,9 @@
 				43FF21B72C3E2460007F386C /* FLArrayExtensionVC.swift */,
 				433072A22C3FD21B007FADED /* SummaryHomeVC.swift */,
 				433072A42C40D32E007FADED /* StructDetailVC.swift */,
+				433072A62C40EBAB007FADED /* SystemTypeVC.swift */,
+				433072A82C40F15D007FADED /* SystemValueTypeVC.swift */,
+				433072AA2C40F178007FADED /* SystemReferenceTypeVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -551,6 +560,7 @@
 				43FF21B62C3D6EF9007F386C /* FLFoundationExtensionVC.swift in Sources */,
 				4322EEFB2C3A9389000D20BD /* String+Extension.swift in Sources */,
 				43F151422C392EFA003584DD /* ViewController.swift in Sources */,
+				433072A72C40EBAB007FADED /* SystemTypeVC.swift in Sources */,
 				43F1513E2C392EFA003584DD /* AppDelegate.swift in Sources */,
 				437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */,
 				433072A32C3FD21B007FADED /* SummaryHomeVC.swift in Sources */,
@@ -558,6 +568,7 @@
 				43F151402C392EFA003584DD /* SceneDelegate.swift in Sources */,
 				43FF21BB2C3E28B1007F386C /* FLPrint.swift in Sources */,
 				4322EEF02C3A84A3000D20BD /* FLBaseViewController.swift in Sources */,
+				433072AB2C40F178007FADED /* SystemReferenceTypeVC.swift in Sources */,
 				43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */,
 				4322EEF52C3A88FA000D20BD /* Head.swift in Sources */,
 				4322EEF22C3A8537000D20BD /* FLBaseNavigationController.swift in Sources */,
@@ -568,6 +579,7 @@
 				433072A52C40D32E007FADED /* StructDetailVC.swift in Sources */,
 				433072A12C3FC23E007FADED /* Array+Extension.swift in Sources */,
 				4322EEFF2C3AE52E000D20BD /* UIColor+Extension.swift in Sources */,
+				433072A92C40F15D007FADED /* SystemValueTypeVC.swift in Sources */,
 				43FF21BF2C3E3353007F386C /* Date+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
