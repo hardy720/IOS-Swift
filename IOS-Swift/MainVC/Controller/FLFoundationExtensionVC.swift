@@ -35,6 +35,9 @@ class FLFoundationExtensionVC: FLBaseViewController,FLBaseViewControllerDelegate
         case 1:
             self.navigationController?.pushViewController(CGPointExtensionVC.init(), animated: true)
             break
+        case 2:
+            self.navigationController?.pushViewController(DispatchQueueExtensionVC.init(), animated: true)
+            break
         default:
             break
         }

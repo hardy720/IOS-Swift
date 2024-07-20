@@ -36,7 +36,6 @@ extension CGPointExtensionVC
     {
         let point1 = CGPoint(x: 20, y: 40)
         let point2 = CGPoint(x: 10, y: 90)
-        let s = point2 - point1
         FLPrint("两个CGPoint进行 - 运算：点1：\(point1) 点2：\(point2) 进行 - 运算的结果是：\(point1 - point2)")
     }
     

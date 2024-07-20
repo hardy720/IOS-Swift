@@ -23,6 +23,7 @@
 		437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */; };
 		43C570BD2C4412B400E7ECB3 /* CGPointExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C570BC2C4412B400E7ECB3 /* CGPointExtensionVC.swift */; };
 		43C570BF2C4413F900E7ECB3 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C570BE2C4413F900E7ECB3 /* CGPoint+Extension.swift */; };
+		43C570C12C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C570C02C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift */; };
 		43F1513E2C392EFA003584DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1513D2C392EFA003584DD /* AppDelegate.swift */; };
 		43F151402C392EFA003584DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1513F2C392EFA003584DD /* SceneDelegate.swift */; };
 		43F151422C392EFA003584DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F151412C392EFA003584DD /* ViewController.swift */; };
@@ -82,6 +83,7 @@
 		437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasePlainTableViewCell.swift; path = BaseClasses/View/BasePlainTableViewCell.swift; sourceTree = "<group>"; };
 		43C570BC2C4412B400E7ECB3 /* CGPointExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CGPointExtensionVC.swift; path = Controller/CGPointExtensionVC.swift; sourceTree = "<group>"; };
 		43C570BE2C4413F900E7ECB3 /* CGPoint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
+		43C570C02C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DispatchQueueExtensionVC.swift; path = Controller/DispatchQueueExtensionVC.swift; sourceTree = "<group>"; };
 		43F1513A2C392EFA003584DD /* IOS-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IOS-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F1513D2C392EFA003584DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43F1513F2C392EFA003584DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				433072A82C40F15D007FADED /* SystemValueTypeVC.swift */,
 				433072AA2C40F178007FADED /* SystemReferenceTypeVC.swift */,
 				43C570BC2C4412B400E7ECB3 /* CGPointExtensionVC.swift */,
+				43C570C02C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -564,6 +567,7 @@
 				4322EEF82C3A8ECE000D20BD /* BaseGroupTableViewCell.swift in Sources */,
 				43FF21C32C3E4463007F386C /* FileManager+Extension.swift in Sources */,
 				43FF21B62C3D6EF9007F386C /* FLFoundationExtensionVC.swift in Sources */,
+				43C570C12C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift in Sources */,
 				4322EEFB2C3A9389000D20BD /* String+Extension.swift in Sources */,
 				43F151422C392EFA003584DD /* ViewController.swift in Sources */,
 				433072A72C40EBAB007FADED /* SystemTypeVC.swift in Sources */,
