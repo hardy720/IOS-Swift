@@ -20,8 +20,8 @@ class SummaryHomeVC: FLBaseViewController{
     
     func initData() 
     {
-        headDataArray = ["一、语言基础"]
-        dataArray = [["引用类型和值类型","泛型","Where"]]
+        headDataArray = ["一、语言基础","二、多线程"]
+        dataArray = [["引用类型和值类型","泛型","Where"],["Grand Central Dispatch(GCD)","Operation Queues","NSThread","并发编程模式(如Actor模式)"]]
     }
     
     func initUI()  
@@ -39,9 +39,14 @@ extension SummaryHomeVC
     {
         self.navigationController?.pushViewController(SystemTypeVC.init(), animated: true)
     }
-    // MARK: 1.02. struct
+    // MARK: 1.02.
     @objc func test102()
     {
-//        self.navigationController?.pushViewController(StructDetailVC.init(), animated: true)
+    }
+    
+    // MARK: 2.01. GCD.
+    @objc func test201()
+    {
+        self.navigationController?.pushViewController(GCDViewController.init(), animated: true)
     }
 }
