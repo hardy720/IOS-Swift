@@ -16,4 +16,5 @@ target 'IOS-Swift' do
     # Pods for testing
   end
 pod 'SnapKit'
+pod 'Toast-Swift'
 end

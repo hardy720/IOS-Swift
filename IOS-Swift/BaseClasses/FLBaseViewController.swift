@@ -143,7 +143,6 @@ extension FLBaseViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         if headDataArray.count == 0 {
-            FLPrint("Cell at \(indexPath.row) selected")
             delegate?.didSelectCell(at: indexPath)
         }else{
             let rowString = "\(indexPath.row + 1)".fl.prefixAddZero(2)

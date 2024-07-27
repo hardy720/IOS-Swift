@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Toast_Swift
 
 // MARK: - 自定义打印
 /** 自定义打印
@@ -29,6 +30,12 @@ public func FLPrint(_ msg: Any...,
     let currentDate = Date.fl.currentDate_SSS()
     let prefix = "\(currentDate): \(file.lastPathComponent) Line:\(line) Col:\(column) msg:\(msgStr)"
     print(prefix)
+    
+    if let navController = NavigationControllerManager.shared.getCurrentNavigationController() {
+        DispatchQueue.main.async {
+            navController.view.makeToast(prefix)
+        }
+    }
     guard isWriteLog else {
         return
     }
@@ -53,3 +60,4 @@ private func appendText(fileURL: URL, string: String, currentDate: String) {
         print("failed to append: \(error)")
     }
 }
+

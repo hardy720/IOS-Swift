@@ -24,6 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             nav.viewControllers = [FLHomeViewController.init()];
             self.window?.rootViewController = nav
             self.window?.makeKeyAndVisible()
+            
+            NavigationControllerManager.shared.setCurrentNavigationController(nav)
         }
     }
 
