@@ -17,7 +17,11 @@ class FLBaseViewController: UIViewController {
     static let BaseViewControllerCellIdentifier_Group = "BaseViewControllerCellIdentifier_Group"
     weak var delegate: FLBaseViewControllerDelegate?
     
-    var dataArray = [Any]()
+    var dataArray : [Any] = []{
+        didSet{
+            
+        }
+    }
     var headDataArray = [Any]()
 
     override func viewDidLoad() {
@@ -42,16 +46,22 @@ class FLBaseViewController: UIViewController {
         self.view.backgroundColor = .white
     }
     
+    override func viewDidAppear(_ animated: Bool) 
+    {
+        super.viewDidAppear(animated)
+
+    }
+    
     // MARK: Lazy
     lazy var tableView : UITableView = {
-        let tableView = UITableView(frame:CGRect(x:0, y: 0, width: screenW, height: screenH), style: .init(rawValue: (headDataArray.count == 0) ? 0 : 1)!)
+        let tableView = UITableView(frame:CGRect(x:0, y: 0, width: screenW(), height: screenH()), style: .init(rawValue: (headDataArray.count == 0) ? 0 : 1)!)
         tableView.backgroundColor = UIColor.white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         if (headDataArray.count != 0){
-            tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: screenW, height: 0.0001))
-            tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: screenW, height: 20))
+            tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: screenW(), height: 0.0001))
+            tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: screenW(), height: 20))
             tableView.estimatedSectionFooterHeight = 0
             tableView.estimatedSectionHeaderHeight = 0
             tableView.register(BaseGroupTableViewCell.self, forCellReuseIdentifier:FLBaseViewController.BaseViewControllerCellIdentifier_Group)
@@ -102,14 +112,14 @@ extension FLBaseViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if headDataArray.count == 0 {
-            let sectionFootView = UIView(frame: CGRect(x: 0, y: 0, width: screenW, height: 0.0001))
+            let sectionFootView = UIView(frame: CGRect(x: 0, y: 0, width: screenW(), height: 0.0001))
             return sectionFootView
         }else{
             let str = headDataArray[section] as! String
-            let size = str.fl.rectSize(font: UIFont.systemFont(ofSize: 18), size: CGSize(width: screenW - 20, height: CGFloat(MAXFLOAT)))
-            let sectionView = UIView(frame: CGRect(x: 0, y: 0, width: screenW, height:size.height + 20))
+            let size = str.fl.rectSize(font: UIFont.systemFont(ofSize: 18), size: CGSize(width: screenW() - 20, height: CGFloat(MAXFLOAT)))
+            let sectionView = UIView(frame: CGRect(x: 0, y: 0, width: screenW(), height:size.height + 20))
             sectionView.backgroundColor = .FLGlobalColor()
-            let label = UILabel(frame: CGRect(x: 10, y: 10, width: screenW - 20, height: size.height))
+            let label = UILabel(frame: CGRect(x: 10, y: 10, width: screenW() - 20, height: size.height))
             label.text = str
             label.font = UIFont.systemFont(ofSize: 18)
             label.textAlignment = .left
@@ -122,7 +132,7 @@ extension FLBaseViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if headDataArray.count != 0 {
             let str = headDataArray[section] as! String
-            let size = str.fl.rectSize(font: UIFont.systemFont(ofSize: 18), size: CGSize(width: screenW - 20, height: CGFloat(MAXFLOAT)))
+            let size = str.fl.rectSize(font: UIFont.systemFont(ofSize: 18), size: CGSize(width: screenW() - 20, height: CGFloat(MAXFLOAT)))
             return size.height + 20
         }else{
             return 0.0001
@@ -130,7 +140,7 @@ extension FLBaseViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let sectionFootView = UIView(frame: CGRect(x: 0, y: 0, width: screenW, height: 0.0001))
+        let sectionFootView = UIView(frame: CGRect(x: 0, y: 0, width: screenW(), height: 0.0001))
         sectionFootView.backgroundColor = .orange
         return sectionFootView
     }

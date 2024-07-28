@@ -59,7 +59,7 @@ class GCDViewController: FLBaseViewController {
     }
     
     lazy var label: UILabel = {
-        let label = UILabel(frame: CGRect.init(x: screenW/2 - 100, y: 100, width: 200, height: 50))
+        let label = UILabel(frame: CGRect.init(x: screenW()/2 - 100, y: 100, width: 200, height: 50))
         label.text = "我是测试UI"
         label.backgroundColor = .green
         label.textAlignment = .center

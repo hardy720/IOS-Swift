@@ -14,7 +14,12 @@ class Head: NSObject {
 /**
  * 位置相关
  */
-let screenW = UIScreen.main.bounds.width
-let screenH = UIScreen.main.bounds.height
-
+func screenW() -> CGFloat 
+{
+    return UIScreen.main.bounds.size.width
+}
+func screenH() -> CGFloat
+{
+    return UIScreen.main.bounds.size.height
+}
 
