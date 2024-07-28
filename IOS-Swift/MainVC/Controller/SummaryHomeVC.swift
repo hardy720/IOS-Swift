@@ -21,7 +21,7 @@ class SummaryHomeVC: FLBaseViewController{
     func initData() 
     {
         headDataArray = ["一、语言基础","二、多线程"]
-        dataArray = [["引用类型和值类型","泛型","Where"],["Grand Central Dispatch(GCD)","Operation Queues","NSThread","并发编程模式(如Actor模式)"]]
+        dataArray = [["引用类型和值类型","泛型","Where"],["Grand Central Dispatch(GCD)","NSThread","Operation Queues","并发编程模式(如Actor模式)"]]
     }
     
     func initUI()  
@@ -48,5 +48,11 @@ extension SummaryHomeVC
     @objc func test201()
     {
         self.navigationController?.pushViewController(GCDViewController.init(), animated: true)
+    }
+    
+    // MARK: 2.02. NSThread.
+    @objc func test202()
+    {
+        self.navigationController?.pushViewController(NSThreadViewController.init(), animated: true)
     }
 }
