@@ -30,36 +30,22 @@
             endingLineNumber = "154"
             landmarkName = "test302()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9263EE55-A9E7-444E-A6D7-DE24630F991C - 9558aa4fa1b31672"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IOS_Swift.MyCustomOperation.main() -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/MainVC/Controller/OperationQueuesVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "154"
-                  endingLineNumber = "154">
-               </Location>
-               <Location
-                  uuid = "9263EE55-A9E7-444E-A6D7-DE24630F991C - a5f8c504697c07b5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in IOS_Swift.OperationQueuesVC.test302() -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/MainVC/Controller/OperationQueuesVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "154"
-                  endingLineNumber = "154">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D57A00F9-EEF8-4663-B15A-8B36E9D12578"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOS-Swift/MainVC/Controller/KingfisherViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "removeAllSubviews(from:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

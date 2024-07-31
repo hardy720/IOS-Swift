@@ -1,20 +1,24 @@
 PODS:
+  - Kingfisher (7.11.0)
   - SnapKit (5.7.1)
   - Toast-Swift (5.1.1)
 
 DEPENDENCIES:
+  - Kingfisher
   - SnapKit
   - Toast-Swift
 
 SPEC REPOS:
   trunk:
+    - Kingfisher
     - SnapKit
     - Toast-Swift
 
 SPEC CHECKSUMS:
+  Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   Toast-Swift: 7a03a532afe3a560d4044bc7c237e2864d295173
 
-PODFILE CHECKSUM: ee36294b5c6bb250f0b280cfc022c0df2d194e3c
+PODFILE CHECKSUM: a6cef81c27f50797e7282c9d95330640b342d190
 
 COCOAPODS: 1.15.2

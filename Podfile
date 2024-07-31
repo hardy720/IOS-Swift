@@ -17,4 +17,5 @@ target 'IOS-Swift' do
   end
 pod 'SnapKit'
 pod 'Toast-Swift'
+pod 'Kingfisher'
 end
