@@ -28,8 +28,43 @@ public enum StringTypeLength {
     case customCountOfChars
 }
 
+
+// MARK: 一、获取任意字符串
+public extension FLPop where Base: ExpressibleByStringLiteral
+{
+    static func getRandomImageUrlStr() -> String?
+    {
+        let imgArr = [
+            "https://img0.baidu.com/it/u=98092773,2720963228&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=1779",
+            "http://img1.baidu.com/it/u=464151090,2377346627&fm=253&app=138&f=JPEG?w=800&h=1779",
+            "http://img0.baidu.com/it/u=492863294,3968106839&fm=253&app=138&f=JPEG?w=800&h=1779",
+            "http://img0.baidu.com/it/u=945706159,627732918&fm=253&app=138&f=JPEG?w=800&h=1779",
+            "http://img1.baidu.com/it/u=4224016410,4222420533&fm=253&app=138&f=JPEG?w=800&h=1779",
+            "https://pic.rmb.bdstatic.com/bjh/4447a8251696d012b8af01aea8b785a7.jpeg",
+            "https://b.bdstatic.com/8bac78e3fc52ca37e4ad7f53612e5c74.jpeg",
+            "https://pic.rmb.bdstatic.com/5c30a5690fbbad7e119b1b8b87489490.jpeg@s_0,w_1242",
+            "https://n.sinaimg.cn/sinakd10119/136/w1080h1456/20211017/47a6-14e74a851b634ceeedacb27d3839149a.jpg",
+            "http://img2.baidu.com/it/u=65164849,141121788&fm=253&app=138&f=JPEG?w=800&h=1779",
+            "http://img1.baidu.com/it/u=3094600604,3514337114&fm=253&app=138&f=JPEG?w=800&h=1779",
+            "https://img0.baidu.com/it/u=3975361382,3483567849&fm=253&fmt=auto&app=138&f=JPEG?w=340&h=470",
+            "https://p26.toutiaoimg.com/large/pgc-image/04c8ed18081a4736a13aad32a4a3444c.jpg",
+            "https://n.sinaimg.cn/sinakd20109/528/w1080h1848/20230520/5b6c-6d3c6583c4fc8d2c5c7d4035b2044d25.jpg",
+            "https://ww4.sinaimg.cn/mw690/007bnhD5ly1h9blr0i05lj318s0u0gvc.jpg",
+            "https://img1.baidu.com/it/u=2549767271,3784592196&fm=253&fmt=auto&app=138&f=JPEG?w=667&h=500",
+            "https://hbimg.huabanimg.com/3835f142855b1bfead73398abe14b3b1607bfcff121da0-ucA9C6_fw658",
+            "https://dingyue.ws.126.net/8Ikj20AB13vPBw8Gd9C9lmJflIQiv4KfV2UV5I4XgBEFQ1547116825220compressflag.jpeg",
+            "https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2023%2F1108%2F403f1760j00s3spz5001ed000nk00kap.jpg&thumbnail=660x2147483647&quality=80&type=jpg",
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F08a5ba5a-d106-4e49-b527-b2d4c0e0fcb6%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1725520016&t=7eb7b24df09bc37d4ad3bd0b5bb18954",
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F7c3aa629-4c55-4d07-8bca-0717e5d7fda4%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1725520016&t=00d46ae4550e7c13d3f83cb139dad2c6",
+            "http://img1.error"
+        ]
+        return imgArr[Int.fl.random(within: 0..<imgArr.count)]
+    }
+}
+
 // MARK: - 五、字符串的转换
-public extension FLPop where Base: ExpressibleByStringLiteral {
+public extension FLPop where Base: ExpressibleByStringLiteral 
+{
     
     // MARK: 5.1、字符串 转 CGFloat
     /// 字符串 转 Float
@@ -127,3 +162,4 @@ extension FLPop where Base: ExpressibleByStringLiteral {
         return isPrefixAddZer ? (zero + string) : (string + zero)
     }
 }
+

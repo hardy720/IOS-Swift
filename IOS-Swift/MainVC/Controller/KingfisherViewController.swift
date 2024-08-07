@@ -8,8 +8,8 @@
 import UIKit
 import Kingfisher
 
-class KingfisherViewController: FLBaseViewController{
-
+class KingfisherViewController: FLBaseViewController, ImageDownloaderDelegate {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,12 +22,19 @@ class KingfisherViewController: FLBaseViewController{
         headDataArray =
         [
             "一、Kingfisher的使用",
+            "二、清理缓存"
         ]
         dataArray =
         [
             [
-                "11",
-                "22"
+                "加载图片:Kingfisher提供了简洁的API来加载图片。你可以直接通过URL来加载网络图片，或者通过文件路径来加载本地图片",
+                "设置占位图和加载完成回调:Kingfisher允许你设置占位图（placeholder）和加载完成后的回调。以下是一个设置占位图和回调的示例：",
+                "图片加载ImageDownloader使用:从名字就可以很清楚的知道，这个类就是用来下载图片的，它为我们提供了一些头的设置（比如说你有些图片是需要认证用户才能下载的）；安全设置：我们在下载图片时哪些Host是可信任的；下载超时设置；下载回调等。"
+            ],
+            [
+                "清理内存缓存",
+                "清理磁盘缓存，完成后执行闭包",
+                "获取当前缓存"
             ]
         ]
     }
@@ -37,32 +44,131 @@ class KingfisherViewController: FLBaseViewController{
         self.title = "Kingfisher"
         view.addSubview(tableView)
     }
+    
+    func downLoadImg()
+    {
+        let downloader = ImageDownloader.default
+        // 设置可信任的Host
+        let hosts: Set<String> = ["http://img0.baidu.com/","http://img1.baidu.com/"]
+        downloader.trustedHosts = hosts
+        // 设置sessionConfiguration
+        downloader.sessionConfiguration = URLSessionConfiguration.default
+        // 设置代理，详情参考 ImageDownloaderDelegate
+        downloader.delegate = self
+        // 下载超时设置
+        downloader.downloadTimeout = 20
+        // 下载图片
+        let retriveTask = downloader.downloadImage(with: NSURL(string: "http://img1.baidu.com/it/u=464151090,2377346627&fm=253&app=138&f=JPEG?w=800&h=1779")! as URL, options: nil) {result in
+            
+            switch result {
+            case .success(let loadingResult):
+                let imageView = UIImageView.init()
+                imageView.center = self.view.center;
+                imageView.bounds = CGRect(x: 0, y: 0, width: screenW() * 0.75, height: screenH() * 0.75)
+                imageView.contentMode = .scaleAspectFit
+                imageView.layer.cornerRadius = 10
+                imageView.layer.masksToBounds = true
+                imageView.isUserInteractionEnabled = true
+                imageView.image = loadingResult.image
+                let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(self.tapClick(_:)))
+                imageView.addGestureRecognizer(tapGesture)
+                self.view.addSubview(imageView)
+            case .failure(let error):
+                // 处理错误
+                print("Error loading image: \(error)")
+            }
+            
+        }
+        // 取消下载
+//        retriveTask?.cancel()
+    }
 }
 
 // MARK: - 一、使用 Kingfisher.
 extension KingfisherViewController
 {
-    // MARK:1.0.101.
+    // MARK:1.0.101. 加载图片
     @objc func test101()
     {
-        let imageView = UIImageView(frame: CGRect(x: screenW()/2 - 130, y: screenH()/2 - 190, width: 260, height: 380))
-        let imageURL = URL(string: "https://img0.baidu.com/it/u=3460931629,1559324356&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=1200")
-        imageView.kf.setImage(with: imageURL)
+        let imageView = UIImageView.init()
+        imageView.center = view.center;
+        imageView.bounds = CGRect(x: 0, y: 0, width: screenW() * 0.75, height: screenH() * 0.75)
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
+        imageView.isUserInteractionEnabled = true
+        imageView.kf.setImage(with: URL(string: String.fl.getRandomImageUrlStr()!))
+        let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(tapClick(_:)))
+        imageView.addGestureRecognizer(tapGesture)
         view.addSubview(imageView)
-//        self.view.addSubview(label)
-        self.perform(#selector(afterLoad), with: imageView, afterDelay: 6)
     }
     
-    @objc func afterLoad(view : Any)
+    @objc func tapClick(_ gesture: UITapGestureRecognizer)
     {
-        (view as AnyObject).removeFromSuperview()
+        gesture.view?.removeFromSuperview()
     }
     
-    func removeAllSubviews(from superview: UIView) {
-        for subview in superview.subviews {
-            subview.removeFromSuperview()
-            removeAllSubviews(from: subview)
+    // MARK:1.0.102. 设置占位图和加载完成回调
+    @objc func test102()
+    {
+        let imageView = UIImageView.init()
+        imageView.center = view.center;
+        imageView.bounds = CGRect(x: 0, y: 0, width: screenW() * 0.75, height: screenH() * 0.75)
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
+        imageView.isUserInteractionEnabled = true
+        imageView.kf.setImage(with: URL(string: String.fl.getRandomImageUrlStr()!), placeholder: UIImage(named: "placeholder.jpg"), options: nil, progressBlock: nil) { result in
+            switch result {
+            case .success(let value):
+                // 图片加载成功
+                FLPrint("Image loaded successfully: \(value.image)")
+            case .failure(let error):
+                // 图片加载失败
+                FLPrint("Failed to load image: \(error.localizedDescription)")
+            }
+        }
+        let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(tapClick(_:)))
+        imageView.addGestureRecognizer(tapGesture)
+        view.addSubview(imageView)
+    }
+    
+    // MARK:1.0.103. 图片加载ImageDownloader使用
+    @objc func test103()
+    {
+        self.downLoadImg()
+    }
+}
+
+// MARK: - 二、清理缓存
+extension KingfisherViewController
+{
+    // MARK:2.0.201. 清理内存缓存
+    @objc func test201()
+    {
+        ImageCache.default.clearMemoryCache()
+    }
+    
+    // MARK:2.0.202. 清理磁盘缓存，完成后执行闭包
+    @objc func test202()
+    {
+        ImageCache.default.clearDiskCache {
+            
         }
     }
     
+    // MARK:2.0.203. 获取当前缓存
+    @objc func test203()
+    {
+        ImageCache.default.calculateDiskStorageSize { (result) in
+            switch result {
+            case .success(let value):
+                let size = Double(value / 1024 / 1024)
+                FLPrint("当前缓存大小为\(String(format: "%.1fM", size))")
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                FLPrint("获取失败")
+            }
+        }
+    }
 }
