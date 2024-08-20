@@ -32,6 +32,19 @@ public enum StringTypeLength {
 // MARK: 一、获取任意字符串
 public extension FLPop where Base: ExpressibleByStringLiteral
 {
+    static func getDynamicRandomImageUrlStr() -> String?
+    {
+        let imgArr = [
+            "https://img.soogif.com/85hz5bGr8OwnL9HFgN8gqXaBsBGEdkjQ.gif",
+            "https://n.sinaimg.cn/translate/w500h281/20180201/sWyj-fyrcsrw3696759.gif",
+            "https://5b0988e595225.cdn.sohucs.com/images/20200123/f3c7bf0bb2db4e0abbbb22b2d64d0bd2.gif",
+            "https://hbimg.b0.upaiyun.com/7c3f2fc54404bf90fff8f8a6735961dce7bfe0a6f1d00-1MimFm_fw658",
+            "https://hbimg.b0.upaiyun.com/16da81d7fed58949ac2038d68568d52da0d7a0ad704b2-GRYNUZ_fw658",
+            "https://hbimg.b0.upaiyun.com/b577de268f35b144ad767db43d04abadc2efc0f3779a3-jLEKvg_fw658"
+        ]
+        return imgArr[Int.fl.random(within: 0..<imgArr.count)]
+    }
+    
     static func getRandomImageUrlStr() -> String?
     {
         let imgArr = [

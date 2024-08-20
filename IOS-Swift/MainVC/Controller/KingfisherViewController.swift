@@ -29,7 +29,9 @@ class KingfisherViewController: FLBaseViewController, ImageDownloaderDelegate {
             [
                 "加载图片:Kingfisher提供了简洁的API来加载图片。你可以直接通过URL来加载网络图片，或者通过文件路径来加载本地图片",
                 "设置占位图和加载完成回调:Kingfisher允许你设置占位图（placeholder）和加载完成后的回调。以下是一个设置占位图和回调的示例：",
-                "图片加载ImageDownloader使用:从名字就可以很清楚的知道，这个类就是用来下载图片的，它为我们提供了一些头的设置（比如说你有些图片是需要认证用户才能下载的）；安全设置：我们在下载图片时哪些Host是可信任的；下载超时设置；下载回调等。"
+                "图片加载ImageDownloader使用:从名字就可以很清楚的知道，这个类就是用来下载图片的，它为我们提供了一些头的设置（比如说你有些图片是需要认证用户才能下载的）；安全设置：我们在下载图片时哪些Host是可信任的；下载超时设置；下载回调等。",
+                "按钮设置图片",
+                "设置动态图片"
             ],
             [
                 "清理内存缓存",
@@ -108,6 +110,11 @@ extension KingfisherViewController
         gesture.view?.removeFromSuperview()
     }
     
+    @objc func btnClick(_ btn: UIButton)
+    {
+        btn.removeFromSuperview()
+    }
+    
     // MARK:1.0.102. 设置占位图和加载完成回调
     @objc func test102()
     {
@@ -137,6 +144,35 @@ extension KingfisherViewController
     @objc func test103()
     {
         self.downLoadImg()
+    }
+    
+    // MARK:1.0.104. 按钮设置网络图片
+    @objc func test104()
+    {
+        let btn = UIButton.init(type: .custom)
+        btn.center = view.center;
+        btn.bounds = CGRect(x: 0, y: 0, width: screenW() * 0.75, height: screenH() * 0.75)
+        btn.kf.setImage(with: URL(string: String.fl.getRandomImageUrlStr()!), for: .normal)
+        btn.addTarget(self, action: #selector(btnClick(_:)), for: .touchUpInside)
+        btn.imageView?.contentMode = .scaleAspectFit
+        btn.imageView?.clipsToBounds = true 
+        view.addSubview(btn)
+    }
+    
+    // MARK:1.0.105. 设置动态图片
+    @objc func test105()
+    {
+        let imageView = UIImageView.init()
+        imageView.center = view.center;
+        imageView.bounds = CGRect(x: 0, y: 0, width: screenW() * 0.75, height: screenH() * 0.75)
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
+        imageView.isUserInteractionEnabled = true
+        imageView.kf.setImage(with: URL(string: String.fl.getDynamicRandomImageUrlStr()!))
+        let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(tapClick(_:)))
+        imageView.addGestureRecognizer(tapGesture)
+        view.addSubview(imageView)
     }
 }
 
