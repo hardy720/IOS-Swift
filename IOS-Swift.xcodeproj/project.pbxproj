@@ -43,6 +43,11 @@
 		43F151552C392EFD003584DD /* IOS_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F151542C392EFD003584DD /* IOS_SwiftTests.swift */; };
 		43F1515F2C392EFD003584DD /* IOS_SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1515E2C392EFD003584DD /* IOS_SwiftUITests.swift */; };
 		43F151612C392EFD003584DD /* IOS_SwiftUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F151602C392EFD003584DD /* IOS_SwiftUITestsLaunchTests.swift */; };
+		43F2958F2C76E18100E5A212 /* ChatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F2958E2C76E18100E5A212 /* ChatHomeViewController.swift */; };
+		43F295912C76E5DD00E5A212 /* SQLiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295902C76E5DD00E5A212 /* SQLiteViewController.swift */; };
+		43F295932C76F20400E5A212 /* SQLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295922C76F20400E5A212 /* SQLManager.swift */; };
+		43F295952C77194100E5A212 /* SingletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295942C77194100E5A212 /* SingletonViewController.swift */; };
+		43F295972C771AA100E5A212 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295962C771AA100E5A212 /* Singleton.swift */; };
 		43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B12C3D66E8007F386C /* FLExtensionHomeVC.swift */; };
 		43FF21B42C3D6B83007F386C /* FLUIKitExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B32C3D6B83007F386C /* FLUIKitExtensionVC.swift */; };
 		43FF21B62C3D6EF9007F386C /* FLFoundationExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B52C3D6EF9007F386C /* FLFoundationExtensionVC.swift */; };
@@ -117,6 +122,11 @@
 		43F1515A2C392EFD003584DD /* IOS-SwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IOS-SwiftUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F1515E2C392EFD003584DD /* IOS_SwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOS_SwiftUITests.swift; sourceTree = "<group>"; };
 		43F151602C392EFD003584DD /* IOS_SwiftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOS_SwiftUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		43F2958E2C76E18100E5A212 /* ChatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHomeViewController.swift; sourceTree = "<group>"; };
+		43F295902C76E5DD00E5A212 /* SQLiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SQLiteViewController.swift; path = Controller/SQLiteViewController.swift; sourceTree = "<group>"; };
+		43F295922C76F20400E5A212 /* SQLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLManager.swift; sourceTree = "<group>"; };
+		43F295942C77194100E5A212 /* SingletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SingletonViewController.swift; path = Controller/SingletonViewController.swift; sourceTree = "<group>"; };
+		43F295962C771AA100E5A212 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		43FF21B12C3D66E8007F386C /* FLExtensionHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLExtensionHomeVC.swift; path = Controller/FLExtensionHomeVC.swift; sourceTree = "<group>"; };
 		43FF21B32C3D6B83007F386C /* FLUIKitExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLUIKitExtensionVC.swift; path = Controller/FLUIKitExtensionVC.swift; sourceTree = "<group>"; };
 		43FF21B52C3D6EF9007F386C /* FLFoundationExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLFoundationExtensionVC.swift; path = Controller/FLFoundationExtensionVC.swift; sourceTree = "<group>"; };
@@ -214,8 +224,10 @@
 				43581D922C4BC36D004F154C /* GCDViewController.swift */,
 				43D40A042C560974009F1260 /* NSThreadViewController.swift */,
 				43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */,
+				43F295942C77194100E5A212 /* SingletonViewController.swift */,
 				438A811E2C5A2A5B00774B7B /* LibraryHomeViewController.swift */,
 				438A81202C5A2C1B00774B7B /* KingfisherViewController.swift */,
+				43F295902C76E5DD00E5A212 /* SQLiteViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -227,6 +239,8 @@
 				4322EEF92C3A9334000D20BD /* Extension */,
 				4322EEF42C3A88FA000D20BD /* Head.swift */,
 				43FF21BC2C3E31B1007F386C /* FLPop.swift */,
+				43F295922C76F20400E5A212 /* SQLManager.swift */,
+				43F295962C771AA100E5A212 /* Singleton.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -297,6 +311,7 @@
 		43F1513C2C392EFA003584DD /* IOS-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				43F2958C2C76E14200E5A212 /* Chat */,
 				4322EEF32C3A88C7000D20BD /* Tools */,
 				4322EEE52C3A7EA6000D20BD /* Other */,
 				4322EEE82C3A7F71000D20BD /* BaseClasses */,
@@ -320,6 +335,22 @@
 				43F151602C392EFD003584DD /* IOS_SwiftUITestsLaunchTests.swift */,
 			);
 			path = "IOS-SwiftUITests";
+			sourceTree = "<group>";
+		};
+		43F2958C2C76E14200E5A212 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				43F2958D2C76E16600E5A212 /* Controller */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		43F2958D2C76E16600E5A212 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				43F2958E2C76E18100E5A212 /* ChatHomeViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		43FF21B92C3E2878007F386C /* SmallTools */ = {
@@ -601,14 +632,19 @@
 				43FF21B62C3D6EF9007F386C /* FLFoundationExtensionVC.swift in Sources */,
 				43C570C12C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift in Sources */,
 				4322EEFB2C3A9389000D20BD /* String+Extension.swift in Sources */,
+				43F2958F2C76E18100E5A212 /* ChatHomeViewController.swift in Sources */,
 				43F151422C392EFA003584DD /* ViewController.swift in Sources */,
+				43F295912C76E5DD00E5A212 /* SQLiteViewController.swift in Sources */,
 				433072A72C40EBAB007FADED /* SystemTypeVC.swift in Sources */,
 				43F1513E2C392EFA003584DD /* AppDelegate.swift in Sources */,
 				437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */,
 				43D40A072C5639E4009F1260 /* OperationQueuesVC.swift in Sources */,
+				43F295932C76F20400E5A212 /* SQLManager.swift in Sources */,
 				433072A32C3FD21B007FADED /* SummaryHomeVC.swift in Sources */,
 				43FF21BD2C3E31B1007F386C /* FLPop.swift in Sources */,
+				43F295972C771AA100E5A212 /* Singleton.swift in Sources */,
 				43F151402C392EFA003584DD /* SceneDelegate.swift in Sources */,
+				43F295952C77194100E5A212 /* SingletonViewController.swift in Sources */,
 				43FF21BB2C3E28B1007F386C /* FLPrint.swift in Sources */,
 				438A81212C5A2C1B00774B7B /* KingfisherViewController.swift in Sources */,
 				4322EEF02C3A84A3000D20BD /* FLBaseViewController.swift in Sources */,

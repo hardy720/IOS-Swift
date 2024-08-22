@@ -20,8 +20,12 @@ class SummaryHomeVC: FLBaseViewController{
     
     func initData() 
     {
-        headDataArray = ["一、语言基础","二、多线程"]
-        dataArray = [["引用类型和值类型","泛型","关键字"],["Grand Central Dispatch(GCD)","NSThread","Operation Queues","并发编程模式(如Actor模式)"]]
+        headDataArray = ["一、语言基础","二、多线程","三、开发模式"]
+        dataArray = [
+            ["引用类型和值类型","泛型","关键字"],
+            ["Grand Central Dispatch(GCD)","NSThread","Operation Queues","并发编程模式(如Actor模式)"],
+            ["单例模式"]
+        ]
     }
     
     func initUI()  
@@ -67,4 +71,11 @@ extension SummaryHomeVC
     {
         self.navigationController?.pushViewController(OperationQueuesVC.init(), animated: true)
     }
+    
+    // MARK: 3.01.  单例开发模式
+    @objc func test301()
+    {
+        self.navigationController?.pushViewController(SingletonViewController.init(), animated: true)
+    }
 }
+

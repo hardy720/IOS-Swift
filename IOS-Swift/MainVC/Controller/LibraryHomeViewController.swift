@@ -21,7 +21,8 @@ class LibraryHomeViewController: FLBaseViewController,FLBaseViewControllerDelega
         delegate = self
         dataArray =
         [
-            "Kingfisher"
+            "Kingfisher",
+            "SQLite.swift"
         ]
     }
     
@@ -35,6 +36,9 @@ class LibraryHomeViewController: FLBaseViewController,FLBaseViewControllerDelega
         switch indexPath.row {
         case 0:
             self.navigationController?.pushViewController(KingfisherViewController.init(), animated: true)
+            break
+        case 1:
+            self.navigationController?.pushViewController(SQLiteViewController.init(), animated: true)
             break
         default:
             break

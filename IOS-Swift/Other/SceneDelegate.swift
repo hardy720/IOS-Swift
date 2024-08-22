@@ -21,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.window = UIWindow(windowScene: windowScene)
             }
             let nav = FLBaseNavigationController.init()
+//            nav.viewControllers = [ChatHomeViewController.init()];
             nav.viewControllers = [FLHomeViewController.init()];
             self.window?.rootViewController = nav
             self.window?.makeKeyAndVisible()
