@@ -18,4 +18,5 @@ target 'IOS-Swift' do
 pod 'SnapKit'
 pod 'Toast-Swift'
 pod 'Kingfisher'
+pod 'SQLite.swift'
 end

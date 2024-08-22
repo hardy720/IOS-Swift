@@ -27,7 +27,7 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
     private func initData()
     {
         delegate = self
-        dataArray = ["Extension","Summary","LibraryStudy","SmallTools"];
+        dataArray = ["Extension","Summary","LibraryStudy"];
     }
     
     func didSelectCell(at indexPath: IndexPath) {
