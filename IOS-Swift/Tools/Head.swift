@@ -23,3 +23,9 @@ func screenH() -> CGFloat
     return UIScreen.main.bounds.size.height
 }
 
+/**
+ * 数据库相关
+ */
+let getDatabasePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! + "/" + "chat_\(UserDefaults.standard.object(forKey: "USERID") ?? "0").db"
+
+

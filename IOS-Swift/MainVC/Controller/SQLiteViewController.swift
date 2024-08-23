@@ -42,9 +42,9 @@ class SQLiteViewController: FLBaseViewController {
 // MARK: - 一、使用 SQLite.swift.
 extension SQLiteViewController
 {
-    // MARK:1.0.101. 加载图片
+    // MARK:2.0.201. 创建表格
     @objc func test201()
     {
-        
+//        ChatListDao.init().insertUser(userName: "Hardy", userAge: 18)
     }
 }

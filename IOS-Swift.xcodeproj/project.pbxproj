@@ -28,6 +28,7 @@
 		438A811F2C5A2A5B00774B7B /* LibraryHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A811E2C5A2A5B00774B7B /* LibraryHomeViewController.swift */; };
 		438A81212C5A2C1B00774B7B /* KingfisherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A81202C5A2C1B00774B7B /* KingfisherViewController.swift */; };
 		439084B12C6E49D100ACA9A2 /* KeyWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439084B02C6E49D100ACA9A2 /* KeyWordViewController.swift */; };
+		43A4D0EB2C783B420029FFB0 /* ExceptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A4D0EA2C783B420029FFB0 /* ExceptionViewController.swift */; };
 		43C570BD2C4412B400E7ECB3 /* CGPointExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C570BC2C4412B400E7ECB3 /* CGPointExtensionVC.swift */; };
 		43C570BF2C4413F900E7ECB3 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C570BE2C4413F900E7ECB3 /* CGPoint+Extension.swift */; };
 		43C570C12C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C570C02C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift */; };
@@ -45,7 +46,7 @@
 		43F151612C392EFD003584DD /* IOS_SwiftUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F151602C392EFD003584DD /* IOS_SwiftUITestsLaunchTests.swift */; };
 		43F2958F2C76E18100E5A212 /* ChatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F2958E2C76E18100E5A212 /* ChatHomeViewController.swift */; };
 		43F295912C76E5DD00E5A212 /* SQLiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295902C76E5DD00E5A212 /* SQLiteViewController.swift */; };
-		43F295932C76F20400E5A212 /* SQLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295922C76F20400E5A212 /* SQLManager.swift */; };
+		43F295932C76F20400E5A212 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295922C76F20400E5A212 /* DatabaseManager.swift */; };
 		43F295952C77194100E5A212 /* SingletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295942C77194100E5A212 /* SingletonViewController.swift */; };
 		43F295972C771AA100E5A212 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295962C771AA100E5A212 /* Singleton.swift */; };
 		43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B12C3D66E8007F386C /* FLExtensionHomeVC.swift */; };
@@ -103,6 +104,7 @@
 		438A811E2C5A2A5B00774B7B /* LibraryHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LibraryHomeViewController.swift; path = Controller/LibraryHomeViewController.swift; sourceTree = "<group>"; };
 		438A81202C5A2C1B00774B7B /* KingfisherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KingfisherViewController.swift; path = Controller/KingfisherViewController.swift; sourceTree = "<group>"; };
 		439084B02C6E49D100ACA9A2 /* KeyWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyWordViewController.swift; path = Controller/KeyWordViewController.swift; sourceTree = "<group>"; };
+		43A4D0EA2C783B420029FFB0 /* ExceptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExceptionViewController.swift; path = Controller/ExceptionViewController.swift; sourceTree = "<group>"; };
 		43C570BC2C4412B400E7ECB3 /* CGPointExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CGPointExtensionVC.swift; path = Controller/CGPointExtensionVC.swift; sourceTree = "<group>"; };
 		43C570BE2C4413F900E7ECB3 /* CGPoint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
 		43C570C02C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DispatchQueueExtensionVC.swift; path = Controller/DispatchQueueExtensionVC.swift; sourceTree = "<group>"; };
@@ -124,7 +126,7 @@
 		43F151602C392EFD003584DD /* IOS_SwiftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOS_SwiftUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		43F2958E2C76E18100E5A212 /* ChatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHomeViewController.swift; sourceTree = "<group>"; };
 		43F295902C76E5DD00E5A212 /* SQLiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SQLiteViewController.swift; path = Controller/SQLiteViewController.swift; sourceTree = "<group>"; };
-		43F295922C76F20400E5A212 /* SQLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLManager.swift; sourceTree = "<group>"; };
+		43F295922C76F20400E5A212 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		43F295942C77194100E5A212 /* SingletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SingletonViewController.swift; path = Controller/SingletonViewController.swift; sourceTree = "<group>"; };
 		43F295962C771AA100E5A212 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		43FF21B12C3D66E8007F386C /* FLExtensionHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLExtensionHomeVC.swift; path = Controller/FLExtensionHomeVC.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				43FF21B72C3E2460007F386C /* FLArrayExtensionVC.swift */,
 				433072A22C3FD21B007FADED /* SummaryHomeVC.swift */,
 				439084B02C6E49D100ACA9A2 /* KeyWordViewController.swift */,
+				43A4D0EA2C783B420029FFB0 /* ExceptionViewController.swift */,
 				433072A42C40D32E007FADED /* StructDetailVC.swift */,
 				433072A62C40EBAB007FADED /* SystemTypeVC.swift */,
 				433072A82C40F15D007FADED /* SystemValueTypeVC.swift */,
@@ -239,7 +242,7 @@
 				4322EEF92C3A9334000D20BD /* Extension */,
 				4322EEF42C3A88FA000D20BD /* Head.swift */,
 				43FF21BC2C3E31B1007F386C /* FLPop.swift */,
-				43F295922C76F20400E5A212 /* SQLManager.swift */,
+				43F295922C76F20400E5A212 /* DatabaseManager.swift */,
 				43F295962C771AA100E5A212 /* Singleton.swift */,
 			);
 			path = Tools;
@@ -639,7 +642,7 @@
 				43F1513E2C392EFA003584DD /* AppDelegate.swift in Sources */,
 				437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */,
 				43D40A072C5639E4009F1260 /* OperationQueuesVC.swift in Sources */,
-				43F295932C76F20400E5A212 /* SQLManager.swift in Sources */,
+				43F295932C76F20400E5A212 /* DatabaseManager.swift in Sources */,
 				433072A32C3FD21B007FADED /* SummaryHomeVC.swift in Sources */,
 				43FF21BD2C3E31B1007F386C /* FLPop.swift in Sources */,
 				43F295972C771AA100E5A212 /* Singleton.swift in Sources */,
@@ -664,6 +667,7 @@
 				4322EEEE2C3A8488000D20BD /* FLHomeViewController.swift in Sources */,
 				43FF21B42C3D6B83007F386C /* FLUIKitExtensionVC.swift in Sources */,
 				433072A52C40D32E007FADED /* StructDetailVC.swift in Sources */,
+				43A4D0EB2C783B420029FFB0 /* ExceptionViewController.swift in Sources */,
 				433072A12C3FC23E007FADED /* Array+Extension.swift in Sources */,
 				4322EEFF2C3AE52E000D20BD /* UIColor+Extension.swift in Sources */,
 				433072A92C40F15D007FADED /* SystemValueTypeVC.swift in Sources */,
