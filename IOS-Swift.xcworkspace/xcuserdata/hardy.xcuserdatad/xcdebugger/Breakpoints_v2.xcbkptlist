@@ -5,111 +5,15 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "9A784537-DA0E-469E-8692-E17DB07E3F95"
+            uuid = "E432B0B7-CB77-4BF8-9DC5-29A4CB22C49A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/MainVC/Controller/ExceptionViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "test201()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9A784537-DA0E-469E-8692-E17DB07E3F95 - 7c9996b8197caa72"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IOS_Swift.ExceptionViewController.test201() -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/MainVC/Controller/ExceptionViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51">
-               </Location>
-               <Location
-                  uuid = "9A784537-DA0E-469E-8692-E17DB07E3F95 - 7c9996b8197caa72"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IOS_Swift.ExceptionViewController.test201() -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/MainVC/Controller/ExceptionViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F91C6087-38D2-43F8-8E32-60910B1EED4C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/MainVC/Controller/ExceptionViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "test201()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FDCAC552-6B65-453E-9651-27A39DB7376E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/MainVC/Controller/ExceptionViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "test201()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "FDCAC552-6B65-453E-9651-27A39DB7376E - 7c9996b8197ca98f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IOS_Swift.ExceptionViewController.test201() -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/MainVC/Controller/ExceptionViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56">
-               </Location>
-               <Location
-                  uuid = "FDCAC552-6B65-453E-9651-27A39DB7376E - 7c9996b8197ca9ee"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IOS_Swift.ExceptionViewController.test201() -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/MainVC/Controller/ExceptionViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55">
-               </Location>
-            </Locations>
+            breakpointStackSelectionBehavior = "1"
+            scope = "1"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -8,62 +8,137 @@
 import Foundation
 import SQLite
 
+let chatListTableName = "ChatListTable"
+
 class DatabaseManager
 {
     // 单例实例
     static let shared = DatabaseManager()
-    
-    // 串行队列用于同步数据库访问
-    private let dbQueue = DispatchQueue(label: "com.example.databaseQueue")
-    
-//    // 数据库连接（可选，因为可能在运行时打开和关闭）
-//    private var db: Connection?
-    
+        
     // 私有初始化器，防止外部创建实例
     private init() {}
-    
-    // 打开数据库连接（通常在应用启动时调用）
-    func openDatabase(atPath path: String = getDatabasePath) throws -> Connection
+       
+    public lazy var db: Connection? =
     {
-        let db = try Connection(path)
-        FLPrint("Database opened successfully at \(path).")
-        return db
+        do {
+            return try Connection(getDatabasePath)
+        } catch {
+            print("Unable to connect to database: \(error)")
+            return nil
+        }
+    }()
+    
+    public func perform<T>(_ block: @escaping (Connection) throws -> T) -> T?
+    {
+        var result: T?
+        do {
+            result = try block(db!)
+        } catch {
+            print("Database error: \(error)")
+        }
+        return result
+    }
+    
+    func setup()
+    {
+        do {
+            try db?.run("CREATE TABLE IF NOT EXISTS \(chatListTableName) (id integer primary key autoincrement, avatar text, nickName text, lastContent text)")
+        } catch {
+            print("Failed to set up database: \(error)")
+        }
     }
 }
 
+/******ChatListDao******/
 class ChatListDao
 {
-    func creatChatListTable() {
-        do {
-            let db = try DatabaseManager.shared.openDatabase()
-            let createTableSQL = """
-                CREATE TABLE IF NOT EXISTS users (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    userName TEXT NOT NULL,
-                    userAge INTEGER NOT NULL
-                );
-                """
-            try db.run(createTableSQL)
-        } catch let error {
-            // 处理 error
-            print("An error occurred: \(error)")
+    /**
+     * 增
+     */
+    func insertChatListTable(model:ChatListModel) -> Bool
+    {
+        var success = false
+        DatabaseManager.shared.perform { con in
+            do {
+                try con.run("INSERT INTO \(chatListTableName)(avatar, nickName, lastContent)VALUES(?,?,?)",model.avatar,model.nickName,model.lastContent)
+                success = true
+            } catch {
+                print("Insert failed: \(error)")
+            }
         }
+        return success
     }
     
-    func insertUser(userName: String, userAge: Int)
+    /**
+     * 删
+     */
+    func deleteChatListTable(id:Int) -> Bool
     {
-        self.creatChatListTable()
-        do {
-            let db = try DatabaseManager.shared.openDatabase()
-            let insertSQL = "INSERT INTO users (userName, userAge) VALUES (?, ?);"
-            try db.run(insertSQL, [userName, userAge]) 
-        }catch let error {
-            // 处理 error
-            print("An error occurred: \(error)")
+        var success = false
+        DatabaseManager.shared.perform { con in
+            do {
+                try con.run("DELETE FROM \(chatListTableName) WHERE id = ?", id)
+                success = true
+            } catch {
+                print("deletete failed: \(error)")
+            }
+        }
+        return success
+    }
+    
+    /**
+     * 改
+     */
+    func updateChatListTable(model:ChatListModel) -> Bool
+    {
+        var success = false
+        DatabaseManager.shared.perform { con in
+            do {
+                let sql = "UPDATE \(chatListTableName) SET avatar=?, nickName=?, lastContent=? WHERE id =?"
+                try con.run(sql, model.avatar,model.nickName,model.lastContent,model.id)
+                success = true
+            } catch {
+                print("update failed: \(error)")
+            }
+        }
+        return success
+    }
+    
+    
+    /**
+     * 查
+     */
+    func fetchChatListTable() -> [ChatListModel]?
+    {
+        var items = [ChatListModel]()
+        return DatabaseManager.shared.perform { con in
+            let stmt = try! con.prepare("SELECT * FROM \(chatListTableName)")
+            while let row = stmt.next() {
+                let item = ChatListModel.init();
+                if let id = row[0] as? Int64, let safeId = Int(exactly: id) {
+                    item.id = safeId
+                } else {
+                    print("ID value is too large to fit in an Int")
+                }
+                item.avatar = row[1] as? String ?? ""
+                item.nickName = row[2] as? String ?? ""
+                item.lastContent = row[3] as? String ?? ""
+                items.append(item)
+            }
+            return items
         }
     }
 }
 
+
+/***Model***/
+class ChatListModel
+{
+    var id: Int = 0
+    var avatar: String = ""
+    var nickName: String = ""
+    var lastContent: String = ""
+}
 
 
 
