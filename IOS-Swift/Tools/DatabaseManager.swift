@@ -107,6 +107,7 @@ class ChatListDao
     
     /**
      * 查
+     * 查询所有
      */
     func fetchChatListTable() -> [ChatListModel]?
     {
@@ -126,6 +127,29 @@ class ChatListDao
                 items.append(item)
             }
             return items
+        }
+    }
+    
+    /**
+     * 查询
+     * 根据ID查询
+     */
+    func fetchChatByID(chatID:Int) -> ChatListModel?
+    {
+        return DatabaseManager.shared.perform { con in
+            let stmt = try! con.prepare("SELECT * FROM \(chatListTableName) WHERE id = ?").bind(chatID)
+            let chatModel = ChatListModel.init()
+            if let row = stmt.next() {
+                if let id = row[0] as? Int64, let safeId = Int(exactly: id) {
+                    chatModel.id = safeId
+                } else {
+                    print("ID value is too large to fit in an Int")
+                }
+                chatModel.avatar = row[1] as? String ?? ""
+                chatModel.nickName = row[2] as? String ?? ""
+                chatModel.lastContent = row[3] as? String ?? ""
+            }
+            return chatModel
         }
     }
 }

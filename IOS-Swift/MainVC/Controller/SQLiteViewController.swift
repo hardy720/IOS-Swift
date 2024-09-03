@@ -46,17 +46,21 @@ extension SQLiteViewController
     @objc func test201()
     {
         DatabaseManager.shared.setup();
-       
-        if let arr = ChatListDao.init().fetchChatListTable() {
-            for item in arr {
-                print(item.id)
-                print(item.avatar)
-                print(item.nickName)
-            }
-        } else {
-            print("没有获取到数据")
-        }
+        
+        let ss = ChatListDao.init().fetchChatByID(chatID: -8000)
+        print("---\(ss!.id),--\(ss!.avatar),--\(ss!.nickName)")
         return
+       
+//        if let arr = ChatListDao.init().fetchChatListTable() {
+//            for item in arr {
+//                print(item.id)
+//                print(item.avatar)
+//                print(item.nickName)
+//            }
+//        } else {
+//            print("没有获取到数据")
+//        }
+//        return
         
 //        ChatListDao.init().fetchChatListTable(id: 0);
         
