@@ -10,6 +10,7 @@ import UIKit
 import CommonCrypto
 import CryptoKit
 
+
 extension String: FLPOPCompatible {}
 
 /// 字符串取类型的长度
@@ -72,6 +73,12 @@ public extension FLPop where Base: ExpressibleByStringLiteral
             "http://img1.error"
         ]
         return imgArr[Int.fl.random(within: 0..<imgArr.count)]
+    }
+    
+    func isStringBlank () -> Bool
+    {
+        let string = base as! String
+        return string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
 

@@ -25,6 +25,7 @@ class SQLiteViewController: FLBaseViewController {
     
     func initData()
     {
+        DatabaseManager.shared.setup();
         headDataArray =
         [
             "一、SQLite.swift说明",
@@ -42,38 +43,47 @@ class SQLiteViewController: FLBaseViewController {
 // MARK: - 一、使用 SQLite.swift.
 extension SQLiteViewController
 {
-    // MARK:2.0.201. 创建表格
+    // MARK:2.0.201. 增
     @objc func test201()
     {
-        DatabaseManager.shared.setup();
-        
+        let model = ChatListModel.init()
+        model.avatar = "https://img1.baidu.com/it/u=1624963289,2527746346&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750"
+        model.nickName = "nickName"
+        model.lastContent = "content"
+        let isok = ChatListDao.init().insertChatListTable(model: model)
+        FLPrint("新增是否成功:\(isok)")
+    }
+    
+    // MARK:2.0.202. 删
+    @objc func test202()
+    {
+        let isOk = ChatListDao.init().deleteChatListTable(id: 1)
+        FLPrint("删除是否成功:\(isOk)")
+    }
+    
+    // MARK:2.0.203. 改
+    @objc func test203()
+    {
+        let model = ChatListModel.init()
+        model.id = 30
+        model.nickName = "修改后"
+        let isOk = ChatListDao.init().updateChatListTable(model: model)
+        FLPrint("修改是否成功:\(isOk)")
+    }
+    
+    // MARK:2.0.204. 查
+    @objc func test204()
+    {
         let ss = ChatListDao.init().fetchChatByID(chatID: -8000)
         print("---\(ss!.id),--\(ss!.avatar),--\(ss!.nickName)")
-        return
-       
-//        if let arr = ChatListDao.init().fetchChatListTable() {
-//            for item in arr {
-//                print(item.id)
-//                print(item.avatar)
-//                print(item.nickName)
-//            }
-//        } else {
-//            print("没有获取到数据")
-//        }
-//        return
-        
-//        ChatListDao.init().fetchChatListTable(id: 0);
-        
-//        let isOk = ChatListDao.init().deleteChatListTable(id: 100)
-//        print("---\(isOk)")
-//
-//        for num in 1...100 {
-//            let model = ChatListModel.init()
-//            model.avatar = "https://img1.baidu.com/it/u=1624963289,2527746346&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750"
-//            model.nickName = "nickName"
-//            model.lastContent = "content"
-//            let isok = ChatListDao.init().insertChatListTable(model: model)
-//            print("---\(isok)")
-//        }
+        if let arr = ChatListDao.init().fetchChatListTable() {
+            for item in arr {
+                print(item.id)
+                print(item.avatar)
+                print(item.nickName)
+            }
+        } else {
+            print("没有获取到数据")
+        }
     }
 }

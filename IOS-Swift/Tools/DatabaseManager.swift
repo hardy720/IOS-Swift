@@ -155,7 +155,7 @@ class ChatListDao
 }
 
 
-/***Model***/
+/******Model******/
 class ChatListModel
 {
     var id: Int = 0

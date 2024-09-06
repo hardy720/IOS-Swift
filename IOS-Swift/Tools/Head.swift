@@ -23,6 +23,34 @@ func screenH() -> CGFloat
     return UIScreen.main.bounds.size.height
 }
 
+public let fNavigaH = 44 + fStatusH
+public let fStatusH = fWindowSafeAreaInset().top
+public let fWindowSafeAreaInset = 
+{ 
+    () -> UIEdgeInsets in
+    var insets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+    if #available(iOS 11.0, *) {
+        insets = getKeyWindow().safeAreaInsets
+    }
+    return insets
+}
+
+public func getKeyWindow() -> UIWindow
+{
+    var keyWindow: UIWindow? = nil
+    if #available(iOS 13.0, *) {
+        keyWindow = UIApplication.shared.connectedScenes
+            .filter({ $0.activationState == .foregroundActive })
+            .map({ $0 as? UIWindowScene })
+            .compactMap({ $0 })
+            .last?.windows
+            .last
+    } else {
+        keyWindow = UIApplication.shared.keyWindow
+    }
+    return keyWindow!
+}
+
 /**
  * 数据库相关
  */
