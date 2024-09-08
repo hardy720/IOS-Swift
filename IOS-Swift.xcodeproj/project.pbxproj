@@ -26,7 +26,6 @@
 		436E2B062C533BD200A93DC7 /* NavigationControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436E2B052C533BD200A93DC7 /* NavigationControllerManager.swift */; };
 		437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */; };
 		438A7AA92C899781005CFCF1 /* FLPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A7AA82C899781005CFCF1 /* FLPopMenu.swift */; };
-		438A7AAB2C8997B9005CFCF1 /* FLPopMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A7AAA2C8997B9005CFCF1 /* FLPopMenuCell.swift */; };
 		438A7AAE2C89B362005CFCF1 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A7AAD2C89B362005CFCF1 /* UIView+Extension.swift */; };
 		438A811F2C5A2A5B00774B7B /* LibraryHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A811E2C5A2A5B00774B7B /* LibraryHomeViewController.swift */; };
 		438A81212C5A2C1B00774B7B /* KingfisherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A81202C5A2C1B00774B7B /* KingfisherViewController.swift */; };
@@ -105,7 +104,6 @@
 		436E2B052C533BD200A93DC7 /* NavigationControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerManager.swift; sourceTree = "<group>"; };
 		437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasePlainTableViewCell.swift; path = BaseClasses/View/BasePlainTableViewCell.swift; sourceTree = "<group>"; };
 		438A7AA82C899781005CFCF1 /* FLPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLPopMenu.swift; sourceTree = "<group>"; };
-		438A7AAA2C8997B9005CFCF1 /* FLPopMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLPopMenuCell.swift; sourceTree = "<group>"; };
 		438A7AAD2C89B362005CFCF1 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		438A811E2C5A2A5B00774B7B /* LibraryHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LibraryHomeViewController.swift; path = Controller/LibraryHomeViewController.swift; sourceTree = "<group>"; };
 		438A81202C5A2C1B00774B7B /* KingfisherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KingfisherViewController.swift; path = Controller/KingfisherViewController.swift; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 			isa = PBXGroup;
 			children = (
 				438A7AA82C899781005CFCF1 /* FLPopMenu.swift */,
-				438A7AAA2C8997B9005CFCF1 /* FLPopMenuCell.swift */,
 			);
 			path = PopMenu;
 			sourceTree = "<group>";
@@ -683,7 +680,6 @@
 				43C570BF2C4413F900E7ECB3 /* CGPoint+Extension.swift in Sources */,
 				43FF21B82C3E2460007F386C /* FLArrayExtensionVC.swift in Sources */,
 				43FF21C12C3E4001007F386C /* DateFormatter+Extension.swift in Sources */,
-				438A7AAB2C8997B9005CFCF1 /* FLPopMenuCell.swift in Sources */,
 				4322EEEE2C3A8488000D20BD /* FLHomeViewController.swift in Sources */,
 				43FF21B42C3D6B83007F386C /* FLUIKitExtensionVC.swift in Sources */,
 				433072A52C40D32E007FADED /* StructDetailVC.swift in Sources */,

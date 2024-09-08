@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatHomeViewController: UIViewController, UITableViewDelegate,UITableViewDataSource, FLPopListMenuDelegate {
+class ChatHomeViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,39 +21,46 @@ class ChatHomeViewController: UIViewController, UITableViewDelegate,UITableViewD
         self.title = "聊天"
         view.backgroundColor = .white
         
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "icon_more_add"), style: .done, target: self, action: #selector(showPopMenu))
-        let rightBarButtonItem1 = UIBarButtonItem(image: UIImage.init(named: "icon_more_add"), style: .done, target: self, action: #selector(showPopMenu))
-        navigationItem.rightBarButtonItems = [rightBarButtonItem,rightBarButtonItem1]
-//        navigationItem.rightBarButtonItem = rightBarButtonItem
-        
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "icon_more_add"), style: .done, target: self, action: #selector(showPopMenu1))
+        navigationItem.rightBarButtonItem = rightBarButtonItem
         
         let button = UIButton.init(type: .custom)
         button.frame = CGRect(x: 100, y: 100, width: 60, height: 100)
         button.backgroundColor = .green
         button.setTitle("标题", for: .normal)
-        button.addTarget(self, action: #selector(showPopMenu), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showPopMenu(_:)), for: .touchUpInside)
         view.addSubview(button)
     }
     
-    @objc func showPopMenu()
+    @objc func showPopMenu1(_ item: UIBarButtonItem)
     {
-        let popView = FLNavPopuListMenu(dataSource: menuList)
-        popView.delegate = self
-        popView.show()
+        let popData = [(icon:"icon_chat_switch",title:"切换状态"), (icon:"icon_chat_chat",title:"单聊"), (icon:"icon_chat_scan",title:"扫一扫")]
+        let parameters:[FLPopMenuConfigure] =
+        [
+            .PopMenuTextColor(UIColor.black),
+            .popMenuItemHeight(44),
+            .PopMenuTextFont(UIFont.systemFont(ofSize: 18))
+        ]
+        let popMenu = FLPopMenu(menuWidth: 150, arrow: CGPoint(x: screenW() - 25, y: fNavigaH), datas: popData,configures: parameters)
+        popMenu.didSelectMenuBlock = { [weak self](index:Int)->Void in
+            print("block select \(index)")
+        }
+        popMenu.show()
     }
     
-    private lazy var menuList: [FLCellDataConfig] = {
-        let items = [
-            FLCellDataConfig(title: "切换状态", image: "icon_chat_switch", isShow: true),
-            FLCellDataConfig(title: "发起群聊", image: "icon_chat_chat", isShow: true),
-            FLCellDataConfig(title: "扫一扫", image: "icon_chat_scan", isShow: false)
-        ]
-        return items
-    }()
-    
-    func menu(_ model: FLCellDataConfig, didSelectRowAt index: Int)
+    @objc func showPopMenu(_ btn: UIButton)
     {
-        
+        let popData = [(icon:"icon_chat_switch",title:"切换状态"), (icon:"icon_chat_chat",title:"单聊"), (icon:"icon_chat_scan",title:"扫一扫")]
+        let parameters:[FLPopMenuConfigure] = [
+            .PopMenuTextColor(UIColor.black),
+            .popMenuItemHeight(44),
+            .PopMenuTextFont(UIFont.systemFont(ofSize: 18))
+        ]
+        let popMenu = FLPopMenu(menuWidth: 150, arrow: CGPoint(x: btn.center.x, y: btn.center.y+30), datas: popData,configures: parameters)
+        popMenu.didSelectMenuBlock = { [weak self](index:Int)->Void in
+            print("block select \(index)")
+        }
+        popMenu.show()
     }
     
     lazy var tableView: UITableView? =
