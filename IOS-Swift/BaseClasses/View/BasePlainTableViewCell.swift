@@ -18,7 +18,8 @@ class BasePlainTableViewCell: UITableViewCell {
         self.initLayout()
     }
     
-    func initLayout() {
+    func initLayout() 
+    {
         contentLabel.snp.makeConstraints { (make) in
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 1))
         }

@@ -24,6 +24,7 @@
 		43581D912C4BAE50004F154C /* FLAsyncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D902C4BAE50004F154C /* FLAsyncs.swift */; };
 		43581D932C4BC36D004F154C /* GCDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D922C4BC36D004F154C /* GCDViewController.swift */; };
 		435D1BA82C8E9F8E001819FF /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BA72C8E9F8E001819FF /* WindowManager.swift */; };
+		435D1BAB2C8EE1A6001819FF /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BAA2C8EE1A6001819FF /* ChatListTableViewCell.swift */; };
 		437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */; };
 		438A7AA92C899781005CFCF1 /* FLPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A7AA82C899781005CFCF1 /* FLPopMenu.swift */; };
 		438A7AAE2C89B362005CFCF1 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A7AAD2C89B362005CFCF1 /* UIView+Extension.swift */; };
@@ -102,6 +103,7 @@
 		43581D902C4BAE50004F154C /* FLAsyncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAsyncs.swift; sourceTree = "<group>"; };
 		43581D922C4BC36D004F154C /* GCDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDViewController.swift; path = Controller/GCDViewController.swift; sourceTree = "<group>"; };
 		435D1BA72C8E9F8E001819FF /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		435D1BAA2C8EE1A6001819FF /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasePlainTableViewCell.swift; path = BaseClasses/View/BasePlainTableViewCell.swift; sourceTree = "<group>"; };
 		438A7AA82C899781005CFCF1 /* FLPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLPopMenu.swift; sourceTree = "<group>"; };
 		438A7AAD2C89B362005CFCF1 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -296,6 +298,14 @@
 			path = UIKitExtension;
 			sourceTree = "<group>";
 		};
+		435D1BA92C8EE188001819FF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				435D1BAA2C8EE1A6001819FF /* ChatListTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		438A7AAC2C89A28F005CFCF1 /* PopMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,6 +368,7 @@
 		43F2958C2C76E14200E5A212 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				435D1BA92C8EE188001819FF /* View */,
 				43F2958D2C76E16600E5A212 /* Controller */,
 			);
 			path = Chat;
@@ -663,6 +674,7 @@
 				43F295972C771AA100E5A212 /* Singleton.swift in Sources */,
 				438A7AAE2C89B362005CFCF1 /* UIView+Extension.swift in Sources */,
 				43F151402C392EFA003584DD /* SceneDelegate.swift in Sources */,
+				435D1BAB2C8EE1A6001819FF /* ChatListTableViewCell.swift in Sources */,
 				43F295952C77194100E5A212 /* SingletonViewController.swift in Sources */,
 				43FF21BB2C3E28B1007F386C /* FLPrint.swift in Sources */,
 				438A81212C5A2C1B00774B7B /* KingfisherViewController.swift in Sources */,

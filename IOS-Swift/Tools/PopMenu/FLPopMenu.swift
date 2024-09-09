@@ -287,15 +287,15 @@ extension FLPopMenu : UITableViewDataSource,UITableViewDelegate
 /// UITableViewCell
 class FLPopMenuCell: UITableViewCell 
 {
-    var iconImage:UIImageView!
-    var lblTitle:UILabel!
-    var line:UIView!
+    var iconImage : UIImageView!
+    var lblTitle : UILabel!
+    var line : UIView!
     
     //自定义属性
-    var lineColor:UIColor = UIColor(red: 222/255.0, green: 222/255.0, blue: 222/255.0, alpha: 0.5)
-    var txtColor:UIColor = UIColor.black
-    var txtFont:UIFont = UIFont.systemFont(ofSize: 17)
-    var iconLeft:CGFloat = 15
+    var lineColor : UIColor = UIColor(red: 222/255.0, green: 222/255.0, blue: 222/255.0, alpha: 0.5)
+    var txtColor : UIColor = UIColor.black
+    var txtFont : UIFont = UIFont.systemFont(ofSize: 17)
+    var iconLeft : CGFloat = 15
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) 
     {
