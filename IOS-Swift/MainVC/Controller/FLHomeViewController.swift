@@ -22,6 +22,27 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
     {
         self.title = "IOS-Swift"
         view.addSubview(tableView)
+        
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "icon_more_add"), style: .done, target: self, action: #selector(showPopMenu))
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+    
+    @objc func showPopMenu(_ item: UIBarButtonItem)
+    {
+        let popData = [(icon:"icon_chat_switch",title:"切换状态")]
+        let parameters:[FLPopMenuConfigure] =
+        [
+            .PopMenuTextColor(UIColor.black),
+            .popMenuItemHeight(44),
+            .PopMenuTextFont(UIFont.systemFont(ofSize: 18))
+        ]
+        let popMenu = FLPopMenu(menuWidth: 150, arrow: CGPoint(x: screenW() - 25, y: fNavigaH), datas: popData,configures: parameters)
+        popMenu.didSelectMenuBlock = { [weak self](index:Int)->Void in
+            if index == 0 {
+                WindowManager.shared.changeRootVC();
+            }
+        }
+        popMenu.show()
     }
     
     private func initData()
@@ -35,7 +56,6 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
         case 0:
             self.navigationController?.pushViewController(FLExtensionHomeVC.init(), animated: true)
             break
-           
         case 1:
             self.navigationController?.pushViewController(SummaryHomeVC.init(), animated: true)
             break

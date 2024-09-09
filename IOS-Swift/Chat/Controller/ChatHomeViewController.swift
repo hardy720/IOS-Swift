@@ -21,18 +21,11 @@ class ChatHomeViewController: UIViewController, UITableViewDelegate,UITableViewD
         self.title = "聊天"
         view.backgroundColor = .white
         
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "icon_more_add"), style: .done, target: self, action: #selector(showPopMenu1))
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "icon_more_add"), style: .done, target: self, action: #selector(showPopMenu))
         navigationItem.rightBarButtonItem = rightBarButtonItem
-        
-        let button = UIButton.init(type: .custom)
-        button.frame = CGRect(x: 100, y: 100, width: 60, height: 100)
-        button.backgroundColor = .green
-        button.setTitle("标题", for: .normal)
-        button.addTarget(self, action: #selector(showPopMenu(_:)), for: .touchUpInside)
-        view.addSubview(button)
     }
     
-    @objc func showPopMenu1(_ item: UIBarButtonItem)
+    @objc func showPopMenu(_ item: UIBarButtonItem)
     {
         let popData = [(icon:"icon_chat_switch",title:"切换状态"), (icon:"icon_chat_chat",title:"单聊"), (icon:"icon_chat_scan",title:"扫一扫")]
         let parameters:[FLPopMenuConfigure] =
@@ -43,22 +36,9 @@ class ChatHomeViewController: UIViewController, UITableViewDelegate,UITableViewD
         ]
         let popMenu = FLPopMenu(menuWidth: 150, arrow: CGPoint(x: screenW() - 25, y: fNavigaH), datas: popData,configures: parameters)
         popMenu.didSelectMenuBlock = { [weak self](index:Int)->Void in
-            print("block select \(index)")
-        }
-        popMenu.show()
-    }
-    
-    @objc func showPopMenu(_ btn: UIButton)
-    {
-        let popData = [(icon:"icon_chat_switch",title:"切换状态"), (icon:"icon_chat_chat",title:"单聊"), (icon:"icon_chat_scan",title:"扫一扫")]
-        let parameters:[FLPopMenuConfigure] = [
-            .PopMenuTextColor(UIColor.black),
-            .popMenuItemHeight(44),
-            .PopMenuTextFont(UIFont.systemFont(ofSize: 18))
-        ]
-        let popMenu = FLPopMenu(menuWidth: 150, arrow: CGPoint(x: btn.center.x, y: btn.center.y+30), datas: popData,configures: parameters)
-        popMenu.didSelectMenuBlock = { [weak self](index:Int)->Void in
-            print("block select \(index)")
+            if index == 0 {
+                WindowManager.shared.changeRootVC();
+            }
         }
         popMenu.show()
     }

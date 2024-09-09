@@ -35,6 +35,10 @@ public let fWindowSafeAreaInset =
     return insets
 }
 
+
+/**
+ * 视图相关
+ */
 public func getKeyWindow() -> UIWindow
 {
     var keyWindow: UIWindow? = nil
@@ -50,6 +54,13 @@ public func getKeyWindow() -> UIWindow
     }
     return keyWindow!
 }
+
+/**
+ * 字符串
+ */
+let Appdelegate_RootVC_Key_Str = "Appdelegate_RootVC"
+let Appdelegate_RootVC_Value_A_Str = "A"
+let Appdelegate_RootVC_Value_B_Str = "B"
 
 /**
  * 数据库相关

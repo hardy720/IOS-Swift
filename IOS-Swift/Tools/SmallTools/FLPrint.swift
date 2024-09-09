@@ -31,7 +31,7 @@ public func FLPrint(_ msg: Any...,
     let prefix = "\(currentDate): \(file.lastPathComponent) Line:\(line) Col:\(column) msg:\(msgStr)"
     print(prefix)
     
-    if let navController = NavigationControllerManager.shared.getCurrentNavigationController() {
+    if let navController = WindowManager.shared.getCurrentNavigationController() {
         DispatchQueue.main.async {
             navController.view.makeToast(prefix)
         }
