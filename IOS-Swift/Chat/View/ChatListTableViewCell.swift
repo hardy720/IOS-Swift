@@ -15,6 +15,7 @@ class ChatListTableViewCell: UITableViewCell
         self.backgroundColor = .white
         self.contentView.addSubview(avatarImage)
         self.contentView.addSubview(nickNameLabel)
+        self.contentView.addSubview(timeLabel)
         self.contentView.addSubview(lastContentLabel)
         self.initLayout()
     }
@@ -32,6 +33,7 @@ class ChatListTableViewCell: UITableViewCell
             }
         }
         nickNameLabel.text = model.nickName
+        timeLabel.text = "2024年9月10日 凌晨 13:14"
         lastContentLabel.text = model.lastContent
     }
     
@@ -43,10 +45,17 @@ class ChatListTableViewCell: UITableViewCell
             make.centerY.equalTo(self.contentView)
         }
         
+        timeLabel.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-20)
+            make.top.equalTo(avatarImage)
+            make.height.equalTo(18)
+            make.width.equalTo(200)
+        }
+        
         nickNameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(avatarImage.snp_rightMargin).offset(20)
             make.top.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.right.equalTo(timeLabel.snp_leftMargin).offset(-20)
             make.height.equalTo(25)
         }
         
@@ -68,9 +77,19 @@ class ChatListTableViewCell: UITableViewCell
     var nickNameLabel : UILabel =
     {
         let label = UILabel.init()
-        label.font = UIFont.systemFont(ofSize: 19)
-        label.textColor = UIColor.hexStringColor(hexString: "#333333")
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textColor = .black
         label.textAlignment = .left
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    var timeLabel : UILabel =
+    {
+        let label = UILabel.init()
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = Text_Light_Gray
+        label.textAlignment = .right
         label.numberOfLines = 1
         return label
     }()
@@ -79,7 +98,7 @@ class ChatListTableViewCell: UITableViewCell
     {
         let label = UILabel.init()
         label.font = UIFont.systemFont(ofSize: 17)
-        label.textColor = .gray
+        label.textColor = Text_Light_Gray
         label.textAlignment = .left
         label.numberOfLines = 1
         return label

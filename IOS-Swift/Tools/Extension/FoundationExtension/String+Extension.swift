@@ -10,6 +10,12 @@ import UIKit
 import CommonCrypto
 import CryptoKit
 
+/**
+ * 字符串
+ */
+let Appdelegate_RootVC_Key_Str = "Appdelegate_RootVC"
+let Appdelegate_RootVC_Value_A_Str = "A"
+let Appdelegate_RootVC_Value_B_Str = "B"
 
 extension String: FLPOPCompatible {}
 

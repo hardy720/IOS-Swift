@@ -56,13 +56,6 @@ public func getKeyWindow() -> UIWindow
 }
 
 /**
- * 字符串
- */
-let Appdelegate_RootVC_Key_Str = "Appdelegate_RootVC"
-let Appdelegate_RootVC_Value_A_Str = "A"
-let Appdelegate_RootVC_Value_B_Str = "B"
-
-/**
  * 数据库相关
  */
 let getDatabasePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! + "/" + "chat_\(UserDefaults.standard.object(forKey: "USERID") ?? "0").db"

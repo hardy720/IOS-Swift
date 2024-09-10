@@ -7,6 +7,8 @@
 
 import UIKit
 
+let Text_Light_Gray = UIColor.color(r: 164, g: 165, b: 166)
+
 // MARK: - 一、构造器设置颜色
 public extension UIColor {
     

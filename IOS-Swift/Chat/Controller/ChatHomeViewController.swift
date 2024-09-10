@@ -7,8 +7,8 @@
 
 import UIKit
 
-class ChatHomeViewController: UIViewController {
-    
+class ChatHomeViewController: UIViewController
+{
     static let cellID : String = "ChatListId"
     
     var dataArr: [ChatListModel] = []
@@ -32,7 +32,7 @@ class ChatHomeViewController: UIViewController {
     
     @objc func showPopMenu(_ item: UIBarButtonItem)
     {
-        let popData = [(icon:"icon_chat_switch",title:"切换状态"), (icon:"icon_chat_chat",title:"单聊"), (icon:"icon_chat_scan",title:"扫一扫")]
+        let popData = [(icon:"icon_chat_switch",title:"切换状态"), (icon:"icon_chat_chat",title:"新建聊天"), (icon:"icon_chat_scan",title:"扫一扫")]
         let parameters:[FLPopMenuConfigure] =
         [
             .PopMenuTextColor(UIColor.black),
@@ -69,7 +69,7 @@ class ChatHomeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ChatListTableViewCell.classForCoder(), forCellReuseIdentifier: ChatHomeViewController.cellID)
-        tableView.rowHeight = 70
+        tableView.rowHeight = 75
         return tableView
     }()
 }
@@ -96,12 +96,21 @@ extension ChatHomeViewController : UITableViewDataSource,UITableViewDelegate
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) 
     {
-            if editingStyle == .delete {
-                let model = dataArr[indexPath.row]
-                let isOk = ChatListDao.init().deleteChatListTable(id: model.id)
-                dataArr.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            } else if editingStyle == .insert {
-            }
+        if editingStyle == .delete {
+            let model = dataArr[indexPath.row]
+            let isOk = ChatListDao.init().deleteChatListTable(id: model.id)
+            FLPrint("删除是否成功:%d",isOk)
+            dataArr.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) 
+    {
+        let model = dataArr[indexPath.row]
+        let chatDetailVC = ChatDetailVC.init()
+        chatDetailVC.userModel = model
+        self.navigationController?.pushViewController(chatDetailVC, animated: true)
+    }
 }

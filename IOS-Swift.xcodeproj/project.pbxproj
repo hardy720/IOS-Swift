@@ -25,6 +25,7 @@
 		43581D932C4BC36D004F154C /* GCDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D922C4BC36D004F154C /* GCDViewController.swift */; };
 		435D1BA82C8E9F8E001819FF /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BA72C8E9F8E001819FF /* WindowManager.swift */; };
 		435D1BAB2C8EE1A6001819FF /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BAA2C8EE1A6001819FF /* ChatListTableViewCell.swift */; };
+		435D1BAD2C8FDEA3001819FF /* ChatDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BAC2C8FDEA3001819FF /* ChatDetailVC.swift */; };
 		437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */; };
 		438A7AA92C899781005CFCF1 /* FLPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A7AA82C899781005CFCF1 /* FLPopMenu.swift */; };
 		438A7AAE2C89B362005CFCF1 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A7AAD2C89B362005CFCF1 /* UIView+Extension.swift */; };
@@ -104,6 +105,7 @@
 		43581D922C4BC36D004F154C /* GCDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDViewController.swift; path = Controller/GCDViewController.swift; sourceTree = "<group>"; };
 		435D1BA72C8E9F8E001819FF /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
 		435D1BAA2C8EE1A6001819FF /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
+		435D1BAC2C8FDEA3001819FF /* ChatDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailVC.swift; sourceTree = "<group>"; };
 		437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasePlainTableViewCell.swift; path = BaseClasses/View/BasePlainTableViewCell.swift; sourceTree = "<group>"; };
 		438A7AA82C899781005CFCF1 /* FLPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLPopMenu.swift; sourceTree = "<group>"; };
 		438A7AAD2C89B362005CFCF1 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 			isa = PBXGroup;
 			children = (
 				43F2958E2C76E18100E5A212 /* ChatHomeViewController.swift */,
+				435D1BAC2C8FDEA3001819FF /* ChatDetailVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 				4322EEF02C3A84A3000D20BD /* FLBaseViewController.swift in Sources */,
 				43DCF1D82C5BE4CA007E25D0 /* Int+Extension.swift in Sources */,
 				433072AB2C40F178007FADED /* SystemReferenceTypeVC.swift in Sources */,
+				435D1BAD2C8FDEA3001819FF /* ChatDetailVC.swift in Sources */,
 				43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */,
 				4322EEF52C3A88FA000D20BD /* Head.swift in Sources */,
 				43C570BD2C4412B400E7ECB3 /* CGPointExtensionVC.swift in Sources */,
