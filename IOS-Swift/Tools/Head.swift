@@ -18,6 +18,7 @@ func screenW() -> CGFloat
 {
     return UIScreen.main.bounds.size.width
 }
+
 func screenH() -> CGFloat
 {
     return UIScreen.main.bounds.size.height
@@ -35,6 +36,8 @@ public let fWindowSafeAreaInset =
     return insets
 }
 
+let Chat_Cell_Text_Width = screenW() - 200
+let Chat_Custom_Keyboard_Height : CGFloat = 70
 
 /**
  * 视图相关
@@ -54,6 +57,10 @@ public func getKeyWindow() -> UIWindow
     }
     return keyWindow!
 }
+
+/**
+ * 
+ */
 
 /**
  * 数据库相关

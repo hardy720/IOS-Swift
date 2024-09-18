@@ -8,6 +8,8 @@
 import UIKit
 
 let Text_Light_Gray = UIColor.color(r: 164, g: 165, b: 166)
+let Chat_Cell_Background_Gray = UIColor.color(r: 236, g: 236, b: 236)
+let Chat_CustomKeyBoard_Back_Gray = UIColor.color(r: 245, g: 245, b: 245)
 
 // MARK: - 一、构造器设置颜色
 public extension UIColor {

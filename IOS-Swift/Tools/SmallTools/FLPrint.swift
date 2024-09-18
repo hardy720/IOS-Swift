@@ -20,6 +20,7 @@ public func FLPrint(_ msg: Any...,
                isWriteLog: Bool = true,
                      file: NSString = #file,
                      line: Int = #line,
+              isShowAlert: Bool = false,
                    column: Int = #column,
                        fn: String = #function) {
     #if DEBUG
@@ -31,11 +32,14 @@ public func FLPrint(_ msg: Any...,
     let prefix = "\(currentDate): \(file.lastPathComponent) Line:\(line) Col:\(column) msg:\(msgStr)"
     print(prefix)
     
-    if let navController = WindowManager.shared.getCurrentNavigationController() {
-        DispatchQueue.main.async {
-            navController.view.makeToast(prefix)
+    if isShowAlert {
+        if let navController = WindowManager.shared.getCurrentNavigationController() {
+            DispatchQueue.main.async {
+                navController.view.makeToast(prefix)
+            }
         }
     }
+
     guard isWriteLog else {
         return
     }

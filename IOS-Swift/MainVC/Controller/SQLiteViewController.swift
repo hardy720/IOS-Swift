@@ -46,7 +46,7 @@ extension SQLiteViewController
     // MARK:2.0.201. 增
     @objc func test201()
     {
-        let model = ChatListModel.init()
+        let model = FLChatListModel.init()
         model.avatar = "https://img1.baidu.com/it/u=1624963289,2527746346&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750"
         model.nickName = "nickName"
         model.lastContent = "content"
@@ -64,7 +64,7 @@ extension SQLiteViewController
     // MARK:2.0.203. 改
     @objc func test203()
     {
-        let model = ChatListModel.init()
+        let model = FLChatListModel.init()
         model.id = 30
         model.nickName = "修改后"
         let isOk = ChatListDao.init().updateChatListTable(model: model)

@@ -1,5 +1,5 @@
 //
-//  ChatListTableViewCell.swift
+//  FLChatListTableViewCell.swift
 //  IOS-Swift
 //
 //  Created by hardy on 2024/9/9.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatListTableViewCell: UITableViewCell 
+class FLChatListTableViewCell: UITableViewCell 
 {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?)
     {
@@ -20,7 +20,7 @@ class ChatListTableViewCell: UITableViewCell
         self.initLayout()
     }
     
-    func setModel(model: ChatListModel)
+    func setModel(model: FLChatListModel)
     {
         avatarImage.kf.setImage(with: URL(string: model.avatar), placeholder: UIImage(named: "placeholder.jpg"), options: nil, progressBlock: nil) { result in
             switch result {

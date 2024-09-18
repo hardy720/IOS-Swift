@@ -9,6 +9,7 @@ import Foundation
 import SQLite
 
 let chatListTableName = "ChatListTable"
+let chatDetailTableName = "chart_"
 
 class DatabaseManager
 {
@@ -47,6 +48,15 @@ class DatabaseManager
             print("Failed to set up database: \(error)")
         }
     }
+    
+    func createChat(userID : String)
+    {
+        do {
+            try db?.run("CREATE TABLE IF NOT EXISTS \(chatDetailTableName)\(userID) (id integer primary key autoincrement, avatar text, nickName text, contentStr text,lastContent text,msgType integer,isMe integer)")
+        } catch {
+            print("Failed to set up database: \(error)")
+        }
+    }
 }
 
 /******ChatListDao******/
@@ -55,7 +65,7 @@ class ChatListDao
     /**
      * 增
      */
-    func insertChatListTable(model:ChatListModel) -> Bool
+    func insertChatListTable(model:FLChatListModel) -> Bool
     {
         var success = false
         DatabaseManager.shared.perform { con in
@@ -89,7 +99,7 @@ class ChatListDao
     /**
      * 改
      */
-    func updateChatListTable(model:ChatListModel) -> Bool
+    func updateChatListTable(model:FLChatListModel) -> Bool
     {
         var success = false
         DatabaseManager.shared.perform { con in
@@ -109,13 +119,13 @@ class ChatListDao
      * 查
      * 查询所有
      */
-    func fetchChatListTable() -> [ChatListModel]?
+    func fetchChatListTable() -> [FLChatListModel]?
     {
-        var items = [ChatListModel]()
+        var items = [FLChatListModel]()
         return DatabaseManager.shared.perform { con in
             let stmt = try! con.prepare("SELECT * FROM \(chatListTableName)")
             while let row = stmt.next() {
-                let item = ChatListModel.init();
+                let item = FLChatListModel.init();
                 if let id = row[0] as? Int64, let safeId = Int(exactly: id) {
                     item.id = safeId
                 } else {
@@ -134,11 +144,11 @@ class ChatListDao
      * 查询
      * 根据ID查询
      */
-    func fetchChatByID(chatID:Int) -> ChatListModel?
+    func fetchChatByID(chatID:Int) -> FLChatListModel?
     {
         return DatabaseManager.shared.perform { con in
             let stmt = try! con.prepare("SELECT * FROM \(chatListTableName) WHERE id = ?").bind(chatID)
-            let chatModel = ChatListModel.init()
+            let chatModel = FLChatListModel.init()
             if let row = stmt.next() {
                 if let id = row[0] as? Int64, let safeId = Int(exactly: id) {
                     chatModel.id = safeId
@@ -154,14 +164,70 @@ class ChatListDao
     }
 }
 
-
-/******Model******/
-class ChatListModel
+/******ChatDetailDao******/
+class ChatDetailDao
 {
-    var id: Int = 0
-    var avatar: String = ""
-    var nickName: String = ""
-    var lastContent: String = ""
+    /**
+     * 增
+     */
+    func insertChatListTable(chatID : String, model : FLChatMsgModel) -> Bool
+    {
+        var success = false
+        DatabaseManager.shared.perform { con in
+            do {
+                try con.run("INSERT INTO \(chatDetailTableName)\(chatID)(avatar, nickName, contentStr, lastContent,msgType,isMe)VALUES(?,?,?,?,?,?)",model.avatar,model.nickName,model.contentStr,model.lastContent,model.msgType.rawValue,model.isMe)//
+                success = true
+            } catch {
+                print("Insert failed: \(error)")
+            }
+        }
+        return success
+    }
+    
+    /**
+     * 查
+     * 查询所有
+     */
+    func fetchChatDetailTable(userID : String) -> [FLChatMsgModel]?
+    {
+        var items = [FLChatMsgModel]()
+        return DatabaseManager.shared.perform { con in
+            let stmt = try! con.prepare("SELECT * FROM \(chatDetailTableName)\(userID)")
+            while let row = stmt.next() {
+                let item = FLChatMsgModel.init();
+                if let id = row[0] as? Int64, let safeId = Int(exactly: id) {
+                    item.id = safeId
+                } else {
+                    print("ID value is too large to fit in an Int")
+                }
+                item.avatar = row[1] as? String ?? ""
+                item.nickName = row[2] as? String ?? ""
+                item.contentStr = row[3] as? String ?? ""
+                item.lastContent = row[4] as? String ?? ""
+                if let msgTypeInt = row[5] as? Int64, let safeMsgType = Int(exactly: msgTypeInt) {
+                    if let msgType = FLMessageType(rawValue: safeMsgType) {
+                        item.msgType = msgType
+                    } else {
+                        item.msgType = .msg_unknown
+                    }
+                } else {
+                    item.msgType = .msg_unknown
+                }
+                
+                if let is_me = row[6] as? Int64, let safeIsme = Int(exactly: is_me) {
+                    if safeIsme == 1 {
+                        item.isMe = true
+                    }else{
+                        item.isMe = false
+                    }
+                }else{
+                    item.isMe = false
+                }
+                items.append(item)
+            }
+            return items
+        }
+    }
 }
 
 

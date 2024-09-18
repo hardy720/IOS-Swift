@@ -11,7 +11,7 @@ class ChatHomeViewController: UIViewController
 {
     static let cellID : String = "ChatListId"
     
-    var dataArr: [ChatListModel] = []
+    var dataArr: [FLChatListModel] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -27,7 +27,7 @@ class ChatHomeViewController: UIViewController
         let rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "icon_more_add"), style: .done, target: self, action: #selector(showPopMenu))
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
-        view.addSubview(self.tableView!)
+        view.addSubview(tableView!)
     }
     
     @objc func showPopMenu(_ item: UIBarButtonItem)
@@ -45,7 +45,7 @@ class ChatHomeViewController: UIViewController
                 WindowManager.shared.changeRootVC();
             }
             if index == 1 {
-                let model = ChatListModel.init()
+                let model = FLChatListModel.init()
                 model.avatar = String.fl.getRandomImageUrlStr()!
                 model.nickName = "用户-00\(self!.dataArr.count)"
                 model.lastContent = "我是最后一句"
@@ -68,7 +68,7 @@ class ChatHomeViewController: UIViewController
         let tableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: screenW(), height: screenH()), style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ChatListTableViewCell.classForCoder(), forCellReuseIdentifier: ChatHomeViewController.cellID)
+        tableView.register(FLChatListTableViewCell.classForCoder(), forCellReuseIdentifier: ChatHomeViewController.cellID)
         tableView.rowHeight = 75
         return tableView
     }()
@@ -83,7 +83,7 @@ extension ChatHomeViewController : UITableViewDataSource,UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ChatHomeViewController.cellID) as! ChatListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ChatHomeViewController.cellID) as! FLChatListTableViewCell
         let model = dataArr[indexPath.row]
         cell.setModel(model: model)
         return cell
@@ -110,7 +110,8 @@ extension ChatHomeViewController : UITableViewDataSource,UITableViewDelegate
     {
         let model = dataArr[indexPath.row]
         let chatDetailVC = ChatDetailVC.init()
-        chatDetailVC.userModel = model
+        DatabaseManager.shared.createChat(userID: "\(model.id)")
+        chatDetailVC.chatModel = model
         self.navigationController?.pushViewController(chatDetailVC, animated: true)
     }
 }
