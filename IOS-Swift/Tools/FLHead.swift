@@ -1,5 +1,5 @@
 //
-//  Tools.swift
+//  FLHead.swift
 //  IOS-Swift
 //
 //  Created by hardy on 2024/7/7.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Head: NSObject {
+class FLHead: NSObject {
 
 }
 
@@ -36,6 +36,7 @@ public let fWindowSafeAreaInset =
     return insets
 }
 
+// 聊天页面自定义键盘宽度和高度
 let Chat_Cell_Text_Width = screenW() - 200
 let Chat_Custom_Keyboard_Height : CGFloat = 70
 
@@ -59,12 +60,23 @@ public func getKeyWindow() -> UIWindow
 }
 
 /**
- * 
- */
-
-/**
  * 数据库相关
  */
 let getDatabasePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! + "/" + "chat_\(UserDefaults.standard.object(forKey: "USERID") ?? "0").db"
 
+func saveUserInfo()
+{
+    UserDefaults.standard.set("https://gips0.baidu.com/it/u=4249018170,539979145&fm=3039&app=3039&f=JPEG?w=1024&h=1024", forKey: User_My_Avatar)
+    UserDefaults.standard.set("擎天柱", forKey: User_My_NickName)
+}
+
+func getUserAvatar() -> String
+{
+    return UserDefaults.standard.object(forKey: User_My_Avatar) as? String ?? ""
+}
+
+func getUserNickName() -> String
+{
+    return UserDefaults.standard.object(forKey: User_My_NickName) as? String ?? ""
+}
 

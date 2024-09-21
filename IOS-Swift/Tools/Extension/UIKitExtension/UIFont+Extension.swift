@@ -7,4 +7,5 @@
 
 import Foundation
 
-let chart_cell_text_font : Int = 17
+let Chart_Cell_Text_font : Int = 17
+let Chart_Keyboard_TextView_font : Int = 16

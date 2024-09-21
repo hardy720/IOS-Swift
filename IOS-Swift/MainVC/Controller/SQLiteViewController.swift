@@ -25,7 +25,7 @@ class SQLiteViewController: FLBaseViewController {
     
     func initData()
     {
-        DatabaseManager.shared.setup();
+        FLDatabaseManager.shared.setup();
         headDataArray =
         [
             "一、SQLite.swift说明",

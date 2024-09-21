@@ -39,7 +39,7 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
         let popMenu = FLPopMenu(menuWidth: 150, arrow: CGPoint(x: screenW() - 25, y: fNavigaH), datas: popData,configures: parameters)
         popMenu.didSelectMenuBlock = { [weak self](index:Int)->Void in
             if index == 0 {
-                WindowManager.shared.changeRootVC();
+                FLWindowManager.shared.changeRootVC();
             }
         }
         popMenu.show()

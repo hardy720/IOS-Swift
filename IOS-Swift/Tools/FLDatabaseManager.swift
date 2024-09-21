@@ -1,5 +1,5 @@
 //
-//  DatabaseManager.swift
+//  FLDatabaseManager.swift
 //  IOS-Swift
 //
 //  Created by hardy on 2024/8/22.
@@ -11,10 +11,10 @@ import SQLite
 let chatListTableName = "ChatListTable"
 let chatDetailTableName = "chart_"
 
-class DatabaseManager
+class FLDatabaseManager
 {
     // 单例实例
-    static let shared = DatabaseManager()
+    static let shared = FLDatabaseManager()
         
     // 私有初始化器，防止外部创建实例
     private init() {}
@@ -68,7 +68,7 @@ class ChatListDao
     func insertChatListTable(model:FLChatListModel) -> Bool
     {
         var success = false
-        DatabaseManager.shared.perform { con in
+        FLDatabaseManager.shared.perform { con in
             do {
                 try con.run("INSERT INTO \(chatListTableName)(avatar, nickName, lastContent)VALUES(?,?,?)",model.avatar,model.nickName,model.lastContent)
                 success = true
@@ -85,7 +85,7 @@ class ChatListDao
     func deleteChatListTable(id:Int) -> Bool
     {
         var success = false
-        DatabaseManager.shared.perform { con in
+        FLDatabaseManager.shared.perform { con in
             do {
                 try con.run("DELETE FROM \(chatListTableName) WHERE id = ?", id)
                 success = true
@@ -102,7 +102,7 @@ class ChatListDao
     func updateChatListTable(model:FLChatListModel) -> Bool
     {
         var success = false
-        DatabaseManager.shared.perform { con in
+        FLDatabaseManager.shared.perform { con in
             do {
                 let sql = "UPDATE \(chatListTableName) SET avatar=?, nickName=?, lastContent=? WHERE id =?"
                 try con.run(sql, model.avatar,model.nickName,model.lastContent,model.id)
@@ -122,7 +122,7 @@ class ChatListDao
     func fetchChatListTable() -> [FLChatListModel]?
     {
         var items = [FLChatListModel]()
-        return DatabaseManager.shared.perform { con in
+        return FLDatabaseManager.shared.perform { con in
             let stmt = try! con.prepare("SELECT * FROM \(chatListTableName)")
             while let row = stmt.next() {
                 let item = FLChatListModel.init();
@@ -146,7 +146,7 @@ class ChatListDao
      */
     func fetchChatByID(chatID:Int) -> FLChatListModel?
     {
-        return DatabaseManager.shared.perform { con in
+        return FLDatabaseManager.shared.perform { con in
             let stmt = try! con.prepare("SELECT * FROM \(chatListTableName) WHERE id = ?").bind(chatID)
             let chatModel = FLChatListModel.init()
             if let row = stmt.next() {
@@ -173,7 +173,7 @@ class ChatDetailDao
     func insertChatListTable(chatID : String, model : FLChatMsgModel) -> Bool
     {
         var success = false
-        DatabaseManager.shared.perform { con in
+        FLDatabaseManager.shared.perform { con in
             do {
                 try con.run("INSERT INTO \(chatDetailTableName)\(chatID)(avatar, nickName, contentStr, lastContent,msgType,isMe)VALUES(?,?,?,?,?,?)",model.avatar,model.nickName,model.contentStr,model.lastContent,model.msgType.rawValue,model.isMe)//
                 success = true
@@ -191,7 +191,7 @@ class ChatDetailDao
     func fetchChatDetailTable(userID : String) -> [FLChatMsgModel]?
     {
         var items = [FLChatMsgModel]()
-        return DatabaseManager.shared.perform { con in
+        return FLDatabaseManager.shared.perform { con in
             let stmt = try! con.prepare("SELECT * FROM \(chatDetailTableName)\(userID)")
             while let row = stmt.next() {
                 let item = FLChatMsgModel.init();

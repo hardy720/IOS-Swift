@@ -88,7 +88,7 @@ class ChatTextMessageCell: FLChatBaseCell
         /**
          * 文字背景图片
          */
-        let size = model.contentStr.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(chart_cell_text_font)), size: CGSize(width: Chat_Cell_Text_Width, height: CGFloat(MAXFLOAT)))
+        let size = model.contentStr.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(Chart_Cell_Text_font)), size: CGSize(width: Chat_Cell_Text_Width, height: CGFloat(MAXFLOAT)))
         if model.isMe {
             if let image = UIImage(named: "bg_chat_me")
             {
@@ -99,6 +99,13 @@ class ChatTextMessageCell: FLChatBaseCell
                 make.right.equalTo(avatarImageV.snp_leftMargin).offset(-15)
                 make.width.equalTo(size.width + 30)
                 make.height.equalTo(size.height + 30)
+            }
+            
+            messageLabel.snp.remakeConstraints { make in
+                make.left.equalTo(10)
+                make.top.equalTo(10)
+                make.right.equalTo(-10)
+                make.bottom.equalTo(-10)
             }
         } else {
             if let image = UIImage(named: "bg_chat_other")
@@ -112,22 +119,22 @@ class ChatTextMessageCell: FLChatBaseCell
                 make.width.equalTo(size.width + 30)
                 make.height.equalTo(size.height + 30)
             }
+            
+            messageLabel.snp.remakeConstraints { make in
+                make.top.equalTo(bubbleImageV).offset(10)
+                make.left.equalTo(bubbleImageV).offset(15)
+                make.right.bottom.equalTo(bubbleImageV).offset(-10)
+            }
         }
         
         /**
          * 文字消息
          */
         let attributedString = NSMutableAttributedString(string: model.contentStr)
-        // 设置字符间距，这里以2.0为例
-        attributedString.addAttribute(NSAttributedString.Key.kern, value: 1.0, range: NSRange(model.contentStr.startIndex..., in: model.contentStr))
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 6
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSRange(attributedString.string.startIndex..., in: attributedString.string))
         messageLabel.attributedText = attributedString
-//        messageLabel.text = model.contentStr
-        messageLabel.snp.remakeConstraints { make in
-            make.left.equalTo(10)
-            make.top.equalTo(10)
-            make.right.equalTo(-10)
-            make.bottom.equalTo(-10)
-        }
     }
     
     override func awakeFromNib() 
@@ -152,7 +159,7 @@ class ChatTextMessageCell: FLChatBaseCell
     var messageLabel : UILabel =
     {
         let label = UILabel.init()
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: CGFloat(Chart_Cell_Text_font))
         label.textColor = .black
         label.numberOfLines = 0
         return label

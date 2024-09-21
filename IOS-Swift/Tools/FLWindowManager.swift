@@ -1,5 +1,5 @@
 //
-//  WindowManager.swift
+//  FLWindowManager.swift
 //  IOS-Swift
 //
 //  Created by hardy on 2024/9/9.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class WindowManager: NSObject 
+class FLWindowManager: NSObject
 {
-    static let shared = WindowManager()
+    static let shared = FLWindowManager()
     private var currentNavigationController: UINavigationController?
     private(set) var window: UIWindow?
     private override init() 
@@ -47,7 +47,7 @@ class WindowManager: NSObject
         let rootVCStr:String = UserDefaults.standard.string(forKey: Appdelegate_RootVC_Key_Str) ?? ""
         var rootVC = UIViewController.init()
         if rootVCStr == Appdelegate_RootVC_Value_A_Str {
-            rootVC = ChatHomeViewController.init()
+            rootVC = FLChatHomeViewController.init()
         }
         if rootVCStr == Appdelegate_RootVC_Value_B_Str || rootVCStr.fl.isStringBlank() {
             rootVC = FLHomeViewController.init()

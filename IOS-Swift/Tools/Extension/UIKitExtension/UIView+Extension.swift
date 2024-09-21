@@ -27,3 +27,42 @@ extension UIView
         self.layer.cornerRadius = corner
     }
 }
+
+class TouchListenerView: UIView
+{
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+        super.touchesBegan(touches, with: event)
+
+        print("Touch began")
+
+    }
+
+  
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+        super.touchesMoved(touches, with: event)
+
+        print("Touch moved")
+
+    }
+
+  
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+        super.touchesEnded(touches, with: event)
+
+        print("Touch ended")
+
+    }
+
+  
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
+        super.touchesCancelled(touches, with: event)
+        print("Touch cancelled")
+    }
+}

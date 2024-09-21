@@ -58,8 +58,8 @@ extension SingletonViewController
     // MARK:3.0.301. 创建单例.
     @objc func test301()
     {
-        let instance1 = Singleton.shared
-        let instance2 = Singleton.shared
+        let instance1 = FLSingleton.shared
+        let instance2 = FLSingleton.shared
         FLPrint(instance1 === instance2)
 //        FLPrint(instance1.getMessage())
     }

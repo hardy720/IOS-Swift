@@ -10,7 +10,7 @@
 		4322EEEE2C3A8488000D20BD /* FLHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4322EEED2C3A8488000D20BD /* FLHomeViewController.swift */; };
 		4322EEF02C3A84A3000D20BD /* FLBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4322EEEF2C3A84A3000D20BD /* FLBaseViewController.swift */; };
 		4322EEF22C3A8537000D20BD /* FLBaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4322EEF12C3A8537000D20BD /* FLBaseNavigationController.swift */; };
-		4322EEF52C3A88FA000D20BD /* Head.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4322EEF42C3A88FA000D20BD /* Head.swift */; };
+		4322EEF52C3A88FA000D20BD /* FLHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4322EEF42C3A88FA000D20BD /* FLHead.swift */; };
 		4322EEF82C3A8ECE000D20BD /* BaseGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4322EEF72C3A8ECE000D20BD /* BaseGroupTableViewCell.swift */; };
 		4322EEFB2C3A9389000D20BD /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4322EEFA2C3A9389000D20BD /* String+Extension.swift */; };
 		4322EEFF2C3AE52E000D20BD /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4322EEFE2C3AE52E000D20BD /* UIColor+Extension.swift */; };
@@ -23,9 +23,9 @@
 		43581D8F2C4B9BC6004F154C /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D8E2C4B9BC6004F154C /* DispatchQueue+Extension.swift */; };
 		43581D912C4BAE50004F154C /* FLAsyncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D902C4BAE50004F154C /* FLAsyncs.swift */; };
 		43581D932C4BC36D004F154C /* GCDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D922C4BC36D004F154C /* GCDViewController.swift */; };
-		435D1BA82C8E9F8E001819FF /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BA72C8E9F8E001819FF /* WindowManager.swift */; };
+		435D1BA82C8E9F8E001819FF /* FLWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BA72C8E9F8E001819FF /* FLWindowManager.swift */; };
 		435D1BAB2C8EE1A6001819FF /* FLChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BAA2C8EE1A6001819FF /* FLChatListTableViewCell.swift */; };
-		435D1BAD2C8FDEA3001819FF /* ChatDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BAC2C8FDEA3001819FF /* ChatDetailVC.swift */; };
+		435D1BAD2C8FDEA3001819FF /* FLChatDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BAC2C8FDEA3001819FF /* FLChatDetailVC.swift */; };
 		435D1D032C9148AD001819FF /* FLChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1D022C9148AD001819FF /* FLChatCell.swift */; };
 		437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */; };
 		438565F82C9857FB00D84A68 /* UImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438565F72C9857FB00D84A68 /* UImage+Extension.swift */; };
@@ -54,11 +54,11 @@
 		43F151552C392EFD003584DD /* IOS_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F151542C392EFD003584DD /* IOS_SwiftTests.swift */; };
 		43F1515F2C392EFD003584DD /* IOS_SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1515E2C392EFD003584DD /* IOS_SwiftUITests.swift */; };
 		43F151612C392EFD003584DD /* IOS_SwiftUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F151602C392EFD003584DD /* IOS_SwiftUITestsLaunchTests.swift */; };
-		43F2958F2C76E18100E5A212 /* ChatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F2958E2C76E18100E5A212 /* ChatHomeViewController.swift */; };
+		43F2958F2C76E18100E5A212 /* FLChatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F2958E2C76E18100E5A212 /* FLChatHomeViewController.swift */; };
 		43F295912C76E5DD00E5A212 /* SQLiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295902C76E5DD00E5A212 /* SQLiteViewController.swift */; };
-		43F295932C76F20400E5A212 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295922C76F20400E5A212 /* DatabaseManager.swift */; };
+		43F295932C76F20400E5A212 /* FLDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295922C76F20400E5A212 /* FLDatabaseManager.swift */; };
 		43F295952C77194100E5A212 /* SingletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295942C77194100E5A212 /* SingletonViewController.swift */; };
-		43F295972C771AA100E5A212 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295962C771AA100E5A212 /* Singleton.swift */; };
+		43F295972C771AA100E5A212 /* FLSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295962C771AA100E5A212 /* FLSingleton.swift */; };
 		43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B12C3D66E8007F386C /* FLExtensionHomeVC.swift */; };
 		43FF21B42C3D6B83007F386C /* FLUIKitExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B32C3D6B83007F386C /* FLUIKitExtensionVC.swift */; };
 		43FF21B62C3D6EF9007F386C /* FLFoundationExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B52C3D6EF9007F386C /* FLFoundationExtensionVC.swift */; };
@@ -96,7 +96,7 @@
 		4322EEED2C3A8488000D20BD /* FLHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FLHomeViewController.swift; path = "IOS-Swift/MainVC/Controller/FLHomeViewController.swift"; sourceTree = SOURCE_ROOT; };
 		4322EEEF2C3A84A3000D20BD /* FLBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FLBaseViewController.swift; path = BaseClasses/FLBaseViewController.swift; sourceTree = "<group>"; };
 		4322EEF12C3A8537000D20BD /* FLBaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLBaseNavigationController.swift; path = BaseClasses/FLBaseNavigationController.swift; sourceTree = "<group>"; };
-		4322EEF42C3A88FA000D20BD /* Head.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Head.swift; sourceTree = "<group>"; };
+		4322EEF42C3A88FA000D20BD /* FLHead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLHead.swift; sourceTree = "<group>"; };
 		4322EEF72C3A8ECE000D20BD /* BaseGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseGroupTableViewCell.swift; path = BaseClasses/View/BaseGroupTableViewCell.swift; sourceTree = "<group>"; };
 		4322EEFA2C3A9389000D20BD /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		4322EEFE2C3AE52E000D20BD /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -109,9 +109,9 @@
 		43581D8E2C4B9BC6004F154C /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		43581D902C4BAE50004F154C /* FLAsyncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAsyncs.swift; sourceTree = "<group>"; };
 		43581D922C4BC36D004F154C /* GCDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDViewController.swift; path = Controller/GCDViewController.swift; sourceTree = "<group>"; };
-		435D1BA72C8E9F8E001819FF /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		435D1BA72C8E9F8E001819FF /* FLWindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLWindowManager.swift; sourceTree = "<group>"; };
 		435D1BAA2C8EE1A6001819FF /* FLChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatListTableViewCell.swift; sourceTree = "<group>"; };
-		435D1BAC2C8FDEA3001819FF /* ChatDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailVC.swift; sourceTree = "<group>"; };
+		435D1BAC2C8FDEA3001819FF /* FLChatDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatDetailVC.swift; sourceTree = "<group>"; };
 		435D1D022C9148AD001819FF /* FLChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatCell.swift; sourceTree = "<group>"; };
 		437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasePlainTableViewCell.swift; path = BaseClasses/View/BasePlainTableViewCell.swift; sourceTree = "<group>"; };
 		438565F72C9857FB00D84A68 /* UImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UImage+Extension.swift"; sourceTree = "<group>"; };
@@ -144,11 +144,11 @@
 		43F1515A2C392EFD003584DD /* IOS-SwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IOS-SwiftUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F1515E2C392EFD003584DD /* IOS_SwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOS_SwiftUITests.swift; sourceTree = "<group>"; };
 		43F151602C392EFD003584DD /* IOS_SwiftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOS_SwiftUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		43F2958E2C76E18100E5A212 /* ChatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHomeViewController.swift; sourceTree = "<group>"; };
+		43F2958E2C76E18100E5A212 /* FLChatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatHomeViewController.swift; sourceTree = "<group>"; };
 		43F295902C76E5DD00E5A212 /* SQLiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SQLiteViewController.swift; path = Controller/SQLiteViewController.swift; sourceTree = "<group>"; };
-		43F295922C76F20400E5A212 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		43F295922C76F20400E5A212 /* FLDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLDatabaseManager.swift; sourceTree = "<group>"; };
 		43F295942C77194100E5A212 /* SingletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SingletonViewController.swift; path = Controller/SingletonViewController.swift; sourceTree = "<group>"; };
-		43F295962C771AA100E5A212 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
+		43F295962C771AA100E5A212 /* FLSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLSingleton.swift; sourceTree = "<group>"; };
 		43FF21B12C3D66E8007F386C /* FLExtensionHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLExtensionHomeVC.swift; path = Controller/FLExtensionHomeVC.swift; sourceTree = "<group>"; };
 		43FF21B32C3D6B83007F386C /* FLUIKitExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLUIKitExtensionVC.swift; path = Controller/FLUIKitExtensionVC.swift; sourceTree = "<group>"; };
 		43FF21B52C3D6EF9007F386C /* FLFoundationExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLFoundationExtensionVC.swift; path = Controller/FLFoundationExtensionVC.swift; sourceTree = "<group>"; };
@@ -260,11 +260,11 @@
 			children = (
 				43FF21B92C3E2878007F386C /* SmallTools */,
 				4322EEF92C3A9334000D20BD /* Extension */,
-				4322EEF42C3A88FA000D20BD /* Head.swift */,
+				4322EEF42C3A88FA000D20BD /* FLHead.swift */,
 				43FF21BC2C3E31B1007F386C /* FLPop.swift */,
-				43F295922C76F20400E5A212 /* DatabaseManager.swift */,
-				435D1BA72C8E9F8E001819FF /* WindowManager.swift */,
-				43F295962C771AA100E5A212 /* Singleton.swift */,
+				43F295922C76F20400E5A212 /* FLDatabaseManager.swift */,
+				435D1BA72C8E9F8E001819FF /* FLWindowManager.swift */,
+				43F295962C771AA100E5A212 /* FLSingleton.swift */,
 				438A7AAC2C89A28F005CFCF1 /* PopMenu */,
 			);
 			path = Tools;
@@ -405,8 +405,8 @@
 		43F2958D2C76E16600E5A212 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				43F2958E2C76E18100E5A212 /* ChatHomeViewController.swift */,
-				435D1BAC2C8FDEA3001819FF /* ChatDetailVC.swift */,
+				43F2958E2C76E18100E5A212 /* FLChatHomeViewController.swift */,
+				435D1BAC2C8FDEA3001819FF /* FLChatDetailVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -690,7 +690,7 @@
 				43C570C12C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift in Sources */,
 				438565FA2C9928E200D84A68 /* UIFont+Extension.swift in Sources */,
 				4322EEFB2C3A9389000D20BD /* String+Extension.swift in Sources */,
-				43F2958F2C76E18100E5A212 /* ChatHomeViewController.swift in Sources */,
+				43F2958F2C76E18100E5A212 /* FLChatHomeViewController.swift in Sources */,
 				43F151422C392EFA003584DD /* ViewController.swift in Sources */,
 				43F295912C76E5DD00E5A212 /* SQLiteViewController.swift in Sources */,
 				433072A72C40EBAB007FADED /* SystemTypeVC.swift in Sources */,
@@ -698,11 +698,11 @@
 				435D1D032C9148AD001819FF /* FLChatCell.swift in Sources */,
 				437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */,
 				43D40A072C5639E4009F1260 /* OperationQueuesVC.swift in Sources */,
-				43F295932C76F20400E5A212 /* DatabaseManager.swift in Sources */,
+				43F295932C76F20400E5A212 /* FLDatabaseManager.swift in Sources */,
 				433072A32C3FD21B007FADED /* SummaryHomeVC.swift in Sources */,
 				43FF21BD2C3E31B1007F386C /* FLPop.swift in Sources */,
-				435D1BA82C8E9F8E001819FF /* WindowManager.swift in Sources */,
-				43F295972C771AA100E5A212 /* Singleton.swift in Sources */,
+				435D1BA82C8E9F8E001819FF /* FLWindowManager.swift in Sources */,
+				43F295972C771AA100E5A212 /* FLSingleton.swift in Sources */,
 				438A7AAE2C89B362005CFCF1 /* UIView+Extension.swift in Sources */,
 				43F151402C392EFA003584DD /* SceneDelegate.swift in Sources */,
 				435D1BAB2C8EE1A6001819FF /* FLChatListTableViewCell.swift in Sources */,
@@ -714,10 +714,10 @@
 				439B59CF2C9331BE004B07D6 /* FLChatListModel.swift in Sources */,
 				43DCF1D82C5BE4CA007E25D0 /* Int+Extension.swift in Sources */,
 				433072AB2C40F178007FADED /* SystemReferenceTypeVC.swift in Sources */,
-				435D1BAD2C8FDEA3001819FF /* ChatDetailVC.swift in Sources */,
+				435D1BAD2C8FDEA3001819FF /* FLChatDetailVC.swift in Sources */,
 				43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */,
 				439B59CD2C933103004B07D6 /* FLChatMsgModel.swift in Sources */,
-				4322EEF52C3A88FA000D20BD /* Head.swift in Sources */,
+				4322EEF52C3A88FA000D20BD /* FLHead.swift in Sources */,
 				43C570BD2C4412B400E7ECB3 /* CGPointExtensionVC.swift in Sources */,
 				43D40A052C560974009F1260 /* NSThreadViewController.swift in Sources */,
 				439084B12C6E49D100ACA9A2 /* KeyWordViewController.swift in Sources */,

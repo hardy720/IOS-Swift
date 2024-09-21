@@ -1,5 +1,5 @@
 //
-//  ChatHomeViewController.swift
+//  FLChatHomeViewController.swift
 //  IOS-Swift
 //
 //  Created by hardy on 2024/8/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatHomeViewController: UIViewController
+class FLChatHomeViewController: UIViewController
 {
     static let cellID : String = "ChatListId"
     
@@ -42,7 +42,7 @@ class ChatHomeViewController: UIViewController
         let popMenu = FLPopMenu(menuWidth: 150, arrow: CGPoint(x: screenW() - 25, y: fNavigaH), datas: popData,configures: parameters)
         popMenu.didSelectMenuBlock = { [weak self](index:Int)->Void in
             if index == 0 {
-                WindowManager.shared.changeRootVC();
+                FLWindowManager.shared.changeRootVC();
             }
             if index == 1 {
                 let model = FLChatListModel.init()
@@ -68,13 +68,14 @@ class ChatHomeViewController: UIViewController
         let tableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: screenW(), height: screenH()), style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(FLChatListTableViewCell.classForCoder(), forCellReuseIdentifier: ChatHomeViewController.cellID)
+        tableView.register(FLChatListTableViewCell.classForCoder(), forCellReuseIdentifier: FLChatHomeViewController.cellID)
         tableView.rowHeight = 75
+        tableView.backgroundColor = .white
         return tableView
     }()
 }
 
-extension ChatHomeViewController : UITableViewDataSource,UITableViewDelegate
+extension FLChatHomeViewController : UITableViewDataSource,UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -83,7 +84,7 @@ extension ChatHomeViewController : UITableViewDataSource,UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ChatHomeViewController.cellID) as! FLChatListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FLChatHomeViewController.cellID) as! FLChatListTableViewCell
         let model = dataArr[indexPath.row]
         cell.setModel(model: model)
         return cell
@@ -109,8 +110,8 @@ extension ChatHomeViewController : UITableViewDataSource,UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) 
     {
         let model = dataArr[indexPath.row]
-        let chatDetailVC = ChatDetailVC.init()
-        DatabaseManager.shared.createChat(userID: "\(model.id)")
+        let chatDetailVC = FLChatDetailVC.init()
+        FLDatabaseManager.shared.createChat(userID: "\(model.id)")
         chatDetailVC.chatModel = model
         self.navigationController?.pushViewController(chatDetailVC, animated: true)
     }

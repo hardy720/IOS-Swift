@@ -17,8 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             if self.window == nil {
                 self.window = UIWindow(windowScene: windowScene)
             }
-            WindowManager.shared.setUpWindow(self.window!)
-            WindowManager.shared.setRootVC();
+            FLWindowManager.shared.setUpWindow(self.window!)
+            FLWindowManager.shared.setRootVC();
         }
     }
 
@@ -52,4 +52,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
-

@@ -16,6 +16,8 @@ import CryptoKit
 let Appdelegate_RootVC_Key_Str = "Appdelegate_RootVC"
 let Appdelegate_RootVC_Value_A_Str = "A"
 let Appdelegate_RootVC_Value_B_Str = "B"
+let User_My_Avatar = "User_MyAvatar"
+let User_My_NickName = "User_MyNickName"
 
 extension String: FLPOPCompatible {}
 

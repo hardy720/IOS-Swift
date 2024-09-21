@@ -21,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setDatabase()
     {
-        DatabaseManager.shared.setup();
+        FLDatabaseManager.shared.setup();
+        saveUserInfo()
     }
 
     // MARK: UISceneSession Lifecycle

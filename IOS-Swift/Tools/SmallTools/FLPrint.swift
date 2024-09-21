@@ -33,7 +33,7 @@ public func FLPrint(_ msg: Any...,
     print(prefix)
     
     if isShowAlert {
-        if let navController = WindowManager.shared.getCurrentNavigationController() {
+        if let navController = FLWindowManager.shared.getCurrentNavigationController() {
             DispatchQueue.main.async {
                 navController.view.makeToast(prefix)
             }
