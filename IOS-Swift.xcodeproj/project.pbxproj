@@ -45,6 +45,7 @@
 		43D40A052C560974009F1260 /* NSThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D40A042C560974009F1260 /* NSThreadViewController.swift */; };
 		43D40A072C5639E4009F1260 /* OperationQueuesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */; };
 		43DCF1D82C5BE4CA007E25D0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCF1D72C5BE4CA007E25D0 /* Int+Extension.swift */; };
+		43E4AFEE2CA2778600623EE1 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E4AFED2CA2778600623EE1 /* UITableView+Extension.swift */; };
 		43F1513E2C392EFA003584DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1513D2C392EFA003584DD /* AppDelegate.swift */; };
 		43F151402C392EFA003584DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1513F2C392EFA003584DD /* SceneDelegate.swift */; };
 		43F151422C392EFA003584DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F151412C392EFA003584DD /* ViewController.swift */; };
@@ -131,6 +132,7 @@
 		43D40A042C560974009F1260 /* NSThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSThreadViewController.swift; path = Controller/NSThreadViewController.swift; sourceTree = "<group>"; };
 		43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OperationQueuesVC.swift; path = Controller/OperationQueuesVC.swift; sourceTree = "<group>"; };
 		43DCF1D72C5BE4CA007E25D0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		43E4AFED2CA2778600623EE1 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		43F1513A2C392EFA003584DD /* IOS-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IOS-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F1513D2C392EFA003584DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43F1513F2C392EFA003584DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				438A7AAD2C89B362005CFCF1 /* UIView+Extension.swift */,
 				438565F72C9857FB00D84A68 /* UImage+Extension.swift */,
 				438565F92C9928E200D84A68 /* UIFont+Extension.swift */,
+				43E4AFED2CA2778600623EE1 /* UITableView+Extension.swift */,
 			);
 			path = UIKitExtension;
 			sourceTree = "<group>";
@@ -705,6 +708,7 @@
 				43F295972C771AA100E5A212 /* FLSingleton.swift in Sources */,
 				438A7AAE2C89B362005CFCF1 /* UIView+Extension.swift in Sources */,
 				43F151402C392EFA003584DD /* SceneDelegate.swift in Sources */,
+				43E4AFEE2CA2778600623EE1 /* UITableView+Extension.swift in Sources */,
 				435D1BAB2C8EE1A6001819FF /* FLChatListTableViewCell.swift in Sources */,
 				4385665E2C99521100D84A68 /* FLCustomKeyboardView.swift in Sources */,
 				43F295952C77194100E5A212 /* SingletonViewController.swift in Sources */,

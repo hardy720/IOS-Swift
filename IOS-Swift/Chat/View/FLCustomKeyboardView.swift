@@ -36,7 +36,7 @@ class FLCustomKeyboardView: UIView
     
     lazy var voiceButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "chat_keyboard_voice"), for: .normal)
+        button.setImage(UIImage(named: "icon_chat_keyboard_voice_hl"), for: .normal)
         button.addTarget(self, action: #selector(handleVoiceButtonTap), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -108,6 +108,7 @@ extension FLCustomKeyboardView: UITextViewDelegate
     func textViewDidChange(_ textView: UITextView)
     {
         let size = textView.text.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(Chart_Keyboard_TextView_font)), size: CGSize(width: textView.frame.size.width - 10, height: CGFloat(MAXFLOAT)))
+        FLPrint("======\(self.frame.size.height)")
         if size.height > self.frame.size.height - 30 {
             delegate?.didChangeTVHeight(30)
             initLayout()

@@ -9,12 +9,13 @@ import UIKit
 
 extension UIImage
 {
-    /**
-     * capInsets 是用来指定哪些边缘区域不被拉伸，而中间区域则会被拉伸以填充额外的空间
-     */
-    func resizableImageWithCenteredStretch(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> UIImage
-    {
-        let capInsets = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
-        return resizableImage(withCapInsets: capInsets, resizingMode: .stretch)
+    /// 图片点九处理
+    /// - Parameter sscale: 比例
+    func stretchableImage(centerStretchScale sscale:CGFloat) -> UIImage {
+        let top = self.size.height - 8;
+        let left = self.size.width / 2 - 2;
+        let right = self.size.width / 2 + 2;
+        let bottom = self.size.height - 4;
+        return self.resizableImage(withCapInsets: UIEdgeInsets.init(top: top, left: left, bottom: bottom, right: right), resizingMode: .stretch)
     }
 }

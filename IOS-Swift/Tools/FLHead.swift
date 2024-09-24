@@ -66,17 +66,17 @@ let getDatabasePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .u
 
 func saveUserInfo()
 {
-    UserDefaults.standard.set("https://gips0.baidu.com/it/u=4249018170,539979145&fm=3039&app=3039&f=JPEG?w=1024&h=1024", forKey: User_My_Avatar)
-    UserDefaults.standard.set("擎天柱", forKey: User_My_NickName)
+    UserDefaults.standard.set("https://gips0.baidu.com/it/u=4249018170,539979145&fm=3039&app=3039&f=JPEG?w=1024&h=1024", forKey: Chat_User_Avatar)
+    UserDefaults.standard.set("擎天柱", forKey: Chat_User_NickName)
 }
 
 func getUserAvatar() -> String
 {
-    return UserDefaults.standard.object(forKey: User_My_Avatar) as? String ?? ""
+    return UserDefaults.standard.object(forKey: Chat_User_Avatar) as? String ?? ""
 }
 
 func getUserNickName() -> String
 {
-    return UserDefaults.standard.object(forKey: User_My_NickName) as? String ?? ""
+    return UserDefaults.standard.object(forKey: Chat_User_NickName) as? String ?? ""
 }
 

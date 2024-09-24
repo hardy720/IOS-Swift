@@ -32,7 +32,13 @@ class FLChatHomeViewController: UIViewController
     
     @objc func showPopMenu(_ item: UIBarButtonItem)
     {
-        let popData = [(icon:"icon_chat_switch",title:"切换状态"), (icon:"icon_chat_chat",title:"新建聊天"), (icon:"icon_chat_scan",title:"扫一扫")]
+        var testStr = ""
+        if UserDefaults.standard.bool(forKey: Test_Test_IsOpen)   {
+            testStr = Test_Test_CloseTest
+        }else{
+            testStr = Test_Test_OpenTest
+        }
+        let popData = [(icon:"icon_chat_switch",title:Appdelegate_HomeVC_SwitchStatus), (icon:"icon_chat_chat",title:Chat_ChatHome_NewChat), (icon:"test_test_test",title:testStr)]
         let parameters:[FLPopMenuConfigure] =
         [
             .PopMenuTextColor(UIColor.black),
@@ -53,6 +59,9 @@ class FLChatHomeViewController: UIViewController
                 FLPrint("新增是否成功:\(isok)")
                 self?.initData()
                 self?.tableView?.reloadData()
+            }
+            if index == 2 {
+                UserDefaults.standard.bool(forKey: Test_Test_IsOpen) ? UserDefaults.standard.setValue(false, forKey: Test_Test_IsOpen) : UserDefaults.standard.setValue(true, forKey: Test_Test_IsOpen)
             }
         }
         popMenu.show()

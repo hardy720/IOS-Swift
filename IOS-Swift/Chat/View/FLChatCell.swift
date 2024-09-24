@@ -89,10 +89,11 @@ class ChatTextMessageCell: FLChatBaseCell
          * 文字背景图片
          */
         let size = model.contentStr.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(Chart_Cell_Text_font)), size: CGSize(width: Chat_Cell_Text_Width, height: CGFloat(MAXFLOAT)))
+
         if model.isMe {
             if let image = UIImage(named: "bg_chat_me")
             {
-                bubbleImageV.image = image.resizableImageWithCenteredStretch(top: 20, left: 10, bottom: 20, right: 10)
+                bubbleImageV.image = image.stretchableImage(centerStretchScale: 0.65)
             }
             bubbleImageV.snp.remakeConstraints { make in
                 make.top.equalTo(avatarImageV)
@@ -102,17 +103,16 @@ class ChatTextMessageCell: FLChatBaseCell
             }
             
             messageLabel.snp.remakeConstraints { make in
-                make.left.equalTo(10)
-                make.top.equalTo(10)
-                make.right.equalTo(-10)
-                make.bottom.equalTo(-10)
+                make.left.equalTo(bubbleImageV).offset(16)
+                make.top.equalTo(bubbleImageV).offset(10)
+                make.right.equalTo(bubbleImageV).offset(-10)
+                make.bottom.equalTo(bubbleImageV).offset(-10)
             }
         } else {
             if let image = UIImage(named: "bg_chat_other")
             {
-                bubbleImageV.image = image.resizableImageWithCenteredStretch(top: 20, left: 10, bottom: 20, right: 10)
+                bubbleImageV.image = image.stretchableImage(centerStretchScale: 0.65)
             }
-            
             bubbleImageV.snp.remakeConstraints { make in
                 make.top.equalTo(avatarImageV)
                 make.left.equalTo(avatarImageV.snp_rightMargin).offset(15)
@@ -121,9 +121,12 @@ class ChatTextMessageCell: FLChatBaseCell
             }
             
             messageLabel.snp.remakeConstraints { make in
-                make.top.equalTo(bubbleImageV).offset(10)
-                make.left.equalTo(bubbleImageV).offset(15)
-                make.right.bottom.equalTo(bubbleImageV).offset(-10)
+//                make.top.equalTo(bubbleImageV).offset(10)
+                make.left.equalTo(bubbleImageV).offset(16)
+//                make.bottom.equalTo(bubbleImageV).offset(-10)
+                make.right.equalTo(bubbleImageV).offset(-10)
+                make.centerY.equalTo(bubbleImageV)
+                make.height.equalTo(size.height)
             }
         }
         
@@ -132,7 +135,7 @@ class ChatTextMessageCell: FLChatBaseCell
          */
         let attributedString = NSMutableAttributedString(string: model.contentStr)
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 6
+        paragraphStyle.lineSpacing = 5
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSRange(attributedString.string.startIndex..., in: attributedString.string))
         messageLabel.attributedText = attributedString
     }

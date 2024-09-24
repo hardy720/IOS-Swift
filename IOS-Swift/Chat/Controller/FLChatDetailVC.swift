@@ -13,15 +13,26 @@ class FLChatDetailVC: UIViewController
     private var dataArr: [FLChatMsgModel] = []
     private static let cellID_type_text : String = "Chat_Detail_CellID_Text"
     private var customKeyboardView : FLCustomKeyboardView? = nil
-    private var lastContentOffset: CGFloat = 0.0
     private var isShowKeyboard : Bool = false
     private var keyboardHeight : CGFloat = 0
     private var isSended: Bool = true
+    private var timer: Timer?
     
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-        self.initData()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool)
+    {
+        super.viewDidDisappear(animated)
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    deinit
+    {
+        
     }
     
     override func viewDidLoad()
@@ -29,6 +40,7 @@ class FLChatDetailVC: UIViewController
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.initData()
         self.initUI()
         self.initNoti()
     }
@@ -38,22 +50,14 @@ class FLChatDetailVC: UIViewController
         dataArr = ChatDetailDao.init().fetchChatDetailTable(userID: "\(chatModel!.id)")!
         print(dataArr)
         
-        test()
+        if UserDefaults.standard.bool(forKey: Test_Test_IsOpen) {
+            timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        }
         
         cellScrollToBottom()
     }
-
-    func test()
-    {
-        let model = FLChatMsgModel.init()
-        model.nickName = getUserNickName()
-        model.avatar = chatModel!.avatar
-        model.contentStr = "砥砺奋进都发了快点放假,浪费地脚螺栓咖啡机，打开了福建师范冷风机。翻到了咖啡机佛IE我i哦额我饿加热机。佛法丢哦i我饿金额王老吉方法打撒。简单说了附加费独守空房垃圾了扩大飞机索拉卡发撒登记卡飞拉达生发剂失蜡法金卡拉萨剪发卡电极法手打。这两款的角度看水力发电激发说法@fdlfjfksld收到发快递"
-        model.msgType = .msg_text
-        model.isMe = false
-        let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
-        dataArr.append(model)
-    }
+    
+    
     
     func initUI()
     {
@@ -88,9 +92,8 @@ extension FLChatDetailVC
     func cellScrollToBottom()
     {
         if !self.dataArr.isEmpty {
-            DispatchQueue.main.async {
-                let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
-                self.tableView!.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            DispatchQueue.main.async {                
+                self.tableView!.scrollToLast(at: .bottom, animated: false)
             }
         }
     }
@@ -192,19 +195,9 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) 
     {
-        if isSended {
-            return
+        if !isSended {
+            self.view.endEditing(true)
         }
-        let currentOffset = scrollView.contentOffset.y
-        if lastContentOffset < currentOffset {
-            // 向下滚动
-        } else if lastContentOffset > currentOffset {
-            // 向上滚动
-            if isShowKeyboard {
-                self.view.endEditing(true)
-            }
-        }
-        lastContentOffset = currentOffset
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
@@ -241,5 +234,41 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     func didChangeTVHeight(_ height: CGFloat)
     {
         customKeyboardView?.frame = CGRect(x: 0, y: (customKeyboardView?.frame.origin.y)! - height, width: screenW(), height: (customKeyboardView?.frame.size.height)! + height)
+    }
+}
+
+// MARK: - Test -
+extension FLChatDetailVC
+{
+    @objc func timerAction()
+    {
+        test()
+    }
+
+    func test()
+    {
+        let model = FLChatMsgModel.init()
+        model.contentStr = String.fl.shuffleString()
+        model.msgType = .msg_text
+        let i = Int.fl.random(within: 0..<10)
+        if i > 5 {
+            model.isMe = false
+            model.avatar = chatModel!.avatar
+            model.nickName = getUserNickName()
+        }else{
+            model.isMe = true
+            model.nickName = getUserNickName()
+            model.avatar = getUserAvatar()
+        }
+        let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+        dataArr.append(model)
+        
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
+            self.tableView?.beginUpdates()
+            self.tableView?.insertRows(at: [indexPath], with: .bottom)
+            self.tableView?.endUpdates()
+        }
+        cellScrollToBottom()
     }
 }
