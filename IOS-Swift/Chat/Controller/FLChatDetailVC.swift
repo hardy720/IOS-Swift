@@ -23,6 +23,11 @@ class FLChatDetailVC: UIViewController
         super.viewWillAppear(animated)
     }
     
+    override func viewIsAppearing(_ animated: Bool) 
+    {
+        super.viewIsAppearing(animated)
+    }
+    
     override func viewDidDisappear(_ animated: Bool)
     {
         super.viewDidDisappear(animated)
@@ -53,7 +58,6 @@ class FLChatDetailVC: UIViewController
         if UserDefaults.standard.bool(forKey: Test_Test_IsOpen) {
             timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         }
-        
         cellScrollToBottom()
     }
     
@@ -67,6 +71,7 @@ class FLChatDetailVC: UIViewController
         customKeyboardView = FLCustomKeyboardView.init(frame: CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom, width: screenW(), height: Chat_Custom_Keyboard_Height))
         customKeyboardView?.delegate = self
         view.addSubview(customKeyboardView!)
+        initRecord()
     }
     
     lazy var tableView: UITableView? =
@@ -83,6 +88,47 @@ class FLChatDetailVC: UIViewController
         tableView.addGestureRecognizer(tap)
         return tableView
     }()
+}
+
+// MARK: - 录音 -
+extension FLChatDetailVC
+{
+    func initRecord()
+    {
+        // 开始录音
+        customKeyboardView?.recordButton.recordTouchDownAction = { recordButton in
+            print("开始录音")
+            if FLAudioRecorder.shared.getAuthorizedStatus() {
+                let recordPath = getRecordPath + "/" + "\(self.chatModel!.id)" + "_" + Date.fl.currentDate_SSS() + ".caf"
+                FLAudioRecorder.shared.startRecord(recordPath:recordPath as NSString)
+            }else{
+                self.view.makeToast(Chat_Keyboart_Record_Check_Permission, duration: 3.0, position: .center)
+            }
+        }
+        
+        // 完成录音
+        customKeyboardView?.recordButton.recordTouchUpInsideAction = { recordButton in
+            print("完成录音")
+            if FLAudioRecorder.shared.getAuthorizedStatus() {
+                FLAudioRecorder.shared.stopSoundRecord();
+            }
+        }
+        
+        // 取消录音
+        customKeyboardView?.recordButton.recordTouchUpOutsideAction = { recordButton in
+            print("取消录音")
+        }
+        
+        // 将取消录音
+        customKeyboardView?.recordButton.recordTouchDragExitAction = { recordButton in
+            print("将取消录音")
+        }
+        
+        // 继续录音
+        customKeyboardView?.recordButton.recordTouchDragInsideAction = { recordButton in
+            print("继续录音")
+        }
+    }
 }
 
 // MARK: - 工具
@@ -179,12 +225,9 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
             let size = model.contentStr.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(Chart_Cell_Text_font)), size: CGSize(width: Chat_Cell_Text_Width, height: CGFloat(MAXFLOAT)))
             height = size.height + 50
             break
-            
         default:
-            
             break
         }
-        
         return height
     }
     

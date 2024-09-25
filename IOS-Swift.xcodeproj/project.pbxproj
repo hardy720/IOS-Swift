@@ -20,6 +20,7 @@
 		433072A72C40EBAB007FADED /* SystemTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072A62C40EBAB007FADED /* SystemTypeVC.swift */; };
 		433072A92C40F15D007FADED /* SystemValueTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072A82C40F15D007FADED /* SystemValueTypeVC.swift */; };
 		433072AB2C40F178007FADED /* SystemReferenceTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072AA2C40F178007FADED /* SystemReferenceTypeVC.swift */; };
+		434120492CA3B370005A0A73 /* FLAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434120482CA3B370005A0A73 /* FLAudioRecorder.swift */; };
 		43581D8F2C4B9BC6004F154C /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D8E2C4B9BC6004F154C /* DispatchQueue+Extension.swift */; };
 		43581D912C4BAE50004F154C /* FLAsyncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D902C4BAE50004F154C /* FLAsyncs.swift */; };
 		43581D932C4BC36D004F154C /* GCDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D922C4BC36D004F154C /* GCDViewController.swift */; };
@@ -107,6 +108,7 @@
 		433072A62C40EBAB007FADED /* SystemTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemTypeVC.swift; path = Controller/SystemTypeVC.swift; sourceTree = "<group>"; };
 		433072A82C40F15D007FADED /* SystemValueTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemValueTypeVC.swift; path = Controller/SystemValueTypeVC.swift; sourceTree = "<group>"; };
 		433072AA2C40F178007FADED /* SystemReferenceTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemReferenceTypeVC.swift; path = Controller/SystemReferenceTypeVC.swift; sourceTree = "<group>"; };
+		434120482CA3B370005A0A73 /* FLAudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAudioRecorder.swift; sourceTree = "<group>"; };
 		43581D8E2C4B9BC6004F154C /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		43581D902C4BAE50004F154C /* FLAsyncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAsyncs.swift; sourceTree = "<group>"; };
 		43581D922C4BC36D004F154C /* GCDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDViewController.swift; path = Controller/GCDViewController.swift; sourceTree = "<group>"; };
@@ -264,8 +266,7 @@
 				4322EEF92C3A9334000D20BD /* Extension */,
 				4322EEF42C3A88FA000D20BD /* FLHead.swift */,
 				43FF21BC2C3E31B1007F386C /* FLPop.swift */,
-				43F295922C76F20400E5A212 /* FLDatabaseManager.swift */,
-				435D1BA72C8E9F8E001819FF /* FLWindowManager.swift */,
+				434120472CA3B348005A0A73 /* Manager */,
 				43F295962C771AA100E5A212 /* FLSingleton.swift */,
 				438A7AAC2C89A28F005CFCF1 /* PopMenu */,
 			);
@@ -315,6 +316,16 @@
 				43E4AFED2CA2778600623EE1 /* UITableView+Extension.swift */,
 			);
 			path = UIKitExtension;
+			sourceTree = "<group>";
+		};
+		434120472CA3B348005A0A73 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				435D1BA72C8E9F8E001819FF /* FLWindowManager.swift */,
+				43F295922C76F20400E5A212 /* FLDatabaseManager.swift */,
+				434120482CA3B370005A0A73 /* FLAudioRecorder.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		435D1BA92C8EE188001819FF /* View */ = {
@@ -737,6 +748,7 @@
 				43A4D0EB2C783B420029FFB0 /* ExceptionViewController.swift in Sources */,
 				433072A12C3FC23E007FADED /* Array+Extension.swift in Sources */,
 				438565F82C9857FB00D84A68 /* UImage+Extension.swift in Sources */,
+				434120492CA3B370005A0A73 /* FLAudioRecorder.swift in Sources */,
 				4322EEFF2C3AE52E000D20BD /* UIColor+Extension.swift in Sources */,
 				433072A92C40F15D007FADED /* SystemValueTypeVC.swift in Sources */,
 				43FF21BF2C3E3353007F386C /* Date+Extension.swift in Sources */,

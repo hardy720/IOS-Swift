@@ -10,7 +10,15 @@ import UIKit
 
 public extension UITableView 
 {
-    func scrollToLast(at scrollPosition: UITableView.ScrollPosition, animated: Bool) 
+    func scrollToFirst(at scrollPosition: UITableView.ScrollPosition, animated: Bool)
+    {
+        guard numberOfSections > 0 else { return }
+        guard numberOfRows(inSection: 0) > 0 else { return }
+        let indexPath = IndexPath(item: 0, section: 0)
+        scrollToRow(at: indexPath, at: scrollPosition, animated: animated)
+    }
+    
+    func scrollToLast(at scrollPosition: UITableView.ScrollPosition, animated: Bool)
     {
         guard numberOfSections > 0 else { return }
         let lastSection = numberOfSections - 1

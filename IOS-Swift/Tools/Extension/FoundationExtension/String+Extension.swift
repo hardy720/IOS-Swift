@@ -20,9 +20,13 @@ let Appdelegate_HomeVC_SwitchStatus = "切换状态"
 let Chat_ChatHome_NewChat = "新建聊天"
 let Chat_User_Avatar = "User_MyAvatar"
 let Chat_User_NickName = "User_MyNickName"
+let Chat_Keyboard_Hold_Speak = "按住 说话"
+let Chat_Keyboard_Release_End = "松开 结束"
+let Chat_Keyboart_Record_Check_Permission = "请检查麦克风授权"
 let Test_Test_IsOpen = "Test_Test_IsOpen"
 let Test_Test_OpenTest = "Open Test"
 let Test_Test_CloseTest = "Close Test"
+
 
 extension String: FLPOPCompatible {}
 

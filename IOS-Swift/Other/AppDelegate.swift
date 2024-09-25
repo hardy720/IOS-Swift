@@ -23,10 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         FLDatabaseManager.shared.setup();
         saveUserInfo()
+        createFolderInDocumentsDirectoryIfNeeded(folderName: "chat_Record_\(UserDefaults.standard.object(forKey: "USERID") ?? "0")")
     }
 
     // MARK: UISceneSession Lifecycle
-
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.

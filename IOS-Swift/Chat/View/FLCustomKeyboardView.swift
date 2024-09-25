@@ -16,6 +16,7 @@ protocol FLCustomKeyboardViewDelegate : AnyObject
 class FLCustomKeyboardView: UIView
 {
     weak var delegate: FLCustomKeyboardViewDelegate?
+    private var isVoiceBtn = false
     lazy var backView : UIView = {
         let backView = UIView()
         backView.backgroundColor = Chat_CustomKeyBoard_Back_Gray
@@ -37,8 +38,13 @@ class FLCustomKeyboardView: UIView
     lazy var voiceButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "icon_chat_keyboard_voice_hl"), for: .normal)
-        button.addTarget(self, action: #selector(handleVoiceButtonTap), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleVoiceButtonTap(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var recordButton: FLRecordButton = {
+        let button = FLRecordButton.init()
         return button
     }()
     
@@ -85,11 +91,6 @@ class FLCustomKeyboardView: UIView
 // MARK: - Delegate -
 extension FLCustomKeyboardView: UITextViewDelegate
 {
-    @objc func handleVoiceButtonTap()
-    {
-        print("123")
-    }
-    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
     {
         if text == "\n" {
@@ -120,8 +121,122 @@ extension FLCustomKeyboardView: UITextViewDelegate
 // MARK: - Tools -
 extension FLCustomKeyboardView
 {
-    func adjustTextViewHeight() 
+    @objc func handleVoiceButtonTap(_ button: UIButton)
     {
-        
+        if isVoiceBtn {
+            button.setImage(UIImage(named: "icon_chat_keyboard_voice_hl"), for: .normal)
+            isVoiceBtn = false
+            inputTextView.becomeFirstResponder()
+            recordButton.removeFromSuperview()
+        }else{
+            button.setImage(UIImage(named: "icon_chat_keyboard"), for: .normal)
+            isVoiceBtn = true
+            self.endEditing(true)
+            inputTextView.addSubview(recordButton)
+            recordButton.frame = CGRectMake(0, 0, inputTextView.frame.size.width, inputTextView.frame.size.height)
+        }
+    }
+}
+
+class FLRecordButton: UIButton
+{
+    // 定义回调类型
+    typealias RecordTouchDown = (_ recordButton: FLRecordButton) -> Void
+    typealias RecordTouchUpOutside = (_ recordButton: FLRecordButton) -> Void
+    typealias RecordTouchUpInside = (_ recordButton: FLRecordButton) -> Void
+    typealias RecordTouchDragEnter = (_ recordButton: FLRecordButton) -> Void
+    typealias RecordTouchDragInside = (_ recordButton: FLRecordButton) -> Void
+    typealias RecordTouchDragOutside = (_ recordButton: FLRecordButton) -> Void
+    typealias RecordTouchDragExit = (_ recordButton: FLRecordButton) -> Void
+      
+    // 回调属性
+    var recordTouchDownAction: RecordTouchDown?
+    var recordTouchUpOutsideAction: RecordTouchUpOutside?
+    var recordTouchUpInsideAction: RecordTouchUpInside?
+    var recordTouchDragEnterAction: RecordTouchDragEnter?
+    var recordTouchDragInsideAction: RecordTouchDragInside?
+    var recordTouchDragOutsideAction: RecordTouchDragOutside?
+    var recordTouchDragExitAction: RecordTouchDragExit?
+      
+    override init(frame: CGRect) 
+    {
+        super.init(frame: frame)
+        self.setup()
+    }
+      
+    required init?(coder: NSCoder) 
+    {
+        super.init(coder: coder)
+        self.setup()
+    }
+      
+    private func setup() 
+    {
+        self.backgroundColor = Chat_CustomKeyBoard_Back_Start_RecordVoice
+        self.setTitle(Chat_Keyboard_Hold_Speak, for: .normal)
+        self.setTitleColor(UIColor.darkGray, for: .normal)
+        self.layer.cornerRadius = 5.0
+        self.layer.borderWidth = 0.5
+        self.layer.borderColor = UIColor(white: 0.6, alpha: 1.0).cgColor
+          
+        self.addTarget(self, action: #selector(recordTouchDown), for: .touchDown)
+        self.addTarget(self, action: #selector(recordTouchUpOutside), for: .touchUpOutside)
+        self.addTarget(self, action: #selector(recordTouchUpInside), for: .touchUpInside)
+        self.addTarget(self, action: #selector(recordTouchDragEnter), for: .touchDragEnter)
+        self.addTarget(self, action: #selector(recordTouchDragInside), for: .touchDragInside)
+        self.addTarget(self, action: #selector(recordTouchDragOutside), for: .touchDragOutside)
+        self.addTarget(self, action: #selector(recordTouchDragExit), for: .touchDragExit)
+    }
+      
+    @objc func recordTouchDown() 
+    {
+        recordTouchDownAction?(self)
+        setButtonStateWithRecording()
+    }
+      
+    @objc func recordTouchUpOutside() 
+    {
+        recordTouchUpOutsideAction?(self)
+        setButtonStateWithNormal()
+    }
+      
+    @objc func recordTouchUpInside() 
+    {
+        recordTouchUpInsideAction?(self)
+        setButtonStateWithNormal()
+    }
+      
+    @objc func recordTouchDragEnter()
+    {
+        recordTouchDragEnterAction?(self)
+    }
+      
+    @objc func recordTouchDragInside()
+    {
+        recordTouchDragInsideAction?(self)
+    }
+      
+    @objc func recordTouchDragOutside() 
+    {
+        recordTouchDragOutsideAction?(self)
+    }
+      
+    @objc func recordTouchDragExit() 
+    {
+        recordTouchDragExitAction?(self)
+    }
+      
+    func setButtonStateWithRecording()
+    {
+        if FLAudioRecorder.shared.getAuthorizedStatus() {
+            self.backgroundColor = Chat_CustomKeyBoard_Back_RecordVoice
+            self.setTitle(Chat_Keyboard_Release_End, for: .normal)
+        }
+    }
+      
+    func setButtonStateWithNormal() 
+    {
+        self.backgroundColor = Chat_CustomKeyBoard_Back_Start_RecordVoice
+        self.setTitle(Chat_Keyboard_Hold_Speak, for: .normal)
     }
 }

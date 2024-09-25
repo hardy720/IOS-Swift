@@ -62,7 +62,34 @@ public func getKeyWindow() -> UIWindow
 /**
  * 数据库相关
  */
-let getDatabasePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! + "/" + "chat_\(UserDefaults.standard.object(forKey: "USERID") ?? "0").db"
+let getSandbox_document = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+let getDatabasePath = getSandbox_document + "/" + "chat_\(UserDefaults.standard.object(forKey: "USERID") ?? "0").db"
+let getRecordPath = getSandbox_document + "/" + "chat_Record_\(UserDefaults.standard.object(forKey: "USERID") ?? "0")"
+
+
+func createFolderInDocumentsDirectoryIfNeeded(folderName: String)
+{
+    // 获取文档目录的URL
+    let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    // 构造新文件夹的URL
+    let folderURL = documentsDirectoryURL.appendingPathComponent(folderName)
+    // 使用FileManager检查文件夹是否存在
+    var isDir: ObjCBool = false
+    if FileManager.default.fileExists(atPath: folderURL.path, isDirectory: &isDir) && isDir.boolValue {
+        // 文件夹已经存在
+        print("Folder already exists at path: \(folderURL.path)")
+    } else {
+        // 文件夹不存在，创建它
+        do {
+            try FileManager.default.createDirectory(at: folderURL, withIntermediateDirectories: true, attributes: nil)
+            print("Folder created successfully at path: \(folderURL.path)")
+        } catch let error {
+            // 处理创建文件夹时可能发生的错误
+            print("Failed to create folder with error: \(error.localizedDescription)")
+        }
+    }
+}
+
 
 func saveUserInfo()
 {
