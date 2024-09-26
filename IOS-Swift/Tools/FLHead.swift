@@ -7,7 +7,8 @@
 
 import UIKit
 
-class FLHead: NSObject {
+class FLHead: NSObject 
+{
 
 }
 
@@ -39,6 +40,23 @@ public let fWindowSafeAreaInset =
 // 聊天页面自定义键盘宽度和高度
 let Chat_Cell_Text_Width = screenW() - 200
 let Chat_Custom_Keyboard_Height : CGFloat = 70
+let Chat_Cell_Audio_Max_Width = screenW() / 2
+
+
+// 根据录音长度计算cell宽度
+func calculateWidth(index: Int, screenWidth: CGFloat) -> CGFloat
+{
+    // 确保index在有效范围内
+    let safeIndex = max(1, min(index, 60))
+    // 计算从1到60的跨度
+    let range = 60 - 1
+    // 计算当前index占整个范围的比例
+    let proportion = CGFloat(safeIndex - 1) / CGFloat(range)
+    // 根据比例计算宽度
+    // 最小宽度60，最大宽度屏幕宽度，根据比例插值
+    let width = 60 + (screenWidth - 50) * proportion
+    return width
+}
 
 /**
  * 视图相关
@@ -77,18 +95,59 @@ func createFolderInDocumentsDirectoryIfNeeded(folderName: String)
     var isDir: ObjCBool = false
     if FileManager.default.fileExists(atPath: folderURL.path, isDirectory: &isDir) && isDir.boolValue {
         // 文件夹已经存在
-        print("Folder already exists at path: \(folderURL.path)")
+        FLPrint("Folder already exists at path: \(folderURL.path)")
     } else {
         // 文件夹不存在，创建它
         do {
             try FileManager.default.createDirectory(at: folderURL, withIntermediateDirectories: true, attributes: nil)
-            print("Folder created successfully at path: \(folderURL.path)")
+            FLPrint("Folder created successfully at path: \(folderURL.path)")
         } catch let error {
             // 处理创建文件夹时可能发生的错误
-            print("Failed to create folder with error: \(error.localizedDescription)")
+            FLPrint("Failed to create folder with error: \(error.localizedDescription)")
         }
     }
 }
+
+// 获取随机的录音
+func getRandomFilePathInFolder(folderName: String = "chat_Record_\(UserDefaults.standard.object(forKey: "USERID") ?? "0")") -> String?
+{
+    // 获取Documents目录的URL
+    guard let documentsUrl = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
+        print("Failed to find documents directory")
+        return nil
+    }
+      
+    // 构建目标文件夹的URL
+    let folderUrl = documentsUrl.appendingPathComponent(folderName)
+      
+    // 检查目标文件夹是否存在
+    guard FileManager.default.fileExists(atPath: folderUrl.path) else {
+        print("Folder does not exist: \(folderUrl.path)")
+        return nil
+    }
+      
+    // 获取文件夹内所有文件的URL
+    do {
+        let directoryContents = try FileManager.default.contentsOfDirectory(at: folderUrl, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+          
+        // 确保文件夹中有文件
+        guard !directoryContents.isEmpty else {
+            print("Folder is empty: \(folderUrl.path)")
+            return nil
+        }
+          
+        // 随机选择一个文件的URL
+        let randomIndex = Int.random(in: 0..<directoryContents.count)
+        let fileUrl = directoryContents[randomIndex]
+          
+        // 将URL转换为路径字符串
+        return fileUrl.path
+    } catch {
+        print("Failed to list directory contents: \(error.localizedDescription)")
+        return nil
+    }
+}
+
 
 
 func saveUserInfo()

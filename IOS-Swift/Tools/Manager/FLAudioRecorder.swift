@@ -102,13 +102,22 @@ class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
         var isOk = false
         switch AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) {
         case .notDetermined:
-            print("尚未请求麦克风访问")
-
+            FLPrint("尚未请求麦克风访问")
+            AVAudioApplication.requestRecordPermission { granted in
+                if granted {
+                    // 用户授权了
+                    FLPrint("麦克风权限请求成功")
+                } else {
+                    // 用户拒绝了
+                    FLPrint("麦克风权限请求被拒绝")
+                }
+            }
+            
         case .restricted:
-            print("麦克风访问受限或仅在使用时授权")
+            FLPrint("麦克风访问受限或仅在使用时授权")
 
         case .denied:
-            print("麦克风访问被拒绝")
+            FLPrint("麦克风访问被拒绝")
 
         case .authorized:
             print("麦克风授权成功")

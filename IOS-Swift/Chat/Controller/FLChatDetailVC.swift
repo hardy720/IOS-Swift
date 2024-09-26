@@ -12,6 +12,8 @@ class FLChatDetailVC: UIViewController
     var chatModel : FLChatListModel? = nil
     private var dataArr: [FLChatMsgModel] = []
     private static let cellID_type_text : String = "Chat_Detail_CellID_Text"
+    private static let cellID_type_audio : String = "Chat_Detail_CellID_Audio"
+
     private var customKeyboardView : FLCustomKeyboardView? = nil
     private var isShowKeyboard : Bool = false
     private var keyboardHeight : CGFloat = 0
@@ -57,6 +59,8 @@ class FLChatDetailVC: UIViewController
         
         if UserDefaults.standard.bool(forKey: Test_Test_IsOpen) {
             timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(timerAction1), userInfo: nil, repeats: true)
+
         }
         cellScrollToBottom()
     }
@@ -80,6 +84,7 @@ class FLChatDetailVC: UIViewController
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ChatTextMessageCell.classForCoder(), forCellReuseIdentifier: FLChatDetailVC.cellID_type_text)
+        tableView.register(ChatAudioMessageCell.classForCoder(), forCellReuseIdentifier: FLChatDetailVC.cellID_type_audio)
         tableView.rowHeight = 75
         tableView.backgroundColor = Chat_Cell_Background_Gray
         tableView.separatorStyle = .none
@@ -111,6 +116,7 @@ extension FLChatDetailVC
             print("完成录音")
             if FLAudioRecorder.shared.getAuthorizedStatus() {
                 FLAudioRecorder.shared.stopSoundRecord();
+                self.sendAudioMsg()
             }
         }
         
@@ -210,6 +216,11 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
             cell.setModel(with: model)
             return cell
             
+        case .msg_audio:
+            let cell = tableView.dequeueReusableCell(withIdentifier: FLChatDetailVC.cellID_type_audio, for: indexPath) as! ChatAudioMessageCell
+            cell.setModel(with: model)
+            return cell
+            
         default:
             let placeholderCell = tableView.dequeueReusableCell(withIdentifier: "PlaceholderCellIdentifier", for: indexPath)
             return placeholderCell
@@ -225,6 +236,10 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
             let size = model.contentStr.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(Chart_Cell_Text_font)), size: CGSize(width: Chat_Cell_Text_Width, height: CGFloat(MAXFLOAT)))
             height = size.height + 50
             break
+            
+        case .msg_audio:
+            height = 70
+            
         default:
             break
         }
@@ -253,6 +268,21 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     // 发送文字消息
     func didChangeText(_ text: String)
     {
+        sendTextMsg(text: text)
+    }
+    
+    func didChangeTVHeight(_ height: CGFloat)
+    {
+        customKeyboardView?.frame = CGRect(x: 0, y: (customKeyboardView?.frame.origin.y)! - height, width: screenW(), height: (customKeyboardView?.frame.size.height)! + height)
+    }
+}
+
+// MARK: - Send Message -
+extension FLChatDetailVC
+{
+    // 发送文字消息
+    func sendTextMsg(text: String)
+    {
         if !text.fl.isStringBlank() {
             let model = FLChatMsgModel.init()
             model.nickName = getUserNickName()
@@ -274,9 +304,29 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
         }
     }
     
-    func didChangeTVHeight(_ height: CGFloat)
+    // 发送录音消息
+    func sendAudioMsg()
     {
-        customKeyboardView?.frame = CGRect(x: 0, y: (customKeyboardView?.frame.origin.y)! - height, width: screenW(), height: (customKeyboardView?.frame.size.height)! + height)
+        FLPrint("---\(FLAudioRecorder.shared.recordPath as String)")
+        FLPrint("---\(FLAudioRecorder.shared.recordSeconds)")
+        let model = FLChatMsgModel.init()
+        model.nickName = getUserNickName()
+        model.avatar = getUserAvatar()
+        model.contentStr = (FLAudioRecorder.shared.recordPath as String)
+        model.msgType = .msg_audio
+        model.isMe = true
+        model.mediaTime = "\(FLAudioRecorder.shared.recordSeconds)"
+        let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+        dataArr.append(model)
+        
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
+            self.tableView?.beginUpdates()
+            self.tableView?.insertRows(at: [indexPath], with: .bottom)
+            self.tableView?.endUpdates()
+        }
+        cellScrollToBottom()
+        customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
     }
 }
 
@@ -285,10 +335,15 @@ extension FLChatDetailVC
 {
     @objc func timerAction()
     {
-        test()
+//        test1()
+    }
+    
+    @objc func timerAction1()
+    {
+        test2()
     }
 
-    func test()
+    func test1()
     {
         let model = FLChatMsgModel.init()
         model.contentStr = String.fl.shuffleString()
@@ -313,5 +368,34 @@ extension FLChatDetailVC
             self.tableView?.endUpdates()
         }
         cellScrollToBottom()
+    }
+    
+    func test2()
+    {
+        let model = FLChatMsgModel.init()
+        model.contentStr = getRandomFilePathInFolder() ?? ""
+        model.msgType = .msg_audio
+        let i = Int.fl.random(within: 0..<60)
+//        if i > 5 {
+            model.isMe = false
+            model.avatar = chatModel!.avatar
+            model.nickName = getUserNickName()
+//        }else{
+//            model.isMe = true
+//            model.nickName = getUserNickName()
+//            model.avatar = getUserAvatar()
+//        }
+        model.mediaTime = "\(i)"
+        let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+        dataArr.append(model)
+        
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
+            self.tableView?.beginUpdates()
+            self.tableView?.insertRows(at: [indexPath], with: .bottom)
+            self.tableView?.endUpdates()
+        }
+        cellScrollToBottom()
+        customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
     }
 }

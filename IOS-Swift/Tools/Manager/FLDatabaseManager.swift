@@ -52,7 +52,7 @@ class FLDatabaseManager
     func createChat(userID : String)
     {
         do {
-            try db?.run("CREATE TABLE IF NOT EXISTS \(chatDetailTableName)\(userID) (id integer primary key autoincrement, avatar text, nickName text, contentStr text,lastContent text,msgType integer,isMe integer)")
+            try db?.run("CREATE TABLE IF NOT EXISTS \(chatDetailTableName)\(userID) (id integer primary key autoincrement, avatar text, nickName text, contentStr text,lastContent text,msgType integer,isMe integer,mediaTime text)")
         } catch {
             print("Failed to set up database: \(error)")
         }
@@ -175,7 +175,7 @@ class ChatDetailDao
         var success = false
         FLDatabaseManager.shared.perform { con in
             do {
-                try con.run("INSERT INTO \(chatDetailTableName)\(chatID)(avatar, nickName, contentStr, lastContent,msgType,isMe)VALUES(?,?,?,?,?,?)",model.avatar,model.nickName,model.contentStr,model.lastContent,model.msgType.rawValue,model.isMe)//
+                try con.run("INSERT INTO \(chatDetailTableName)\(chatID)(avatar, nickName, contentStr, lastContent,msgType,isMe,mediaTime)VALUES(?,?,?,?,?,?,?)",model.avatar,model.nickName,model.contentStr,model.lastContent,model.msgType.rawValue,model.isMe,model.mediaTime)//
                 success = true
             } catch {
                 print("Insert failed: \(error)")
@@ -223,6 +223,7 @@ class ChatDetailDao
                 }else{
                     item.isMe = false
                 }
+                item.mediaTime = row[7] as? String ?? ""
                 items.append(item)
             }
             return items
