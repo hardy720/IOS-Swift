@@ -304,6 +304,9 @@ class ChatAudioMessageCell: FLChatBaseCell
     @objc func tapClick ()
     {
         FLPrint(msgModel?.contentStr ?? "")
+        let ss = msgModel?.contentStr as? NSString ?? ""
+        LGSoundPlayer.shared.playAudio(fileName:ss)
+
         var images: [UIImage]?
         if let msgModel = msgModel, msgModel.isMe {
             images = [UIImage(named: "icon_chat_keyboard_voice_right_1")!, UIImage(named: "icon_chat_keyboard_voice_right_2")!, UIImage(named: "icon_chat_keyboard_voice_right_3")!]

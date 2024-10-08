@@ -119,6 +119,14 @@ public extension FLPop where Base == Date {
         fl_formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
         return fl_formatter.string(from: currentDate)
     }
+    
+    // MARK: 1.15、获取当前的时间字符串
+    /// 获取当前的时间字符串,精确到毫秒
+    static func currentDate_SSS_() -> String 
+    {
+        fl_formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss-SSS"
+        return fl_formatter.string(from: currentDate)
+    }
 }
 
 //MARK: - 二、时间格式的转换
@@ -251,11 +259,6 @@ public extension FLPop where Base == Date {
             return Date()
             #endif
         }
-        /*
-        guard let resultDate = getNowDateFromatAnDate(date) else {
-            return Date()
-        }
-        */
         return date
     }
     

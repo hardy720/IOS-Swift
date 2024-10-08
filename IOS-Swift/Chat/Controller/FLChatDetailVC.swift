@@ -104,8 +104,10 @@ extension FLChatDetailVC
         customKeyboardView?.recordButton.recordTouchDownAction = { recordButton in
             print("开始录音")
             if FLAudioRecorder.shared.getAuthorizedStatus() {
-                let recordPath = getRecordPath + "/" + "\(self.chatModel!.id)" + "_" + Date.fl.currentDate_SSS() + ".caf"
-                FLAudioRecorder.shared.startRecord(recordPath:recordPath as NSString)
+                let recordName = "\(self.chatModel!.id)" + "_" + Date.fl.currentDate_SSS_() + ".caf"
+                FLAudioRecorder.shared.startRecord(recordFileName:recordName as NSString) { maxAmplitude in
+                    FLPrint("-=====\(maxAmplitude)")
+                }
             }else{
                 self.view.makeToast(Chat_Keyboart_Record_Check_Permission, duration: 3.0, position: .center)
             }
@@ -115,6 +117,7 @@ extension FLChatDetailVC
         customKeyboardView?.recordButton.recordTouchUpInsideAction = { recordButton in
             print("完成录音")
             if FLAudioRecorder.shared.getAuthorizedStatus() {
+                FLAudioRecorder.shared.stop()
                 FLAudioRecorder.shared.stopSoundRecord();
                 self.sendAudioMsg()
             }
@@ -307,12 +310,10 @@ extension FLChatDetailVC
     // 发送录音消息
     func sendAudioMsg()
     {
-        FLPrint("---\(FLAudioRecorder.shared.recordPath as String)")
-        FLPrint("---\(FLAudioRecorder.shared.recordSeconds)")
         let model = FLChatMsgModel.init()
         model.nickName = getUserNickName()
         model.avatar = getUserAvatar()
-        model.contentStr = (FLAudioRecorder.shared.recordPath as String)
+        model.contentStr = (FLAudioRecorder.shared.recordFileName as String)
         model.msgType = .msg_audio
         model.isMe = true
         model.mediaTime = "\(FLAudioRecorder.shared.recordSeconds)"

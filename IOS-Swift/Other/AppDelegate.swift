@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         saveUserInfo()
         createFolderInDocumentsDirectoryIfNeeded(folderName: "chat_Record_\(UserDefaults.standard.object(forKey: "USERID") ?? "0")")
     }
-    
-    
 
     // MARK: UISceneSession Lifecycle
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

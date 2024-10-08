@@ -36,6 +36,7 @@
 		438A7AAE2C89B362005CFCF1 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A7AAD2C89B362005CFCF1 /* UIView+Extension.swift */; };
 		438A811F2C5A2A5B00774B7B /* LibraryHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A811E2C5A2A5B00774B7B /* LibraryHomeViewController.swift */; };
 		438A81212C5A2C1B00774B7B /* KingfisherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438A81202C5A2C1B00774B7B /* KingfisherViewController.swift */; };
+		438E6C5E2CA6617C000CA37A /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 438E6C5D2CA6617C000CA37A /* sound.caf */; };
 		439084B12C6E49D100ACA9A2 /* KeyWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439084B02C6E49D100ACA9A2 /* KeyWordViewController.swift */; };
 		439B59CD2C933103004B07D6 /* FLChatMsgModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439B59CC2C933103004B07D6 /* FLChatMsgModel.swift */; };
 		439B59CF2C9331BE004B07D6 /* FLChatListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439B59CE2C9331BE004B07D6 /* FLChatListModel.swift */; };
@@ -124,6 +125,7 @@
 		438A7AAD2C89B362005CFCF1 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		438A811E2C5A2A5B00774B7B /* LibraryHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LibraryHomeViewController.swift; path = Controller/LibraryHomeViewController.swift; sourceTree = "<group>"; };
 		438A81202C5A2C1B00774B7B /* KingfisherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KingfisherViewController.swift; path = Controller/KingfisherViewController.swift; sourceTree = "<group>"; };
+		438E6C5D2CA6617C000CA37A /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
 		439084B02C6E49D100ACA9A2 /* KeyWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyWordViewController.swift; path = Controller/KeyWordViewController.swift; sourceTree = "<group>"; };
 		439B59CC2C933103004B07D6 /* FLChatMsgModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatMsgModel.swift; sourceTree = "<group>"; };
 		439B59CE2C9331BE004B07D6 /* FLChatListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatListModel.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 		4322EEE52C3A7EA6000D20BD /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				438E6C5D2CA6617C000CA37A /* sound.caf */,
 				43F1513D2C392EFA003584DD /* AppDelegate.swift */,
 				43F1513F2C392EFA003584DD /* SceneDelegate.swift */,
 				43F151412C392EFA003584DD /* ViewController.swift */,
@@ -568,6 +571,7 @@
 			files = (
 				43F151472C392EFC003584DD /* Assets.xcassets in Resources */,
 				43F1514A2C392EFC003584DD /* Base in Resources */,
+				438E6C5E2CA6617C000CA37A /* sound.caf in Resources */,
 				43F151452C392EFA003584DD /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

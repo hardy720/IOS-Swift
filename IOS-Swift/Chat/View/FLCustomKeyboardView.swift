@@ -117,7 +117,6 @@ extension FLCustomKeyboardView: UITextViewDelegate
     }
 }
 
-
 // MARK: - Tools -
 extension FLCustomKeyboardView
 {
@@ -138,6 +137,9 @@ extension FLCustomKeyboardView
     }
 }
 
+/**
+ * - 自定义录音按钮 -
+ */
 class FLRecordButton: UIButton
 {
     // 定义回调类型
@@ -157,6 +159,8 @@ class FLRecordButton: UIButton
     var recordTouchDragInsideAction: RecordTouchDragInside?
     var recordTouchDragOutsideAction: RecordTouchDragOutside?
     var recordTouchDragExitAction: RecordTouchDragExit?
+    
+    var recordeAnimationView : FLRecordAnimationView?
       
     override init(frame: CGRect) 
     {
@@ -188,10 +192,13 @@ class FLRecordButton: UIButton
         self.addTarget(self, action: #selector(recordTouchDragExit), for: .touchDragExit)
     }
       
-    @objc func recordTouchDown() 
+    // 开始录音
+    @objc func recordTouchDown()
     {
         recordTouchDownAction?(self)
         setButtonStateWithRecording()
+        recordeAnimationView = FLRecordAnimationView.init()
+        recordeAnimationView?.startAnimationView()
     }
       
     @objc func recordTouchUpOutside() 
@@ -200,10 +207,12 @@ class FLRecordButton: UIButton
         setButtonStateWithNormal()
     }
       
-    @objc func recordTouchUpInside() 
+    // 完成录音
+    @objc func recordTouchUpInside()
     {
         recordTouchUpInsideAction?(self)
         setButtonStateWithNormal()
+        recordeAnimationView?.stopAnimationView()
     }
       
     @objc func recordTouchDragEnter()
@@ -238,5 +247,94 @@ class FLRecordButton: UIButton
     {
         self.backgroundColor = Chat_CustomKeyBoard_Back_Start_RecordVoice
         self.setTitle(Chat_Keyboard_Hold_Speak, for: .normal)
+    }
+}
+
+
+/**
+ * - 自定义录音动画 -
+ */
+class FLRecordAnimationView : UIView
+{
+    override init(frame: CGRect)
+    {
+        super.init(frame: frame)
+    }
+    
+    func startAnimationView()
+    {
+        getKeyWindow().addSubview(backView!)
+        backView!.addSubview(boxView!)
+        boxView!.addSubview(recordImageV!)
+        boxView!.addSubview(cancelAlertLabel!)
+        
+        initLayout()
+    }
+    
+    func initLayout()
+    {
+        boxView?.frame = CGRectMake(screenW()/2 - 100, screenH()/2 - 100, 200, 200)
+        recordImageV?.snp.makeConstraints { make in
+            make.centerY.equalTo(boxView!)
+            make.left.equalTo(50)
+            make.height.equalTo(70)
+            make.width.equalTo(45)
+        }
+        
+        cancelAlertLabel!.snp.makeConstraints { make in
+            make.centerX.equalTo(boxView!)
+            make.bottom.equalTo(-20)
+            make.height.equalTo(20)
+            make.width.equalTo(200)
+        }
+    }
+    
+    
+    
+    func stopAnimationView()
+    {
+        backView?.removeFromSuperview()
+        FLPrint("\(Thread.current)")
+        backView = nil
+        boxView = nil
+        recordImageV = nil
+        cancelAlertLabel = nil
+    }
+    
+    // 背景view
+    lazy var backView: UIView? = {
+        let view = UIView(frame: CGRectMake(0, 0, screenW(), screenH()))
+        view.backgroundColor = .black.withAlphaComponent(0.3)
+        return view
+    }()
+    
+    // 小方块view
+    lazy var boxView: UIView? = {
+        let view = UIView.init()
+        view.backgroundColor = .black.withAlphaComponent(0.7)
+        view.layer.cornerRadius = 8
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    var recordImageV: UIImageView? =
+    {
+        let imageView = UIImageView.init()
+        imageView.image = UIImage(named: "icon_chat_keyboard_voice_record")
+        return imageView
+    }()
+    
+    var cancelAlertLabel : UILabel? = {
+        let label = UILabel.init()
+        label.text = Chat_Keyboard_Cancel_Record_Alert
+        label.font = UIFont.systemFont(ofSize: CGFloat(Chart_Keyboard_Record_Cancel_Alert_font))
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }()
+    
+    required init?(coder: NSCoder) 
+    {
+        fatalError("init(coder:) has not been implemented")
     }
 }
