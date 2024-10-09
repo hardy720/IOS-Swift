@@ -304,8 +304,8 @@ class ChatAudioMessageCell: FLChatBaseCell
     @objc func tapClick ()
     {
         FLPrint(msgModel?.contentStr ?? "")
-        let ss = msgModel?.contentStr as? NSString ?? ""
-        LGSoundPlayer.shared.playAudio(fileName:ss)
+        let ss = getSandbox_document.path() + getRecordPath + "/" + (msgModel?.contentStr ?? "")
+        LGSoundPlayer.shared.playAudio(fileName:ss as NSString)
 
         var images: [UIImage]?
         if let msgModel = msgModel, msgModel.isMe {

@@ -80,9 +80,10 @@ public func getKeyWindow() -> UIWindow
 /**
  * 数据库相关
  */
-let getSandbox_document = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-let getDatabasePath = getSandbox_document + "/" + "chat_\(UserDefaults.standard.object(forKey: "USERID") ?? "0").db"
-let getRecordPath = getSandbox_document + "/" + "chat_Record_\(UserDefaults.standard.object(forKey: "USERID") ?? "0")"
+//let getSandbox_document = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+let getSandbox_document = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+let getDatabasePath = getSandbox_document.path() + "/" + "chat_\(UserDefaults.standard.object(forKey: "USERID") ?? "0").db"
+let getRecordPath = "chat_Record_\(UserDefaults.standard.object(forKey: "USERID") ?? "0")"
 
 
 func createFolderInDocumentsDirectoryIfNeeded(folderName: String)
@@ -90,7 +91,7 @@ func createFolderInDocumentsDirectoryIfNeeded(folderName: String)
     // 获取文档目录的URL
     let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     // 构造新文件夹的URL
-    let folderURL = documentsDirectoryURL.appendingPathComponent(folderName)
+    let folderURL = getSandbox_document.appendingPathComponent(folderName)
     // 使用FileManager检查文件夹是否存在
     var isDir: ObjCBool = false
     if FileManager.default.fileExists(atPath: folderURL.path, isDirectory: &isDir) && isDir.boolValue {
@@ -101,10 +102,22 @@ func createFolderInDocumentsDirectoryIfNeeded(folderName: String)
         do {
             try FileManager.default.createDirectory(at: folderURL, withIntermediateDirectories: true, attributes: nil)
             FLPrint("Folder created successfully at path: \(folderURL.path)")
+            // 构建 .txt 文件的 URL
+            let fileURL = folderURL.appendingPathComponent("record.txt")
+            let content = "this is record"
+            // 写入内容到文件
+            do {
+                try content.write(to: fileURL, atomically: true, encoding: .utf8)
+                print("File created and written to successfully at path: \(fileURL)")
+            } catch {
+                print("Failed to write to file: \(error.localizedDescription)")
+            }
         } catch let error {
             // 处理创建文件夹时可能发生的错误
             FLPrint("Failed to create folder with error: \(error.localizedDescription)")
         }
+        
+       
     }
 }
 
@@ -140,8 +153,10 @@ func getRandomFilePathInFolder(folderName: String = "chat_Record_\(UserDefaults.
         let randomIndex = Int.random(in: 0..<directoryContents.count)
         let fileUrl = directoryContents[randomIndex]
           
-        // 将URL转换为路径字符串
-        return fileUrl.path
+        // 将URL转换为路径字符串// fileUrl为路径和文件名称
+        // 仅仅返回名称。
+        let fileName = fileUrl.path
+        return fileName.components(separatedBy: "/").last
     } catch {
         print("Failed to list directory contents: \(error.localizedDescription)")
         return nil

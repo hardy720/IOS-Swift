@@ -25,6 +25,7 @@ class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
     static let shared = FLAudioRecorder()
     static let maxLength = 60 //录音时长限制60s
     var recordFileName: NSString!
+    var recordFilePath: NSString!
     var audioRecorder: AVAudioRecorder!
     var timer: Timer!
     var recordSeconds: NSInteger = 0
@@ -44,10 +45,11 @@ class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
     *  @param view 展现录音指示框的父视图
     *  @param path 音频文件保存路径
     */
-    public func startRecord(recordFileName: NSString, amplitudeCallback: @escaping (Float) -> Void)
+    public func startRecord(recordFileName: NSString, pathStr:NSString,amplitudeCallback: @escaping (Float) -> Void)
     {
         recordSeconds = 0
         self.recordFileName = recordFileName
+        self.recordFilePath = pathStr
         self.start()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
             self.recordSeconds += 1
@@ -244,15 +246,10 @@ public class LGSoundPlayer: NSObject, AVAudioPlayerDelegate
     public weak var delegate: LGAudioPlayerDelegate?
     public func playAudio(fileName: NSString)
     {
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let chatRecordDirectory = documentsDirectory.appendingPathComponent("chat_Record_0")
-        let fileName1 = "1_2024-09-30-23-03-49-395.caf" // 确保文件名和扩展名正确
-
-        let URLString = chatRecordDirectory.appendingPathComponent(fileName as String)
         // 检查文件是否存在
-        if FileManager.default.fileExists(atPath: URLString.path) {
+        if FileManager.default.fileExists(atPath: "\(fileName)") {
             print("File exists at path: \(URLString)")
-            guard let url = URL(string: URLString.path()) else {
+            guard let url = URL(string: fileName as String) else {
                 FLPrint("Invalid URL")
                 return
             }

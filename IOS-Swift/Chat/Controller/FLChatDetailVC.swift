@@ -104,8 +104,9 @@ extension FLChatDetailVC
         customKeyboardView?.recordButton.recordTouchDownAction = { recordButton in
             print("开始录音")
             if FLAudioRecorder.shared.getAuthorizedStatus() {
-                let recordName = "\(self.chatModel!.id)" + "_" + Date.fl.currentDate_SSS_() + ".caf"
-                FLAudioRecorder.shared.startRecord(recordFileName:recordName as NSString) { maxAmplitude in
+                let recordName = getSandbox_document.path() + getRecordPath + "/" + "\(self.chatModel!.id)" + "_" + Date.fl.currentDate_SSS_() + ".caf"
+                let namename = "\(self.chatModel!.id)" + "_" + Date.fl.currentDate_SSS_() + ".caf"
+                FLAudioRecorder.shared.startRecord(recordFileName: recordName as NSString, pathStr: namename as NSString) { maxAmplitude in
                     FLPrint("-=====\(maxAmplitude)")
                 }
             }else{
@@ -303,7 +304,7 @@ extension FLChatDetailVC
                 self.tableView?.endUpdates()
             }
             cellScrollToBottom()
-            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
+            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
         }
     }
     
@@ -313,7 +314,7 @@ extension FLChatDetailVC
         let model = FLChatMsgModel.init()
         model.nickName = getUserNickName()
         model.avatar = getUserAvatar()
-        model.contentStr = (FLAudioRecorder.shared.recordFileName as String)
+        model.contentStr = (FLAudioRecorder.shared.recordFilePath as String)
         model.msgType = .msg_audio
         model.isMe = true
         model.mediaTime = "\(FLAudioRecorder.shared.recordSeconds)"
@@ -327,7 +328,6 @@ extension FLChatDetailVC
             self.tableView?.endUpdates()
         }
         cellScrollToBottom()
-        customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
     }
 }
 
@@ -377,15 +377,15 @@ extension FLChatDetailVC
         model.contentStr = getRandomFilePathInFolder() ?? ""
         model.msgType = .msg_audio
         let i = Int.fl.random(within: 0..<60)
-//        if i > 5 {
+        if i > 5 {
             model.isMe = false
             model.avatar = chatModel!.avatar
             model.nickName = getUserNickName()
-//        }else{
-//            model.isMe = true
-//            model.nickName = getUserNickName()
-//            model.avatar = getUserAvatar()
-//        }
+        }else{
+            model.isMe = true
+            model.nickName = getUserNickName()
+            model.avatar = getUserAvatar()
+        }
         model.mediaTime = "\(i)"
         let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
         dataArr.append(model)
