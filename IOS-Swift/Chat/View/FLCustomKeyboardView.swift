@@ -15,6 +15,9 @@ protocol FLCustomKeyboardViewDelegate : AnyObject
     
     // 录音消息
     func startRecording()
+    func errorRecordPermission()
+    func errorShort()
+    func FinishRecord()
 }
 
 class FLCustomKeyboardView: UIView
@@ -99,7 +102,7 @@ class FLCustomKeyboardView: UIView
 }
 
 // MARK: - Delegate -
-extension FLCustomKeyboardView: UITextViewDelegate
+extension FLCustomKeyboardView: UITextViewDelegate,FLSoundRecorderDelegate
 {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
     {
@@ -124,6 +127,28 @@ extension FLCustomKeyboardView: UITextViewDelegate
             initLayout()
         }
     }
+    
+    // 录音
+    func soundRecordFailed()
+    {
+        
+    }
+    
+    func soundRecordDidStop() 
+    {
+        
+    }
+    
+    func soundRecordTooShort() 
+    {
+        delegate?.errorShort()
+    }
+    
+    func soundRecordTimerTicks(second: NSInteger) 
+    {
+        
+    }
+
 }
 
 // MARK: - Tools -
@@ -211,6 +236,7 @@ extension FLCustomKeyboardView
     
     func initRecord()
     {
+        FLAudioRecorder.shared.delegate = self
         // 开始录音
         self.recordButton.recordTouchDownAction = { [self] recordButton in
             FLPrint("Start recording")
@@ -228,7 +254,7 @@ extension FLCustomKeyboardView
                     }
                 }
             }else{
-//                self.view.makeToast(Chat_Keyboart_Record_Check_Permission, duration: 3.0, position: .center)
+                delegate?.errorRecordPermission()
             }
         }
         
@@ -237,13 +263,10 @@ extension FLCustomKeyboardView
             FLPrint("Finish recording")
             self.recordeAnimationView?.stopAnimationView()
             FLAudioRecorder.shared.stop()
-            FLAudioRecorder.shared.stopSoundRecord();
-
-//            if FLAudioRecorder.shared.getAuthorizedStatus() {
-//                FLAudioRecorder.shared.stop()
-//                FLAudioRecorder.shared.stopSoundRecord();
-//                self.sendAudioMsg()
-//            }
+            FLAudioRecorder.shared.stopSoundRecord()
+            if FLAudioRecorder.shared.recordSeconds > 1 {
+                self.delegate?.FinishRecord()
+            }
         }
         
         // 取消录音
@@ -403,7 +426,7 @@ class FLRecordAnimationView : UIView
         boxView!.addSubview(toastImageV!)
         boxView!.addSubview(cancelImageV!)
         boxView!.addSubview(redCancelLabel!)
-        
+
         initLayout()
     }
     

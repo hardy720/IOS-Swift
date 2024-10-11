@@ -12,12 +12,12 @@ import AVFoundation
 /**
  * ******* 录音 ******
  */
-@objc public protocol FLSoundRecorderDelegate: AnyObject
+protocol FLSoundRecorderDelegate: AnyObject
 {
-    @objc optional func soundRecordFailed() // 录音失败
-    @objc optional func soundRecordDidStop() // 录音停止
-    @objc optional func soundRecordTooShort() // 录音时间太短（少于1秒）
-    @objc optional func soundRecordTimerTicks(second: NSInteger) // 录音过程中，每秒调用一次，返回当前录音时长
+    func soundRecordFailed() // 录音失败
+    func soundRecordDidStop() // 录音停止
+    func soundRecordTooShort() // 录音时间太短（少于1秒）
+    func soundRecordTimerTicks(second: NSInteger) // 录音过程中，每秒调用一次，返回当前录音时长
 }
 
 class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
@@ -53,7 +53,7 @@ class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
         self.start()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
             self.recordSeconds += 1
-            self.delegate?.soundRecordTimerTicks?(second: self.recordSeconds)
+            self.delegate?.soundRecordTimerTicks(second: self.recordSeconds)
             if self.recordSeconds == FLAudioRecorder.maxLength {
                 self.stopSoundRecord()
             }
@@ -75,9 +75,9 @@ class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setActive(false)
-            self.delegate?.soundRecordDidStop?()
+            self.delegate?.soundRecordDidStop()
             if self.recordSeconds < 1 {
-                self.delegate?.soundRecordTooShort?()
+                self.delegate?.soundRecordTooShort()
             }
         } catch {
             FLPrint("Failed to stop soundRecord: \(error)")
@@ -99,7 +99,7 @@ class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
     //MARK: AVAudioRecorderDelegate
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool)
     {
-        self.delegate?.soundRecordDidStop?()
+        self.delegate?.soundRecordDidStop()
     }
     
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?)
@@ -108,7 +108,7 @@ class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
             timer.invalidate()
         }
         self.recordSeconds = 0
-        self.delegate?.soundRecordFailed?()
+        self.delegate?.soundRecordFailed()
     }
     
     // MARK: - 检查录音权限是否开启 -

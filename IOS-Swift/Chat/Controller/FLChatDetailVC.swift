@@ -245,6 +245,21 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     {
         
     }
+    
+    func errorRecordPermission()
+    {
+        self.view.makeToast(Chat_Keyboart_Record_Check_Permission, duration: 3.0, position: .center)
+    }
+    
+    func FinishRecord()
+    {
+        self.sendAudioMsg()
+    }
+    
+    func errorShort() 
+    {
+        self.view.makeToast(Chat_Keyboard_Too_Short_Record_Alert, duration: 2.0, position: .center)
+    }
 }
 
 // MARK: - Send Message -
