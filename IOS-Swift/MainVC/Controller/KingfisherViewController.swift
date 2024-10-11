@@ -77,7 +77,7 @@ class KingfisherViewController: FLBaseViewController, ImageDownloaderDelegate {
                 self.view.addSubview(imageView)
             case .failure(let error):
                 // 处理错误
-                print("Error loading image: \(error)")
+                FLPrint("Error loading image: \(error)")
             }
             
         }

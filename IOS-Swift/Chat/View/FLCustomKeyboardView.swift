@@ -9,14 +9,21 @@ import UIKit
 
 protocol FLCustomKeyboardViewDelegate : AnyObject
 {
+    // 文字消息
     func didChangeText(_ text: String)
     func didChangeTVHeight(_ height: CGFloat)
+    
+    // 录音消息
+    func startRecording()
 }
 
 class FLCustomKeyboardView: UIView
 {
     weak var delegate: FLCustomKeyboardViewDelegate?
     private var isVoiceBtn = false
+    var recordeAnimationView : FLRecordAnimationView?
+    var userId : String?
+    
     lazy var backView : UIView = {
         let backView = UIView()
         backView.backgroundColor = Chat_CustomKeyBoard_Back_Gray
@@ -52,8 +59,11 @@ class FLCustomKeyboardView: UIView
     {
         super.init(frame: frame)
         setupUI()
+        
+        initRecord()
     }
     
+        
     private func setupUI()
     {
         self.addSubview(backView)
@@ -94,7 +104,7 @@ extension FLCustomKeyboardView: UITextViewDelegate
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
     {
         if text == "\n" {
-            print("Return key pressed")
+            FLPrint("Return key pressed")
             // 如果不需要在文本视图中插入换行符，则返回 false
             // 这会阻止文本视图自动添加新行
             delegate?.didChangeText(textView.text)
@@ -109,7 +119,6 @@ extension FLCustomKeyboardView: UITextViewDelegate
     func textViewDidChange(_ textView: UITextView)
     {
         let size = textView.text.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(Chart_Keyboard_TextView_font)), size: CGSize(width: textView.frame.size.width - 10, height: CGFloat(MAXFLOAT)))
-        FLPrint("======\(self.frame.size.height)")
         if size.height > self.frame.size.height - 30 {
             delegate?.didChangeTVHeight(30)
             initLayout()
@@ -120,6 +129,7 @@ extension FLCustomKeyboardView: UITextViewDelegate
 // MARK: - Tools -
 extension FLCustomKeyboardView
 {
+    // 键盘录音切换
     @objc func handleVoiceButtonTap(_ button: UIButton)
     {
         if isVoiceBtn {
@@ -135,7 +145,134 @@ extension FLCustomKeyboardView
             recordButton.frame = CGRectMake(0, 0, inputTextView.frame.size.width, inputTextView.frame.size.height)
         }
     }
+    
+    // 设置声音大小的图片
+    func setPicturesBySoundLevel(level: Float)
+    {
+        let levelInterval = Int((level * 5).rounded()) // 将 0.0-1.0 分为 5 个区间，每个区间 0.2
+        if ((recordeAnimationView?.toastImageV) != nil) {
+            switch levelInterval {
+            case 0:
+                UIView.transition(with: (recordeAnimationView?.toastImageV)!, duration: 0.5, options: .transitionCrossDissolve, animations:{
+                    self.recordeAnimationView?.toastImageV?.image = UIImage(named: "icon_chat_keyboard_v_toast_vol_1")
+                }, completion: nil)
+                break
+
+            case 1:
+                UIView.transition(with: (recordeAnimationView?.toastImageV)!, duration: 0.5, options: .transitionCrossDissolve, animations:{
+                    self.recordeAnimationView?.toastImageV?.image = UIImage(named: "icon_chat_keyboard_v_toast_vol_2")
+                }, completion: nil)
+                break
+                
+            case 2:
+                UIView.transition(with: (recordeAnimationView?.toastImageV)!, duration: 0.5, options: .transitionCrossDissolve, animations:{
+                    self.recordeAnimationView?.toastImageV?.image = UIImage(named: "icon_chat_keyboard_v_toast_vol_3")
+                }, completion: nil)
+                break
+                
+            case 3:
+                UIView.transition(with: (recordeAnimationView?.toastImageV)!, duration: 0.5, options: .transitionCrossDissolve, animations:{
+                    self.recordeAnimationView?.toastImageV?.image = UIImage(named: "icon_chat_keyboard_v_toast_vol_4")
+                }, completion: nil)
+                break
+                
+            case 4:
+                UIView.transition(with: (recordeAnimationView?.toastImageV)!, duration: 0.5, options: .transitionCrossDissolve, animations:{
+                    self.recordeAnimationView?.toastImageV?.image = UIImage(named: "icon_chat_keyboard_v_toast_vol_5")
+                }, completion: nil)
+                break
+                
+            default:
+                break
+            }
+        }
+    }
+    
+    // 录音取消与否
+    func setAnimationViewIsHidden(isRecord: Bool,isCancel: Bool)
+    {
+        self.recordeAnimationView?.toastImageV?.isHidden = isRecord
+        self.recordeAnimationView?.cancelAlertLabel?.isHidden = isRecord
+        self.recordeAnimationView?.recordImageV?.isHidden = isRecord
+        self.recordeAnimationView?.cancelImageV?.isHidden = isCancel
+        self.recordeAnimationView?.redCancelLabel?.isHidden = isCancel
+    }
 }
+
+
+// MARK: - 录音 -
+extension FLCustomKeyboardView
+{
+    func startRecordAnimation()
+    {
+        recordeAnimationView = FLRecordAnimationView.init()
+        recordeAnimationView?.startAnimationView()
+    }
+    
+    func initRecord()
+    {
+        // 开始录音
+        self.recordButton.recordTouchDownAction = { [self] recordButton in
+            FLPrint("Start recording")
+            if FLAudioRecorder.shared.getAuthorizedStatus() {
+                startRecordAnimation()
+                delegate?.startRecording()
+                guard let documentsURL = getSandbox_document() else {
+                    return
+                }
+                let recordName = documentsURL.path() + getRecordPath + "/" + (userId ?? "-1") + "_" + Date.fl.currentDate_SSS_() + ".caf"
+                let namename = (userId ?? "-1") + "_" + Date.fl.currentDate_SSS_() + ".caf"
+                FLAudioRecorder.shared.startRecord(recordFileName: recordName as NSString, pathStr: namename as NSString) { maxAmplitude in
+                    DispatchQueue.main.async {
+                        self.setPicturesBySoundLevel(level: maxAmplitude)
+                    }
+                }
+            }else{
+//                self.view.makeToast(Chat_Keyboart_Record_Check_Permission, duration: 3.0, position: .center)
+            }
+        }
+        
+        // 完成录音
+        recordButton.recordTouchUpInsideAction = { recordButton in
+            FLPrint("Finish recording")
+            self.recordeAnimationView?.stopAnimationView()
+            FLAudioRecorder.shared.stop()
+            FLAudioRecorder.shared.stopSoundRecord();
+
+//            if FLAudioRecorder.shared.getAuthorizedStatus() {
+//                FLAudioRecorder.shared.stop()
+//                FLAudioRecorder.shared.stopSoundRecord();
+//                self.sendAudioMsg()
+//            }
+        }
+        
+        // 取消录音
+        recordButton.recordTouchUpOutsideAction = { recordButton in
+            FLPrint("Cancel recording")
+            FLAudioRecorder.shared.stop()
+            FLAudioRecorder.shared.stop()
+            FLAudioRecorder.shared.stopSoundRecord()
+            self.recordeAnimationView?.stopAnimationView()
+        }
+        
+        // 将取消录音
+        recordButton.recordTouchDragExitAction = { recordButton in
+            FLPrint("Recording will be canceled.")
+            
+            self.setAnimationViewIsHidden(isRecord: true, isCancel: false)
+        }
+        
+        // 继续录音
+        recordButton.recordTouchDragInsideAction = { recordButton in
+            FLPrint("Keep recording.")
+            self.setAnimationViewIsHidden(isRecord: false, isCancel: true)
+        }
+    }
+    
+    
+}
+
+
 
 /**
  * - 自定义录音按钮 -
@@ -160,7 +297,6 @@ class FLRecordButton: UIButton
     var recordTouchDragOutsideAction: RecordTouchDragOutside?
     var recordTouchDragExitAction: RecordTouchDragExit?
     
-    var recordeAnimationView : FLRecordAnimationView?
       
     override init(frame: CGRect) 
     {
@@ -197,8 +333,6 @@ class FLRecordButton: UIButton
     {
         recordTouchDownAction?(self)
         setButtonStateWithRecording()
-        recordeAnimationView = FLRecordAnimationView.init()
-        recordeAnimationView?.startAnimationView()
     }
       
     @objc func recordTouchUpOutside() 
@@ -212,7 +346,6 @@ class FLRecordButton: UIButton
     {
         recordTouchUpInsideAction?(self)
         setButtonStateWithNormal()
-        recordeAnimationView?.stopAnimationView()
     }
       
     @objc func recordTouchDragEnter()
@@ -267,6 +400,9 @@ class FLRecordAnimationView : UIView
         backView!.addSubview(boxView!)
         boxView!.addSubview(recordImageV!)
         boxView!.addSubview(cancelAlertLabel!)
+        boxView!.addSubview(toastImageV!)
+        boxView!.addSubview(cancelImageV!)
+        boxView!.addSubview(redCancelLabel!)
         
         initLayout()
     }
@@ -287,9 +423,27 @@ class FLRecordAnimationView : UIView
             make.height.equalTo(20)
             make.width.equalTo(200)
         }
+        
+        toastImageV!.snp.makeConstraints { make in
+            make.centerY.equalTo(recordImageV!)
+            make.left.equalTo(recordImageV!.snp_rightMargin).offset(25)
+            make.height.equalTo(recordImageV!)
+            make.width.equalTo(40)
+        }
+        
+        cancelImageV?.snp.makeConstraints({ make in
+            make.centerX.equalTo(boxView!)
+            make.centerY.equalTo(boxView!).offset(-20)
+            make.height.width.equalTo(50)
+        })
+        
+        redCancelLabel?.snp.makeConstraints({ make in
+            make.centerX.equalTo(boxView!)
+            make.bottom.equalTo(-20)
+            make.height.equalTo(20)
+            make.width.equalTo(130)
+        })
     }
-    
-    
     
     func stopAnimationView()
     {
@@ -299,6 +453,8 @@ class FLRecordAnimationView : UIView
         boxView = nil
         recordImageV = nil
         cancelAlertLabel = nil
+        toastImageV = nil
+        cancelImageV = nil
     }
     
     // 背景view
@@ -330,6 +486,32 @@ class FLRecordAnimationView : UIView
         label.font = UIFont.systemFont(ofSize: CGFloat(Chart_Keyboard_Record_Cancel_Alert_font))
         label.textAlignment = .center
         label.textColor = .white
+        return label
+    }()
+    
+    var toastImageV: UIImageView? =
+    {
+        let imageView = UIImageView.init()
+        imageView.image = UIImage(named: "icon_chat_keyboard_v_toast_vol_2")
+        return imageView
+    }()
+    
+    var cancelImageV: UIImageView? =
+    {
+        let imageView = UIImageView.init()
+        imageView.image = UIImage(named: "icon_chat_keyboard_v_toast_vol_cancelsend")
+        imageView.isHidden = true
+        return imageView
+    }()
+    
+    var redCancelLabel : UILabel? = {
+        let label = UILabel.init()
+        label.text = Chat_Keyboard_Cancel_Release_Record_Alert
+        label.font = UIFont.systemFont(ofSize: CGFloat(Chart_Keyboard_Record_Cancel_Alert_font))
+        label.textAlignment = .center
+        label.textColor = .white
+        label.backgroundColor = .red
+        label.isHidden = true
         return label
     }()
     

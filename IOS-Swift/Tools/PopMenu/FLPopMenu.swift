@@ -131,7 +131,7 @@ public class FLPopMenu: UIView
         let arrowPs = getArrowPoints()
         myFrame.origin = arrowPs.3
         let isarrowUP = arrowPs.4
-        print(arrowPs)
+        FLPrint(arrowPs)
         //箭头
         arrowView = UIView(frame: CGRect(x: myFrame.origin.x, y: isarrowUP ? myFrame.origin.y - arrowViewHeight : myFrame.origin.y + myFrame.height, width: myFrame.width, height: arrowViewHeight))
         let layer = CAShapeLayer()

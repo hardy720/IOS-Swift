@@ -22,9 +22,14 @@ class FLDatabaseManager
     public lazy var db: Connection? =
     {
         do {
-            return try Connection(getDatabasePath)
+            if let path = getDatabasePath {
+                return try Connection(path)
+            } else {
+                FLPrint("Not getting a sandbox path to create a database.")
+                return nil
+            }
         } catch {
-            print("Unable to connect to database: \(error)")
+            FLPrint("Unable to connect to database: \(error)")
             return nil
         }
     }()
@@ -35,7 +40,7 @@ class FLDatabaseManager
         do {
             result = try block(db!)
         } catch {
-            print("Database error: \(error)")
+            FLPrint("Database error: \(error)")
         }
         return result
     }
@@ -45,7 +50,7 @@ class FLDatabaseManager
         do {
             try db?.run("CREATE TABLE IF NOT EXISTS \(chatListTableName) (id integer primary key autoincrement, avatar text, nickName text, lastContent text)")
         } catch {
-            print("Failed to set up database: \(error)")
+            FLPrint("Failed to set up database: \(error)")
         }
     }
     
@@ -54,7 +59,7 @@ class FLDatabaseManager
         do {
             try db?.run("CREATE TABLE IF NOT EXISTS \(chatDetailTableName)\(userID) (id integer primary key autoincrement, avatar text, nickName text, contentStr text,lastContent text,msgType integer,isMe integer,mediaTime text)")
         } catch {
-            print("Failed to set up database: \(error)")
+            FLPrint("Failed to set up database: \(error)")
         }
     }
 }
@@ -73,7 +78,7 @@ class ChatListDao
                 try con.run("INSERT INTO \(chatListTableName)(avatar, nickName, lastContent)VALUES(?,?,?)",model.avatar,model.nickName,model.lastContent)
                 success = true
             } catch {
-                print("Insert failed: \(error)")
+                FLPrint("Insert failed: \(error)")
             }
         }
         return success
@@ -90,7 +95,7 @@ class ChatListDao
                 try con.run("DELETE FROM \(chatListTableName) WHERE id = ?", id)
                 success = true
             } catch {
-                print("deletete failed: \(error)")
+                FLPrint("deletete failed: \(error)")
             }
         }
         return success
@@ -108,7 +113,7 @@ class ChatListDao
                 try con.run(sql, model.avatar,model.nickName,model.lastContent,model.id)
                 success = true
             } catch {
-                print("update failed: \(error)")
+                FLPrint("update failed: \(error)")
             }
         }
         return success
@@ -129,7 +134,7 @@ class ChatListDao
                 if let id = row[0] as? Int64, let safeId = Int(exactly: id) {
                     item.id = safeId
                 } else {
-                    print("ID value is too large to fit in an Int")
+                    FLPrint("ID value is too large to fit in an Int")
                 }
                 item.avatar = row[1] as? String ?? ""
                 item.nickName = row[2] as? String ?? ""
@@ -153,7 +158,7 @@ class ChatListDao
                 if let id = row[0] as? Int64, let safeId = Int(exactly: id) {
                     chatModel.id = safeId
                 } else {
-                    print("ID value is too large to fit in an Int")
+                    FLPrint("ID value is too large to fit in an Int")
                 }
                 chatModel.avatar = row[1] as? String ?? ""
                 chatModel.nickName = row[2] as? String ?? ""
@@ -178,7 +183,7 @@ class ChatDetailDao
                 try con.run("INSERT INTO \(chatDetailTableName)\(chatID)(avatar, nickName, contentStr, lastContent,msgType,isMe,mediaTime)VALUES(?,?,?,?,?,?,?)",model.avatar,model.nickName,model.contentStr,model.lastContent,model.msgType.rawValue,model.isMe,model.mediaTime)//
                 success = true
             } catch {
-                print("Insert failed: \(error)")
+                FLPrint("Insert failed: \(error)")
             }
         }
         return success
@@ -198,7 +203,7 @@ class ChatDetailDao
                 if let id = row[0] as? Int64, let safeId = Int(exactly: id) {
                     item.id = safeId
                 } else {
-                    print("ID value is too large to fit in an Int")
+                    FLPrint("ID value is too large to fit in an Int")
                 }
                 item.avatar = row[1] as? String ?? ""
                 item.nickName = row[2] as? String ?? ""

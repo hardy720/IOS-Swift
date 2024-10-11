@@ -61,7 +61,7 @@ private func appendText(fileURL: URL, string: String, currentDate: String) {
         fileHandle.seekToEndOfFile()
         fileHandle.write(stringToWrite.data(using: String.Encoding.utf8)!)
     } catch let error as NSError {
-        print("failed to append: \(error)")
+        FLPrint("failed to append: \(error)")
     }
 }
 

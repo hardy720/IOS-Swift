@@ -28,7 +28,7 @@ class FLUIKitExtensionVC: FLBaseViewController,FLBaseViewControllerDelegate {
     }
     
     func didSelectCell(at indexPath: IndexPath) {
-        print("Cell at \(indexPath.row) selected")
+        FLPrint("Cell at \(indexPath.row) selected")
         switch indexPath.row {
         case 0:
             break

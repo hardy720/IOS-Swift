@@ -34,7 +34,7 @@ class TouchListenerView: UIView
 
         super.touchesBegan(touches, with: event)
 
-        print("Touch began")
+        FLPrint("Touch began")
 
     }
 
@@ -44,7 +44,7 @@ class TouchListenerView: UIView
 
         super.touchesMoved(touches, with: event)
 
-        print("Touch moved")
+        FLPrint("Touch moved")
 
     }
 
@@ -54,7 +54,7 @@ class TouchListenerView: UIView
 
         super.touchesEnded(touches, with: event)
 
-        print("Touch ended")
+        FLPrint("Touch ended")
 
     }
 
@@ -63,6 +63,6 @@ class TouchListenerView: UIView
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         super.touchesCancelled(touches, with: event)
-        print("Touch cancelled")
+        FLPrint("Touch cancelled")
     }
 }

@@ -75,15 +75,15 @@ extension SQLiteViewController
     @objc func test204()
     {
         let ss = ChatListDao.init().fetchChatByID(chatID: -8000)
-        print("---\(ss!.id),--\(ss!.avatar),--\(ss!.nickName)")
+        FLPrint("---\(ss!.id),--\(ss!.avatar),--\(ss!.nickName)")
         if let arr = ChatListDao.init().fetchChatListTable() {
             for item in arr {
-                print(item.id)
-                print(item.avatar)
-                print(item.nickName)
+                FLPrint(item.id)
+                FLPrint(item.avatar)
+                FLPrint(item.nickName)
             }
         } else {
-            print("没有获取到数据")
+            FLPrint("没有获取到数据")
         }
     }
 }

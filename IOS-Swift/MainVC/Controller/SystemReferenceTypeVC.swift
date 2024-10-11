@@ -73,7 +73,7 @@ class Parent
 {
     var child: Child?
     deinit {
-        print("Parent is being deinitialized")
+        FLPrint("Parent is being deinitialized")
     }
 }
 
@@ -81,6 +81,6 @@ class Child
 {
     weak var parent: Parent?
     deinit {
-        print("Child is being deinitialized")
+        FLPrint("Child is being deinitialized")
     }
 }

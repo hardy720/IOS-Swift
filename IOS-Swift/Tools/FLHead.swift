@@ -12,10 +12,8 @@ class FLHead: NSObject
 
 }
 
-/**
- * 位置相关
- */
-func screenW() -> CGFloat 
+// MARK: - 布局相关 -
+func screenW() -> CGFloat
 {
     return UIScreen.main.bounds.size.width
 }
@@ -58,9 +56,7 @@ func calculateWidth(index: Int, screenWidth: CGFloat) -> CGFloat
     return width
 }
 
-/**
- * 视图相关
- */
+// MARK: - 视图相关 -
 public func getKeyWindow() -> UIWindow
 {
     var keyWindow: UIWindow? = nil
@@ -77,21 +73,36 @@ public func getKeyWindow() -> UIWindow
     return keyWindow!
 }
 
-/**
- * 数据库相关
- */
-//let getSandbox_document = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-let getSandbox_document = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-let getDatabasePath = getSandbox_document.path() + "/" + "chat_\(UserDefaults.standard.object(forKey: "USERID") ?? "0").db"
-let getRecordPath = "chat_Record_\(UserDefaults.standard.object(forKey: "USERID") ?? "0")"
+// MARK: - 数据库相关 -
+// 获取沙盒document路径
+func getSandbox_document() -> URL?
+{
+    guard let documentsUrl = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
+        FLPrint("Failed to find documents directory")
+        return nil
+    }
+    return documentsUrl
+}
 
+var getDatabasePath: String?
+{
+    guard let documentsURL = getSandbox_document(), let userID = UserDefaults.standard.object(forKey: "USERID") as? String else {
+        FLPrint("Failed to get document directory or user ID")
+        return nil
+    }
+    let dbName = "chat_\(userID).db"
+    return documentsURL.appendingPathComponent(dbName).path
+}
+
+let getRecordPath = "chat_Record_\(UserDefaults.standard.object(forKey: "USERID") ?? "0")"
 
 func createFolderInDocumentsDirectoryIfNeeded(folderName: String)
 {
-    // 获取文档目录的URL
-    let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     // 构造新文件夹的URL
-    let folderURL = getSandbox_document.appendingPathComponent(folderName)
+    guard let documentsURL = getSandbox_document() else {
+        return
+    }
+    let folderURL = documentsURL.appendingPathComponent(folderName)
     // 使用FileManager检查文件夹是否存在
     var isDir: ObjCBool = false
     if FileManager.default.fileExists(atPath: folderURL.path, isDirectory: &isDir) && isDir.boolValue {
@@ -108,16 +119,14 @@ func createFolderInDocumentsDirectoryIfNeeded(folderName: String)
             // 写入内容到文件
             do {
                 try content.write(to: fileURL, atomically: true, encoding: .utf8)
-                print("File created and written to successfully at path: \(fileURL)")
+                FLPrint("File created and written to successfully at path: \(fileURL)")
             } catch {
-                print("Failed to write to file: \(error.localizedDescription)")
+                FLPrint("Failed to write to file: \(error.localizedDescription)")
             }
         } catch let error {
             // 处理创建文件夹时可能发生的错误
             FLPrint("Failed to create folder with error: \(error.localizedDescription)")
         }
-        
-       
     }
 }
 
@@ -126,7 +135,7 @@ func getRandomFilePathInFolder(folderName: String = "chat_Record_\(UserDefaults.
 {
     // 获取Documents目录的URL
     guard let documentsUrl = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
-        print("Failed to find documents directory")
+        FLPrint("Failed to find documents directory")
         return nil
     }
       
@@ -135,7 +144,7 @@ func getRandomFilePathInFolder(folderName: String = "chat_Record_\(UserDefaults.
       
     // 检查目标文件夹是否存在
     guard FileManager.default.fileExists(atPath: folderUrl.path) else {
-        print("Folder does not exist: \(folderUrl.path)")
+        FLPrint("Folder does not exist: \(folderUrl.path)")
         return nil
     }
       
@@ -145,7 +154,7 @@ func getRandomFilePathInFolder(folderName: String = "chat_Record_\(UserDefaults.
           
         // 确保文件夹中有文件
         guard !directoryContents.isEmpty else {
-            print("Folder is empty: \(folderUrl.path)")
+            FLPrint("Folder is empty: \(folderUrl.path)")
             return nil
         }
           
@@ -158,7 +167,7 @@ func getRandomFilePathInFolder(folderName: String = "chat_Record_\(UserDefaults.
         let fileName = fileUrl.path
         return fileName.components(separatedBy: "/").last
     } catch {
-        print("Failed to list directory contents: \(error.localizedDescription)")
+        FLPrint("Failed to list directory contents: \(error.localizedDescription)")
         return nil
     }
 }
@@ -169,6 +178,7 @@ func saveUserInfo()
 {
     UserDefaults.standard.set("https://gips0.baidu.com/it/u=4249018170,539979145&fm=3039&app=3039&f=JPEG?w=1024&h=1024", forKey: Chat_User_Avatar)
     UserDefaults.standard.set("擎天柱", forKey: Chat_User_NickName)
+    UserDefaults.standard.set("1", forKey: Chat_User_Id)
 }
 
 func getUserAvatar() -> String

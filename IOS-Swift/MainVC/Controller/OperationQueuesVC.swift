@@ -99,7 +99,7 @@ extension OperationQueuesVC
     @objc func test204()
     {
         let operation = BlockOperation {
-            print("Executing operation")
+            FLPrint("Executing operation")
         }
         operation.cancel() // 取消操作
         let queue = OperationQueue()
@@ -145,11 +145,11 @@ extension OperationQueuesVC
         }
           
         // 暂停队列
-        print("暂停队列...")
+        FLPrint("暂停队列...")
         queue.isSuspended = true
         // 模拟等待一段时间（这里用sleep来模拟，实际开发中可能是等待用户操作或其他条件）
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            print("5秒后恢复队列...")
+            FLPrint("5秒后恢复队列...")
             // 恢复队列
             queue.isSuspended = false
             // 注意：如果队列中的所有操作都已经在暂停之前完成了，恢复队列将不会有任何效果。
@@ -185,8 +185,8 @@ class MyCustomOperation1: Operation
     override func main() 
     {
         // 模拟耗时任务
-        print("\(self.name ?? "未知任务") 开始执行")
+        FLPrint("\(self.name ?? "未知任务") 开始执行")
         Thread.sleep(forTimeInterval: 2) // 假设这个任务需要2秒完成
-        print("\(self.name ?? "未知任务") 执行完成")
+        FLPrint("\(self.name ?? "未知任务") 执行完成")
     }
 }

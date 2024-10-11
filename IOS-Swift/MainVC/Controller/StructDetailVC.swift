@@ -55,7 +55,7 @@ extension StructDetailVC
           
         // 方法
         func play() {
-            print("Hello, my name is \(name) and I am \(age) years old.And I am Playing")
+            FLPrint("Hello, my name is \(name) and I am \(age) years old.And I am Playing")
         }
     }
     

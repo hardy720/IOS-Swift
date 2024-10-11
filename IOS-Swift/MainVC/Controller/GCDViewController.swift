@@ -174,15 +174,15 @@ extension GCDViewController
         for i in 1...5 {
             concurrentQueue.async {
                 // 这里执行并发任务
-                print("任务\(i)开始执行，线程ID:")
+                FLPrint("任务\(i)开始执行，线程ID:")
                 // 模拟耗时操作
                 Thread.sleep(forTimeInterval: 1)
                 // 并发任务完成
-                print("任务\(i)执行完成")
+                FLPrint("任务\(i)执行完成")
             }
         }
         // 主线程继续执行，不会被上面的异步任务阻塞
-        print("主线程继续执行，不会等待并发队列中的任务完成")
+        FLPrint("主线程继续执行，不会等待并发队列中的任务完成")
         // 注意：由于队列是并发的，所以任务的执行顺序和完成顺序是不确定的。
     }
     
@@ -220,7 +220,7 @@ extension GCDViewController
             FLPrint("任务1在串行队列中同步执行")
             // 注意：在串行队列的同步块中嵌套同步块可能会导致死锁
             // serialQueue.sync {
-            //     print("这里不应该嵌套同步块")
+            //     FLPrint("这里不应该嵌套同步块")
             // }
             FLPrint(Thread.current)
             FLPrint("任务1完成")
@@ -294,7 +294,7 @@ extension GCDViewController
                 Thread.sleep(forTimeInterval: 2)
                 let endTime = Date()
                 let elapsedTime = endTime.timeIntervalSince(startTime)
-                print("任务 \(taskId) 完成，耗时 \(elapsedTime) 秒")
+                FLPrint("任务 \(taskId) 完成，耗时 \(elapsedTime) 秒")
             }
         }
         // 向队列中添加任务
@@ -303,12 +303,12 @@ extension GCDViewController
             performAsyncTask(queue: customConcurrentQueue, taskId: i)
         }
         // 暂停队列
-        print("暂停队列...")
+        FLPrint("暂停队列...")
         customConcurrentQueue.suspend()
         // 等待一段时间，以观察暂停效果
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             // 恢复队列
-            print("恢复队列...")
+            FLPrint("恢复队列...")
             customConcurrentQueue.resume()
             // 可以选择再次添加任务或继续执行队列中剩余的任务
             // performAsyncTask(queue: customConcurrentQueue, taskId: 6)

@@ -80,7 +80,7 @@ class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
                 self.delegate?.soundRecordTooShort?()
             }
         } catch {
-            print("Failed to stop soundRecord: \(error)")
+            FLPrint("Failed to stop soundRecord: \(error)")
         }
     }
     
@@ -135,7 +135,7 @@ class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
             FLPrint("麦克风访问被拒绝")
 
         case .authorized:
-            print("麦克风授权成功")
+            FLPrint("麦克风授权成功")
             isOk = true
         @unknown default:
             fatalError()
@@ -164,14 +164,14 @@ class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
            }
        } else {
            // 处理无法获取硬件输入格式的情况
-           print("无法获取硬件输入格式")
+           FLPrint("无法获取硬件输入格式")
        }
 
        // 启动音频引擎
        do {
            try audioEngine.start()
        } catch {
-           print("无法启动音频引擎: \(error)")
+           FLPrint("无法启动音频引擎: \(error)")
        }
     }
     
@@ -189,7 +189,7 @@ class FLAudioRecorder: NSObject, AVAudioRecorderDelegate
                 maxAmplitude = absoluteSample
             }
         }
-        // 使用闭包回调来传递振幅
+        // 使用闭包回调来传递振幅：录音声音大小
         amplitudeCallback?(maxAmplitude)
     }
   
@@ -218,9 +218,7 @@ class AudioMonitor
 }
 
 
-/*
- * ****** 播放录音 ******
- */
+// MARK: -播放录音-
 public enum LGAudioPlayerState : NSInteger
 {
     case LGAudioPlayerStateNormal/** 未播放状态 */
@@ -231,7 +229,7 @@ public enum LGAudioPlayerState : NSInteger
 public protocol LGAudioPlayerDelegate: AnyObject
 {
     
-    func audioPlayerStateDidChanged(audioPlayerState: LGAudioPlayerState, forIndex: NSInteger)
+    func audioPlayerStateDidChanged(_audioPlayerState: LGAudioPlayerState)
 }
 
 public class LGSoundPlayer: NSObject, AVAudioPlayerDelegate
@@ -248,7 +246,7 @@ public class LGSoundPlayer: NSObject, AVAudioPlayerDelegate
     {
         // 检查文件是否存在
         if FileManager.default.fileExists(atPath: "\(fileName)") {
-            print("File exists at path: \(URLString)")
+            FLPrint("File exists at path: \(URLString)")
             guard let url = URL(string: fileName as String) else {
                 FLPrint("Invalid URL")
                 return
@@ -268,7 +266,7 @@ public class LGSoundPlayer: NSObject, AVAudioPlayerDelegate
             }
             // 在这里使用 AVAudioPlayer 或其他方法来播放文件
         } else {
-            print("File does not exist at expected path.")
+            FLPrint("File does not exist at expected path.")
         }
     }
     
@@ -281,6 +279,7 @@ public class LGSoundPlayer: NSObject, AVAudioPlayerDelegate
     public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool)
     {
         audioPlayerState = LGAudioPlayerState.LGAudioPlayerStateNormal
+        delegate?.audioPlayerStateDidChanged(_audioPlayerState: .LGAudioPlayerStateNormal)
     }
     
     public func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?)

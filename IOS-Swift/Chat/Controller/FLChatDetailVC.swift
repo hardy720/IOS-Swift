@@ -55,7 +55,7 @@ class FLChatDetailVC: UIViewController
     func initData()
     {
         dataArr = ChatDetailDao.init().fetchChatDetailTable(userID: "\(chatModel!.id)")!
-        print(dataArr)
+        FLPrint(dataArr)
         
         if UserDefaults.standard.bool(forKey: Test_Test_IsOpen) {
             timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
@@ -74,8 +74,8 @@ class FLChatDetailVC: UIViewController
         view.addSubview(tableView!)
         customKeyboardView = FLCustomKeyboardView.init(frame: CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom, width: screenW(), height: Chat_Custom_Keyboard_Height))
         customKeyboardView?.delegate = self
+        customKeyboardView?.userId = "\(chatModel?.id)"
         view.addSubview(customKeyboardView!)
-        initRecord()
     }
     
     lazy var tableView: UITableView? =
@@ -98,47 +98,7 @@ class FLChatDetailVC: UIViewController
 // MARK: - 录音 -
 extension FLChatDetailVC
 {
-    func initRecord()
-    {
-        // 开始录音
-        customKeyboardView?.recordButton.recordTouchDownAction = { recordButton in
-            print("开始录音")
-            if FLAudioRecorder.shared.getAuthorizedStatus() {
-                let recordName = getSandbox_document.path() + getRecordPath + "/" + "\(self.chatModel!.id)" + "_" + Date.fl.currentDate_SSS_() + ".caf"
-                let namename = "\(self.chatModel!.id)" + "_" + Date.fl.currentDate_SSS_() + ".caf"
-                FLAudioRecorder.shared.startRecord(recordFileName: recordName as NSString, pathStr: namename as NSString) { maxAmplitude in
-                    FLPrint("-=====\(maxAmplitude)")
-                }
-            }else{
-                self.view.makeToast(Chat_Keyboart_Record_Check_Permission, duration: 3.0, position: .center)
-            }
-        }
-        
-        // 完成录音
-        customKeyboardView?.recordButton.recordTouchUpInsideAction = { recordButton in
-            print("完成录音")
-            if FLAudioRecorder.shared.getAuthorizedStatus() {
-                FLAudioRecorder.shared.stop()
-                FLAudioRecorder.shared.stopSoundRecord();
-                self.sendAudioMsg()
-            }
-        }
-        
-        // 取消录音
-        customKeyboardView?.recordButton.recordTouchUpOutsideAction = { recordButton in
-            print("取消录音")
-        }
-        
-        // 将取消录音
-        customKeyboardView?.recordButton.recordTouchDragExitAction = { recordButton in
-            print("将取消录音")
-        }
-        
-        // 继续录音
-        customKeyboardView?.recordButton.recordTouchDragInsideAction = { recordButton in
-            print("继续录音")
-        }
-    }
+
 }
 
 // MARK: - 工具
@@ -278,6 +238,12 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     func didChangeTVHeight(_ height: CGFloat)
     {
         customKeyboardView?.frame = CGRect(x: 0, y: (customKeyboardView?.frame.origin.y)! - height, width: screenW(), height: (customKeyboardView?.frame.size.height)! + height)
+    }
+    
+    // 开始录音
+    func startRecording() 
+    {
+        
     }
 }
 

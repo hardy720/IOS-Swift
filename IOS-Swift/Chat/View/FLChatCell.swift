@@ -191,7 +191,7 @@ class ChatTextMessageCell: FLChatBaseCell
 }
 
 // MARK: - 录音Cell -
-class ChatAudioMessageCell: FLChatBaseCell
+class ChatAudioMessageCell: FLChatBaseCell, LGAudioPlayerDelegate
 {
     var msgModel : FLChatMsgModel? = nil
 
@@ -303,9 +303,12 @@ class ChatAudioMessageCell: FLChatBaseCell
     
     @objc func tapClick ()
     {
-        FLPrint(msgModel?.contentStr ?? "")
-        let ss = getSandbox_document.path() + getRecordPath + "/" + (msgModel?.contentStr ?? "")
-        LGSoundPlayer.shared.playAudio(fileName:ss as NSString)
+        guard let documentsURL = getSandbox_document() else {
+            return
+        }
+        let recordPath = documentsURL.path() + getRecordPath + "/" + (msgModel?.contentStr ?? "")
+        LGSoundPlayer.shared.playAudio(fileName:recordPath as NSString)
+        LGSoundPlayer.shared.delegate = self
 
         var images: [UIImage]?
         if let msgModel = msgModel, msgModel.isMe {
@@ -317,5 +320,18 @@ class ChatAudioMessageCell: FLChatBaseCell
         audioImageV.animationDuration = 1.0
         audioImageV.animationRepeatCount = 0
         audioImageV.startAnimating()
+    }
+    
+    func audioPlayerStateDidChanged(_audioPlayerState: LGAudioPlayerState)
+    {
+        switch _audioPlayerState {
+        case .LGAudioPlayerStateNormal:
+            FLPrint("播放结束")
+            audioImageV.stopAnimating()
+            break
+        
+        default:
+            break
+        }
     }
 }
