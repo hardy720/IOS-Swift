@@ -18,16 +18,32 @@ protocol FLCustomKeyboardViewDelegate : AnyObject
     func errorRecordPermission()
     func errorShort()
     func FinishRecord()
+    func recordChangeCustomKeyboardViewFrame()
+    
+    // 增加的另外的功能.
+    func startShowAdd()
 }
 
 class FLCustomKeyboardView: UIView
 {
     weak var delegate: FLCustomKeyboardViewDelegate?
     private var isVoiceBtn = false
+    private var isShowAddView = false
     var recordeAnimationView : FLRecordAnimationView?
     var userId : String?
     
     lazy var backView : UIView = {
+        let backView = UIView()
+        backView.backgroundColor = Chat_CustomKeyBoard_Back_Gray
+        return backView
+    }()
+    
+    lazy var addView : FLAddView = {
+        let view = FLAddView()
+        return view
+    }()
+    
+    lazy var itemBackView : UIView = {
         let backView = UIView()
         backView.backgroundColor = Chat_CustomKeyBoard_Back_Gray
         return backView
@@ -53,6 +69,13 @@ class FLCustomKeyboardView: UIView
         return button
     }()
     
+    lazy var addButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "icon_chat_keyboard_voice_more_ios"), for: .normal)
+        button.addTarget(self, action: #selector(handleAddButtonTap(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var recordButton: FLRecordButton = {
         let button = FLRecordButton.init()
         return button
@@ -62,28 +85,35 @@ class FLCustomKeyboardView: UIView
     {
         super.init(frame: frame)
         setupUI()
-        
         initRecord()
     }
-    
         
     private func setupUI()
     {
         self.addSubview(backView)
-        backView.addSubview(inputTextView)
-        backView.addSubview(voiceButton)
+        backView.addSubview(itemBackView)
+        itemBackView.addSubview(inputTextView)
+        itemBackView.addSubview(voiceButton)
+        itemBackView.addSubview(addButton)
+        backView.addSubview(addView)
+
         self.initLayout()
     }
     
     private func initLayout()
     {
-        backView.snp.updateConstraints { make in
+        backView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalTo(self)
+        }
+        
+        itemBackView.snp.updateConstraints { make in
+            make.top.left.right.equalTo(self)
+            make.height.equalTo(60)
         }
         
         voiceButton.snp.updateConstraints { make in
             make.left.equalTo(20)
-            make.bottom.equalTo(self).offset(-15)
+            make.top.equalTo(10)
             make.height.width.equalTo(40)
         }
         
@@ -92,6 +122,19 @@ class FLCustomKeyboardView: UIView
             make.top.equalTo(15)
             make.bottom.equalTo(-15)
             make.right.equalTo(-60)
+        }
+        
+        addButton.snp.updateConstraints { make in
+            make.centerY.equalTo(inputTextView)
+            make.right.equalTo(itemBackView).offset(-10)
+            make.height.width.equalTo(40)
+        }
+        
+        addView.snp.updateConstraints { make in
+            make.bottom.equalTo(self).offset(-10)
+            make.left.equalTo(self).offset(10)
+            make.right.equalTo(self).offset(-10)
+            make.top.equalTo(itemBackView.snp_bottomMargin).offset(10)
         }
     }
     
@@ -165,10 +208,23 @@ extension FLCustomKeyboardView
         }else{
             button.setImage(UIImage(named: "icon_chat_keyboard"), for: .normal)
             isVoiceBtn = true
-            self.endEditing(true)
             inputTextView.addSubview(recordButton)
             recordButton.frame = CGRectMake(0, 0, inputTextView.frame.size.width, inputTextView.frame.size.height)
+            self.endEditing(true)
+            delegate?.recordChangeCustomKeyboardViewFrame()
         }
+    }
+    
+    @objc func handleAddButtonTap(_ button: UIButton)
+    {
+        if isVoiceBtn {
+            voiceButton.setImage(UIImage(named: "icon_chat_keyboard_voice_hl"), for: .normal)
+            isVoiceBtn = false
+            recordButton.removeFromSuperview()
+        }else{
+            
+        }
+        delegate?.startShowAdd()
     }
     
     // 设置声音大小的图片
@@ -295,11 +351,7 @@ extension FLCustomKeyboardView
     
 }
 
-
-
-/**
- * - 自定义录音按钮 -
- */
+// MARK - 自定义录音按钮 -
 class FLRecordButton: UIButton
 {
     // 定义回调类型
@@ -407,9 +459,7 @@ class FLRecordButton: UIButton
 }
 
 
-/**
- * - 自定义录音动画 -
- */
+// MARK - 自定义录音动画 -
 class FLRecordAnimationView : UIView
 {
     override init(frame: CGRect)
@@ -542,4 +592,26 @@ class FLRecordAnimationView : UIView
     {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+
+// MARK - 图片，视频等 -
+class FLAddView : UIView
+{
+    override init(frame: CGRect)
+    {
+        super.init(frame: frame)
+        self.backgroundColor = .red
+    }
+    
+    required init?(coder: NSCoder) 
+    {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var backScrollV: UIScrollView? =
+    {
+        let scrollView = UIScrollView.init()
+        return scrollView
+    }()
 }

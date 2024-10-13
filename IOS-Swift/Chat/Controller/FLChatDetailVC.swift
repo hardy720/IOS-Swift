@@ -16,6 +16,8 @@ class FLChatDetailVC: UIViewController
 
     private var customKeyboardView : FLCustomKeyboardView? = nil
     private var isShowKeyboard : Bool = false
+    private var isShowAddView : Bool = false
+
     private var keyboardHeight : CGFloat = 0
     private var isSended: Bool = true
     private var timer: Timer?
@@ -148,6 +150,10 @@ extension FLChatDetailVC
         }
         isShowKeyboard = true
         self.isSended = true
+        if isShowAddView {
+            customKeyboardView?.addView.isHidden = true
+            isShowAddView = false
+        }
     }
     
     // 键盘隐藏
@@ -259,6 +265,33 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     func errorShort() 
     {
         self.view.makeToast(Chat_Keyboard_Too_Short_Record_Alert, duration: 2.0, position: .center)
+    }
+    
+    func recordChangeCustomKeyboardViewFrame() 
+    {
+        if isShowAddView {
+            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom , width: screenW(), height: Chat_Custom_Keyboard_Height)
+            isShowAddView = false
+            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom)
+        }
+    }
+    
+    
+    // 增加功能图片，视频。
+    func startShowAdd()
+    {
+        if isShowKeyboard || !isShowAddView {
+            view.endEditing(true)
+            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_AddView_Height - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom, width: screenW(), height: Chat_Custom_Keyboard_Height + Chat_Custom_Keyboard_AddView_Height)
+            isShowAddView = true
+            customKeyboardView?.addView.isHidden = false
+            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - Chat_Custom_Keyboard_Height - Chat_Custom_Keyboard_AddView_Height - fWindowSafeAreaInset().bottom)
+            cellScrollToBottom()
+        }else{
+            customKeyboardView?.inputTextView.becomeFirstResponder()
+            customKeyboardView?.addView.isHidden = true
+            isShowAddView = false
+        }
     }
 }
 
