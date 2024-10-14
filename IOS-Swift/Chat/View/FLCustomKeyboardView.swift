@@ -131,9 +131,7 @@ class FLCustomKeyboardView: UIView
         }
         
         addView.snp.updateConstraints { make in
-            make.bottom.equalTo(self).offset(-10)
-            make.left.equalTo(self).offset(10)
-            make.right.equalTo(self).offset(-10)
+            make.bottom.left.right.equalTo(self).offset(-10)
             make.top.equalTo(itemBackView.snp_bottomMargin).offset(10)
         }
     }
@@ -598,13 +596,54 @@ class FLRecordAnimationView : UIView
 // MARK - 图片，视频等 -
 class FLAddView : UIView
 {
+    let titleArr = ["相册","拍摄","位置"]
+    let imgArr = ["icon_chat_keyboard_add_sharemore_pic","icon_chat_keyboard_add_sharemore_video","icon_chat_keyboard_add_sharemore_location"]
+
     override init(frame: CGRect)
     {
         super.init(frame: frame)
-        self.backgroundColor = .red
+        
+        backScrollV?.contentSize = CGSize(width: screenW(), height: Chat_Custom_Keyboard_AddView_Height)
+        self.addSubview(backScrollV!)
+
+        initLayout()
     }
     
-    required init?(coder: NSCoder) 
+    func initLayout()
+    {
+        backScrollV?.snp.makeConstraints({ make in
+            make.top.bottom.right.left.equalTo(self)
+        })
+        
+        for i in 0...titleArr.count - 1 {
+            let colunm = i % 4;
+            let row = i / 4;
+            let btnWidth = (screenW() - 80)/4;
+            let btnHeight = 70.0
+            
+            let button = UIButton(type: .custom)
+            var configuration = UIButton.Configuration.filled()
+            if let image = UIImage(named: self.imgArr[i])?.withRenderingMode(.automatic) {
+                configuration.image = image
+                configuration.imagePlacement = .top
+                configuration.baseBackgroundColor = .clear
+            }
+            let attributedTitle = NSAttributedString(string: self.titleArr[i], attributes: [.foregroundColor: UIColor.black])
+            button.setAttributedTitle(attributedTitle, for: .normal)
+            button.addTarget(self, action: #selector(itemBtnClick(_:)), for: .touchUpInside)
+            button.configuration = configuration
+            button.setTitleColor(.black, for: .normal)
+            button.frame = CGRect(x: 10 + CGFloat(colunm) * (btnWidth + 20), y: 10 + CGFloat(row) * (btnHeight + 20), width: btnWidth, height: btnHeight)
+            backScrollV?.addSubview(button)
+        }
+    }
+    
+    @objc func itemBtnClick(_ btn: UIButton)
+    {
+        FLPrint("1222222222")
+    }
+    
+    required init?(coder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
     }
@@ -612,6 +651,9 @@ class FLAddView : UIView
     var backScrollV: UIScrollView? =
     {
         let scrollView = UIScrollView.init()
+        scrollView.isScrollEnabled = true
+        scrollView.bounces = true
         return scrollView
     }()
 }
+
