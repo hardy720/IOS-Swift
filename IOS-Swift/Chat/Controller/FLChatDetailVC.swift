@@ -167,7 +167,7 @@ extension FLChatDetailVC
 }
 
 // MARK: - delegate
-extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKeyboardViewDelegate
+extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKeyboardViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate
 {
     /**
      * tableViewDelegate
@@ -293,6 +293,39 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
             isShowAddView = false
         }
     }
+    
+    // 发送消息更多功能
+    func moreAddIndex(index: Int)
+    {
+        switch index {
+        case 0:
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = .photoLibrary
+            present(imagePickerController, animated: true, completion: nil)
+            break
+        default:
+            self.view.makeToast(App_Toast_Developing, duration: 2.0, position: .center)
+
+            break
+        }
+    }
+    
+    // 发送图片
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
+        if let selectedImage = info[.originalImage] as? UIImage {
+            let imageView = UIImageView(image: selectedImage)
+            imageView.frame = CGRect(x: 50, y: 200, width: 300, height: 300)
+            self.view.addSubview(imageView)
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
+    {
+        picker.dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - Send Message -
@@ -342,6 +375,30 @@ extension FLChatDetailVC
             self.tableView?.endUpdates()
         }
         cellScrollToBottom()
+    }
+    
+    // 发送图片信息
+    func sendImageMsg(text: String)
+    {
+        if !text.fl.isStringBlank() {
+            let model = FLChatMsgModel.init()
+            model.nickName = getUserNickName()
+            model.avatar = getUserAvatar()
+            model.contentStr = text
+            model.msgType = .msg_text
+            model.isMe = true
+            let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+            dataArr.append(model)
+            
+            DispatchQueue.main.async {
+                let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
+                self.tableView?.beginUpdates()
+                self.tableView?.insertRows(at: [indexPath], with: .bottom)
+                self.tableView?.endUpdates()
+            }
+            cellScrollToBottom()
+            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
+        }
     }
 }
 

@@ -19,4 +19,5 @@ pod 'SnapKit'
 pod 'Toast-Swift'
 pod 'Kingfisher'
 pod 'SQLite.swift'
+pod 'Alamofire'
 end

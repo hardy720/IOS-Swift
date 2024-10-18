@@ -47,7 +47,12 @@ class FLWindowManager: NSObject
         let rootVCStr:String = UserDefaults.standard.string(forKey: Appdelegate_RootVC_Key_Str) ?? ""
         var rootVC = UIViewController.init()
         if rootVCStr == Appdelegate_RootVC_Value_A_Str {
-            rootVC = FLChatHomeViewController.init()
+            let isLogin:Bool = UserDefaults.standard.bool(forKey: Appdelegate_RootVC_IsLogin_Str) 
+            if isLogin {
+                rootVC = FLChatHomeViewController.init()
+            }else{
+                rootVC = LoginViewController.init()
+            }
         }
         if rootVCStr == Appdelegate_RootVC_Value_B_Str || rootVCStr.fl.isStringBlank() {
             rootVC = FLHomeViewController.init()

@@ -7,6 +7,9 @@
 
 import Foundation
 
+let Tag_1000 = 1000
+
+
 extension Int: FLPOPCompatible {}
 
 // MARK: - 一、基本的扩展方法

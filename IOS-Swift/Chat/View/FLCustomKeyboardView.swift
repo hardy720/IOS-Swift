@@ -22,6 +22,7 @@ protocol FLCustomKeyboardViewDelegate : AnyObject
     
     // 增加的另外的功能.
     func startShowAdd()
+    func moreAddIndex(index:Int)
 }
 
 class FLCustomKeyboardView: UIView
@@ -40,6 +41,7 @@ class FLCustomKeyboardView: UIView
     
     lazy var addView : FLAddView = {
         let view = FLAddView()
+        view.delegate = self
         return view
     }()
     
@@ -143,7 +145,7 @@ class FLCustomKeyboardView: UIView
 }
 
 // MARK: - Delegate -
-extension FLCustomKeyboardView: UITextViewDelegate,FLSoundRecorderDelegate
+extension FLCustomKeyboardView: UITextViewDelegate,FLSoundRecorderDelegate,FLAddViewDelegate
 {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
     {
@@ -190,6 +192,11 @@ extension FLCustomKeyboardView: UITextViewDelegate,FLSoundRecorderDelegate
         
     }
 
+    // 发送消息更多功能：图片、视频...
+    func clickAddIndex(index: Int)
+    {
+        delegate?.moreAddIndex(index: index)
+    }
 }
 
 // MARK: - Tools -
@@ -593,9 +600,15 @@ class FLRecordAnimationView : UIView
 }
 
 
+protocol FLAddViewDelegate : AnyObject
+{
+    func clickAddIndex(index: Int)
+}
+
 // MARK - 图片，视频等 -
 class FLAddView : UIView
 {
+    weak var delegate: FLAddViewDelegate?
     let titleArr = ["相册","拍摄","位置"]
     let imgArr = ["icon_chat_keyboard_add_sharemore_pic","icon_chat_keyboard_add_sharemore_video","icon_chat_keyboard_add_sharemore_location"]
 
@@ -631,6 +644,7 @@ class FLAddView : UIView
             let attributedTitle = NSAttributedString(string: self.titleArr[i], attributes: [.foregroundColor: UIColor.black])
             button.setAttributedTitle(attributedTitle, for: .normal)
             button.addTarget(self, action: #selector(itemBtnClick(_:)), for: .touchUpInside)
+            button.tag = i + Tag_1000
             button.configuration = configuration
             button.setTitleColor(.black, for: .normal)
             button.frame = CGRect(x: 10 + CGFloat(colunm) * (btnWidth + 20), y: 10 + CGFloat(row) * (btnHeight + 20), width: btnWidth, height: btnHeight)
@@ -640,7 +654,8 @@ class FLAddView : UIView
     
     @objc func itemBtnClick(_ btn: UIButton)
     {
-        FLPrint("1222222222")
+        
+        delegate?.clickAddIndex(index: btn.tag - Tag_1000)
     }
     
     required init?(coder: NSCoder)
