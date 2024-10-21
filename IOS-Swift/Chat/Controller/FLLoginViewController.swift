@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  FLLoginViewController.swift
 //  IOS-Swift
 //
 //  Created by hardy on 2024/10/17.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController 
+class FLLoginViewController: UIViewController
 {
 
     override func viewWillAppear(_ animated: Bool) 
@@ -89,12 +89,15 @@ class LoginViewController: UIViewController
     {
         let TF = UITextField.init()
         TF.placeholder = "输入用户名"
+        TF.text = "hardy"
         return TF
     }()
     
     var passWordTF: UITextField =
     {
         let TF = UITextField.init()
+        TF.text = "123456"
+        TF.isSecureTextEntry = true
         TF.placeholder = "输入密码"
         return TF
     }()
@@ -132,8 +135,24 @@ class LoginViewController: UIViewController
     
     @objc func commitBtnClick()
     {
-        UserDefaults.standard.setValue(true, forKey: Appdelegate_RootVC_IsLogin_Str)
-        FLWindowManager.shared.changeRootVC()
+        let paramDict = ["userName":nameTF.text!,"passWord":passWordTF.text!]
+        FLNetworkManager.shared.requestLoginDatas(.get, URLString: "\(BASE_URL)user/login", paramaters: paramDict) { response in
+            let json = JSON(response)
+            let alertMessage = json["msg"].stringValue;
+            if json["code"].intValue == 200 {
+                let dic_info = json["data"].dictionaryObject
+                let userM = UserInfoModel.deserialize(from: dic_info)
+                let token = json["token"].stringValue
+                let userInfoM = UserInfoManager.shareInstance
+                userInfoM.saveUserInfo(userM: userM!)
+                userInfoM.saveToken(token: token)
+
+                self.perform(#selector(delayExecution), with: nil, afterDelay: TimeInterval(TOASTSHOWTIME))
+            }else{
+                
+            }
+            FLToast.showToastAction(message: alertMessage as NSString)
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -153,7 +172,7 @@ class LoginViewController: UIViewController
 
 }
 
-extension LoginViewController
+extension FLLoginViewController
 {
     func initNoti()
     {

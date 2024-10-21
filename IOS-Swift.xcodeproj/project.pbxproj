@@ -21,6 +21,8 @@
 		433072A92C40F15D007FADED /* SystemValueTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072A82C40F15D007FADED /* SystemValueTypeVC.swift */; };
 		433072AB2C40F178007FADED /* SystemReferenceTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433072AA2C40F178007FADED /* SystemReferenceTypeVC.swift */; };
 		434120492CA3B370005A0A73 /* FLAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434120482CA3B370005A0A73 /* FLAudioRecorder.swift */; };
+		435245612CC24845007864F4 /* FLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435245602CC24845007864F4 /* FLNetworkManager.swift */; };
+		435245632CC40D23007864F4 /* FLUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435245622CC40D23007864F4 /* FLUserModel.swift */; };
 		43581D8F2C4B9BC6004F154C /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D8E2C4B9BC6004F154C /* DispatchQueue+Extension.swift */; };
 		43581D912C4BAE50004F154C /* FLAsyncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D902C4BAE50004F154C /* FLAsyncs.swift */; };
 		43581D932C4BC36D004F154C /* GCDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D922C4BC36D004F154C /* GCDViewController.swift */; };
@@ -49,7 +51,7 @@
 		43D40A072C5639E4009F1260 /* OperationQueuesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */; };
 		43DCF1D82C5BE4CA007E25D0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCF1D72C5BE4CA007E25D0 /* Int+Extension.swift */; };
 		43E4AFEE2CA2778600623EE1 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E4AFED2CA2778600623EE1 /* UITableView+Extension.swift */; };
-		43E4E8A12CC0FCDD00BA4A55 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E4E8A02CC0FCDD00BA4A55 /* LoginViewController.swift */; };
+		43E4E8A12CC0FCDD00BA4A55 /* FLLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E4E8A02CC0FCDD00BA4A55 /* FLLoginViewController.swift */; };
 		43F1513E2C392EFA003584DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1513D2C392EFA003584DD /* AppDelegate.swift */; };
 		43F151402C392EFA003584DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1513F2C392EFA003584DD /* SceneDelegate.swift */; };
 		43F151422C392EFA003584DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F151412C392EFA003584DD /* ViewController.swift */; };
@@ -112,6 +114,8 @@
 		433072A82C40F15D007FADED /* SystemValueTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemValueTypeVC.swift; path = Controller/SystemValueTypeVC.swift; sourceTree = "<group>"; };
 		433072AA2C40F178007FADED /* SystemReferenceTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemReferenceTypeVC.swift; path = Controller/SystemReferenceTypeVC.swift; sourceTree = "<group>"; };
 		434120482CA3B370005A0A73 /* FLAudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAudioRecorder.swift; sourceTree = "<group>"; };
+		435245602CC24845007864F4 /* FLNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLNetworkManager.swift; sourceTree = "<group>"; };
+		435245622CC40D23007864F4 /* FLUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLUserModel.swift; sourceTree = "<group>"; };
 		43581D8E2C4B9BC6004F154C /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		43581D902C4BAE50004F154C /* FLAsyncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAsyncs.swift; sourceTree = "<group>"; };
 		43581D922C4BC36D004F154C /* GCDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDViewController.swift; path = Controller/GCDViewController.swift; sourceTree = "<group>"; };
@@ -140,7 +144,7 @@
 		43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OperationQueuesVC.swift; path = Controller/OperationQueuesVC.swift; sourceTree = "<group>"; };
 		43DCF1D72C5BE4CA007E25D0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		43E4AFED2CA2778600623EE1 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
-		43E4E8A02CC0FCDD00BA4A55 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		43E4E8A02CC0FCDD00BA4A55 /* FLLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLLoginViewController.swift; sourceTree = "<group>"; };
 		43F1513A2C392EFA003584DD /* IOS-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IOS-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F1513D2C392EFA003584DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43F1513F2C392EFA003584DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -332,6 +336,7 @@
 				435D1BA72C8E9F8E001819FF /* FLWindowManager.swift */,
 				43F295922C76F20400E5A212 /* FLDatabaseManager.swift */,
 				434120482CA3B370005A0A73 /* FLAudioRecorder.swift */,
+				435245602CC24845007864F4 /* FLNetworkManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -359,6 +364,7 @@
 			children = (
 				439B59CE2C9331BE004B07D6 /* FLChatListModel.swift */,
 				439B59CC2C933103004B07D6 /* FLChatMsgModel.swift */,
+				435245622CC40D23007864F4 /* FLUserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -429,7 +435,7 @@
 			children = (
 				43F2958E2C76E18100E5A212 /* FLChatHomeViewController.swift */,
 				435D1BAC2C8FDEA3001819FF /* FLChatDetailVC.swift */,
-				43E4E8A02CC0FCDD00BA4A55 /* LoginViewController.swift */,
+				43E4E8A02CC0FCDD00BA4A55 /* FLLoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -716,6 +722,7 @@
 				4322EEFB2C3A9389000D20BD /* String+Extension.swift in Sources */,
 				43F2958F2C76E18100E5A212 /* FLChatHomeViewController.swift in Sources */,
 				43F151422C392EFA003584DD /* ViewController.swift in Sources */,
+				435245632CC40D23007864F4 /* FLUserModel.swift in Sources */,
 				43F295912C76E5DD00E5A212 /* SQLiteViewController.swift in Sources */,
 				433072A72C40EBAB007FADED /* SystemTypeVC.swift in Sources */,
 				43F1513E2C392EFA003584DD /* AppDelegate.swift in Sources */,
@@ -729,7 +736,7 @@
 				43F295972C771AA100E5A212 /* FLSingleton.swift in Sources */,
 				438A7AAE2C89B362005CFCF1 /* UIView+Extension.swift in Sources */,
 				43F151402C392EFA003584DD /* SceneDelegate.swift in Sources */,
-				43E4E8A12CC0FCDD00BA4A55 /* LoginViewController.swift in Sources */,
+				43E4E8A12CC0FCDD00BA4A55 /* FLLoginViewController.swift in Sources */,
 				43E4AFEE2CA2778600623EE1 /* UITableView+Extension.swift in Sources */,
 				435D1BAB2C8EE1A6001819FF /* FLChatListTableViewCell.swift in Sources */,
 				4385665E2C99521100D84A68 /* FLCustomKeyboardView.swift in Sources */,
@@ -754,6 +761,7 @@
 				43FF21B82C3E2460007F386C /* FLArrayExtensionVC.swift in Sources */,
 				43FF21C12C3E4001007F386C /* DateFormatter+Extension.swift in Sources */,
 				43921B862CBD69A700EA12B0 /* FlTestViewController.swift in Sources */,
+				435245612CC24845007864F4 /* FLNetworkManager.swift in Sources */,
 				4322EEEE2C3A8488000D20BD /* FLHomeViewController.swift in Sources */,
 				43FF21B42C3D6B83007F386C /* FLUIKitExtensionVC.swift in Sources */,
 				433072A52C40D32E007FADED /* StructDetailVC.swift in Sources */,

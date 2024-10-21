@@ -46,29 +46,32 @@ class FLWindowManager: NSObject
     {
         let rootVCStr:String = UserDefaults.standard.string(forKey: Appdelegate_RootVC_Key_Str) ?? ""
         var rootVC = UIViewController.init()
-        if rootVCStr == Appdelegate_RootVC_Value_A_Str {
-            let isLogin:Bool = UserDefaults.standard.bool(forKey: Appdelegate_RootVC_IsLogin_Str) 
-            if isLogin {
-                rootVC = FLChatHomeViewController.init()
-            }else{
-                rootVC = LoginViewController.init()
-            }
-        }
-        if rootVCStr == Appdelegate_RootVC_Value_B_Str || rootVCStr.fl.isStringBlank() {
+        switch rootVCStr {
+        case Appdelegate_RootVC_Value_A_Str:
+            rootVC = FLLoginViewController.init()
+            break
+            
+        case Appdelegate_RootVC_Value_B_Str:
             rootVC = FLHomeViewController.init()
+            break
+            
+        case "":
+            rootVC = FLHomeViewController.init()
+            break
+            
+        case Appdelegate_RootVC_Value_C_Str:
+            rootVC = FLChatHomeViewController.init()
+            break
+            
+        default:
+            break
         }
         return rootVC
     }
     
-    func changeRootVC()
+    func changeRootVC(vcStr : String)
     {
-        let rootVCStr = UserDefaults.standard.string(forKey: Appdelegate_RootVC_Key_Str) ?? ""
-        if rootVCStr == Appdelegate_RootVC_Value_A_Str {
-            UserDefaults.standard.setValue(Appdelegate_RootVC_Value_B_Str, forKey: Appdelegate_RootVC_Key_Str)
-        }
-        if rootVCStr == Appdelegate_RootVC_Value_B_Str || rootVCStr.fl.isStringBlank() {
-            UserDefaults.standard.setValue(Appdelegate_RootVC_Value_A_Str, forKey: Appdelegate_RootVC_Key_Str)
-        }
+        UserDefaults.standard.setValue(vcStr, forKey: Appdelegate_RootVC_Key_Str)
         self.setRootVC()
     }
 }

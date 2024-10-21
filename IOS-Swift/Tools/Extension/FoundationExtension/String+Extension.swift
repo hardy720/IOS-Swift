@@ -16,9 +16,13 @@ import CryptoKit
 let Appdelegate_RootVC_Key_Str = "Appdelegate_RootVC"
 let Appdelegate_RootVC_Value_A_Str = "A"
 let Appdelegate_RootVC_Value_B_Str = "B"
+let Appdelegate_RootVC_Value_C_Str = "C"
+
 let Appdelegate_HomeVC_SwitchStatus = "切换状态"
 let Appdelegate_RootVC_IsLogin_Str = "Appdelegate_RootVC_IsUserLogin"
 let Chat_ChatHome_NewChat = "新建聊天"
+let Chat_ChatHome_LoginOut = "退出登录"
+
 let Chat_User_Avatar = "User_MyAvatar"
 let Chat_User_NickName = "User_MyNickName"
 let Chat_User_Id = "USERID"

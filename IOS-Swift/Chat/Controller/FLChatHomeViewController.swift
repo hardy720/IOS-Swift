@@ -38,7 +38,10 @@ class FLChatHomeViewController: UIViewController
         }else{
             testStr = Test_Test_OpenTest
         }
-        let popData = [(icon:"icon_chat_switch",title:Appdelegate_HomeVC_SwitchStatus), (icon:"icon_chat_chat",title:Chat_ChatHome_NewChat), (icon:"test_test_test",title:testStr)]
+        let popData = [(icon:"icon_chat_switch",title:Appdelegate_HomeVC_SwitchStatus), (icon:"icon_chat_chat",title:Chat_ChatHome_NewChat),
+            (icon:"test_test_test",title:testStr),
+            (icon:"icon_chat_home_loginout"
+            ,title:Chat_ChatHome_LoginOut)]
         let parameters:[FLPopMenuConfigure] =
         [
             .PopMenuTextColor(UIColor.black),
@@ -47,10 +50,12 @@ class FLChatHomeViewController: UIViewController
         ]
         let popMenu = FLPopMenu(menuWidth: 150, arrow: CGPoint(x: screenW() - 25, y: fNavigaH), datas: popData,configures: parameters)
         popMenu.didSelectMenuBlock = { [weak self](index:Int)->Void in
-            if index == 0 {
-                FLWindowManager.shared.changeRootVC();
-            }
-            if index == 1 {
+            switch index {
+            case 0:
+                FLWindowManager.shared.changeRootVC(vcStr: Appdelegate_RootVC_Value_B_Str)
+                break
+            
+            case 1:
                 let model = FLChatListModel.init()
                 model.avatar = String.fl.getRandomImageUrlStr()!
                 model.nickName = "用户-00\(self!.dataArr.count)"
@@ -59,9 +64,18 @@ class FLChatHomeViewController: UIViewController
                 FLPrint("新增是否成功:\(isok)")
                 self?.initData()
                 self?.tableView?.reloadData()
-            }
-            if index == 2 {
+                break
+            
+            case 2:
                 UserDefaults.standard.bool(forKey: Test_Test_IsOpen) ? UserDefaults.standard.setValue(false, forKey: Test_Test_IsOpen) : UserDefaults.standard.setValue(true, forKey: Test_Test_IsOpen)
+                break
+                
+            case 3:
+                FLWindowManager.shared.changeRootVC(vcStr: Appdelegate_RootVC_Value_A_Str)
+                break
+                
+            default:
+                break
             }
         }
         popMenu.show()

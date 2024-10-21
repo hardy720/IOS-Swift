@@ -20,4 +20,6 @@ pod 'Toast-Swift'
 pod 'Kingfisher'
 pod 'SQLite.swift'
 pod 'Alamofire'
+pod 'SwiftyJSON'
+
 end
