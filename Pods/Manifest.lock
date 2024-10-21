@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.9.1)
+  - HandyJSON (5.0.2)
   - Kingfisher (7.11.0)
   - SnapKit (5.7.1)
   - SQLite.swift (0.15.3):
@@ -10,6 +11,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - HandyJSON
   - Kingfisher
   - SnapKit
   - SQLite.swift
@@ -19,6 +21,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - HandyJSON
     - Kingfisher
     - SnapKit
     - SQLite.swift
@@ -27,12 +30,13 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SQLite.swift: 8d054987f02728cc912b0eb5a9659650573a65a2
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   Toast-Swift: 7a03a532afe3a560d4044bc7c237e2864d295173
 
-PODFILE CHECKSUM: c4c3f259f7820407cfb48aafb0a0febf69659278
+PODFILE CHECKSUM: 0089ae0fdc2eeca7c1da7df4f83ca29b22893059
 
 COCOAPODS: 1.15.2

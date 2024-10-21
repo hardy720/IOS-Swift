@@ -72,7 +72,7 @@ class FLChatDetailVC: UIViewController
     func initUI()
     {
         view.backgroundColor = .white
-        self.title = chatModel?.nickName
+        self.title = chatModel?.friendName
         view.addSubview(tableView!)
         customKeyboardView = FLCustomKeyboardView.init(frame: CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom, width: screenW(), height: Chat_Custom_Keyboard_Height))
         customKeyboardView?.delegate = self
@@ -335,9 +335,10 @@ extension FLChatDetailVC
     func sendTextMsg(text: String)
     {
         if !text.fl.isStringBlank() {
+            let userInfoModel = FLUserInfoManager.shared.getUserInfo()
             let model = FLChatMsgModel.init()
-            model.nickName = getUserNickName()
-            model.avatar = getUserAvatar()
+            model.nickName = userInfoModel.userName
+            model.avatar = userInfoModel.avatar
             model.contentStr = text
             model.msgType = .msg_text
             model.isMe = true
@@ -358,9 +359,10 @@ extension FLChatDetailVC
     // 发送录音消息
     func sendAudioMsg()
     {
+        let userInfoModel = FLUserInfoManager.shared.getUserInfo()
         let model = FLChatMsgModel.init()
-        model.nickName = getUserNickName()
-        model.avatar = getUserAvatar()
+        model.nickName = userInfoModel.userName
+        model.avatar = userInfoModel.avatar
         model.contentStr = (FLAudioRecorder.shared.recordFilePath as String)
         model.msgType = .msg_audio
         model.isMe = true
@@ -381,9 +383,10 @@ extension FLChatDetailVC
     func sendImageMsg(text: String)
     {
         if !text.fl.isStringBlank() {
+            let userInfoModel = FLUserInfoManager.shared.getUserInfo()
             let model = FLChatMsgModel.init()
-            model.nickName = getUserNickName()
-            model.avatar = getUserAvatar()
+            model.nickName = userInfoModel.userName
+            model.avatar = userInfoModel.avatar
             model.contentStr = text
             model.msgType = .msg_text
             model.isMe = true
@@ -423,12 +426,11 @@ extension FLChatDetailVC
         let i = Int.fl.random(within: 0..<10)
         if i > 5 {
             model.isMe = false
-            model.avatar = chatModel!.avatar
-            model.nickName = getUserNickName()
+            model.avatar = chatModel!.friendAvatar
         }else{
-            model.isMe = true
-            model.nickName = getUserNickName()
-            model.avatar = getUserAvatar()
+            let userInfoModel = FLUserInfoManager.shared.getUserInfo()
+            model.nickName = userInfoModel.userName
+            model.avatar = userInfoModel.avatar
         }
         let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
         dataArr.append(model)
@@ -448,14 +450,14 @@ extension FLChatDetailVC
         model.contentStr = getRandomFilePathInFolder() ?? ""
         model.msgType = .msg_audio
         let i = Int.fl.random(within: 0..<60)
-        if i > 5 {
+        if i > 30 {
             model.isMe = false
-            model.avatar = chatModel!.avatar
-            model.nickName = getUserNickName()
+            model.avatar = chatModel!.friendAvatar
         }else{
             model.isMe = true
-            model.nickName = getUserNickName()
-            model.avatar = getUserAvatar()
+            let userInfoModel = FLUserInfoManager.shared.getUserInfo()
+            model.nickName = userInfoModel.userName
+            model.avatar = userInfoModel.avatar
         }
         model.mediaTime = "\(i)"
         let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)

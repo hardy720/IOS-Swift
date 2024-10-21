@@ -87,7 +87,7 @@ func getSandbox_document() -> URL?
 
 var getDatabasePath: String?
 {
-    guard let documentsURL = getSandbox_document(), let userID = UserDefaults.standard.object(forKey: "USERID") as? String else {
+    guard let documentsURL = getSandbox_document(), let userID = UserDefaults.standard.object(forKey: Chat_User_Id) as? String else {
         FLPrint("Failed to get document directory or user ID")
         return nil
     }
@@ -171,24 +171,5 @@ func getRandomFilePathInFolder(folderName: String = "chat_Record_\(UserDefaults.
         FLPrint("Failed to list directory contents: \(error.localizedDescription)")
         return nil
     }
-}
-
-
-
-func saveUserInfo()
-{
-    UserDefaults.standard.set("https://gips0.baidu.com/it/u=4249018170,539979145&fm=3039&app=3039&f=JPEG?w=1024&h=1024", forKey: Chat_User_Avatar)
-    UserDefaults.standard.set("擎天柱", forKey: Chat_User_NickName)
-    UserDefaults.standard.set("1", forKey: Chat_User_Id)
-}
-
-func getUserAvatar() -> String
-{
-    return UserDefaults.standard.object(forKey: Chat_User_Avatar) as? String ?? ""
-}
-
-func getUserNickName() -> String
-{
-    return UserDefaults.standard.object(forKey: Chat_User_NickName) as? String ?? ""
 }
 

@@ -57,13 +57,14 @@ class FLChatHomeViewController: UIViewController
             
             case 1:
                 let model = FLChatListModel.init()
-                model.avatar = String.fl.getRandomImageUrlStr()!
-                model.nickName = "用户-00\(self!.dataArr.count)"
-                model.lastContent = "我是最后一句"
+                model.friendAvatar = String.fl.getRandomImageUrlStr()!
+                model.friendName = "用户-00\(self!.dataArr.count)"
+                model.lastText = "我是最后一句"
                 let isok = ChatListDao.init().insertChatListTable(model: model)
                 FLPrint("新增是否成功:\(isok)")
                 self?.initData()
                 self?.tableView?.reloadData()
+                self?.createChartToServer(model: model)
                 break
             
             case 2:
@@ -79,6 +80,13 @@ class FLChatHomeViewController: UIViewController
             }
         }
         popMenu.show()
+    }
+    
+    func createChartToServer(model: FLChatListModel)
+    {
+        FLNetworkManager.shared.requestData(.get, URLString: "\(BASE_URL)user/login", paramaters: nil) { [self] response in
+            
+        }
     }
     
     func initData()

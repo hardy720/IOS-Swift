@@ -22,7 +22,7 @@ class FLChatListTableViewCell: UITableViewCell
     
     func setModel(model: FLChatListModel)
     {
-        avatarImage.kf.setImage(with: URL(string: model.avatar), placeholder: UIImage(named: "placeholder.jpg"), options: nil, progressBlock: nil) { result in
+        avatarImage.kf.setImage(with: URL(string: model.friendAvatar), placeholder: UIImage(named: "placeholder.jpg"), options: nil, progressBlock: nil) { result in
             switch result {
             case .success(let value):
                 // 图片加载成功
@@ -32,9 +32,9 @@ class FLChatListTableViewCell: UITableViewCell
                 FLPrint("Failed to load image: \(error.localizedDescription)")
             }
         }
-        nickNameLabel.text = model.nickName
+        nickNameLabel.text = model.friendName
         timeLabel.text = "2024年9月10日 凌晨 13:14"
-        lastContentLabel.text = model.lastContent
+        lastContentLabel.text = model.lastText
     }
     
     func initLayout()

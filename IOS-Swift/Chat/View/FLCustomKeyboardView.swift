@@ -322,11 +322,13 @@ extension FLCustomKeyboardView
         // 完成录音
         recordButton.recordTouchUpInsideAction = { recordButton in
             FLPrint("Finish recording")
-            self.recordeAnimationView?.stopAnimationView()
-            FLAudioRecorder.shared.stop()
-            FLAudioRecorder.shared.stopSoundRecord()
-            if FLAudioRecorder.shared.recordSeconds > 1 {
-                self.delegate?.FinishRecord()
+            if FLAudioRecorder.shared.getAuthorizedStatus() {
+                self.recordeAnimationView?.stopAnimationView()
+                FLAudioRecorder.shared.stop()
+                FLAudioRecorder.shared.stopSoundRecord()
+                if FLAudioRecorder.shared.recordSeconds > 1 {
+                    self.delegate?.FinishRecord()
+                }
             }
         }
         

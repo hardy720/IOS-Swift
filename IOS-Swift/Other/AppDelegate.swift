@@ -21,16 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setDatabase()
     {
-        /**
-         *  保存用户信息
-         */
-        saveUserInfo()
-        
-        /**
-         * 创建数据库
-         */
-        FLDatabaseManager.shared.setup()
-        
         /*
          * 创建保存音频的文件夹
          */

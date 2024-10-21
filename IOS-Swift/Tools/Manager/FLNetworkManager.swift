@@ -29,7 +29,7 @@ class FLNetworkManager
     ///   - paramaters: 请求参数
     ///   - finishCallBack: 返回成功以后的值
     /// - Returns:
-    func requestLoginDatas(_ type:MethodType, URLString : String, paramaters : [String : Any]?, finishCallBack:@escaping(_ response : Any) -> ()) {
+    func requestData(_ type:MethodType, URLString : String, paramaters : [String : Any]?, finishCallBack:@escaping(_ response : Any) -> ()) {
         let method = type == .get ? HTTPMethod.get : HTTPMethod.post
         AF.request(URLString, method: method , parameters: paramaters).responseJSON { response in
             guard response.value != nil else {

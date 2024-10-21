@@ -10,7 +10,8 @@ import Foundation
 class FLChatListModel
 {
     var id: Int = 0
-    var avatar: String = ""
-    var nickName: String = ""
-    var lastContent: String = ""
+    var friendId: Int = ""
+    var friendAvatar: String = ""
+    var lastText: String = ""
+    var friendName: String = ""
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class FLLoginViewController: UIViewController
 {
@@ -136,23 +137,31 @@ class FLLoginViewController: UIViewController
     @objc func commitBtnClick()
     {
         let paramDict = ["userName":nameTF.text!,"passWord":passWordTF.text!]
-        FLNetworkManager.shared.requestLoginDatas(.get, URLString: "\(BASE_URL)user/login", paramaters: paramDict) { response in
+        FLNetworkManager.shared.requestData(.get, URLString: "\(BASE_URL)user/login", paramaters: paramDict) { [self] response in
             let json = JSON(response)
             let alertMessage = json["msg"].stringValue;
             if json["code"].intValue == 200 {
-                let dic_info = json["data"].dictionaryObject
-                let userM = UserInfoModel.deserialize(from: dic_info)
-                let token = json["token"].stringValue
-                let userInfoM = UserInfoManager.shareInstance
-                userInfoM.saveUserInfo(userM: userM!)
-                userInfoM.saveToken(token: token)
-
-                self.perform(#selector(delayExecution), with: nil, afterDelay: TimeInterval(TOASTSHOWTIME))
-            }else{
-                
+                let dic_info = json["data"]["userInfo"].dictionaryObject
+                let userM = FLUserModel.deserialize(from: dic_info)
+                if let unwrappedUserM = userM {
+                    FLUserInfoManager.shared.saveUserInfo(userM: unwrappedUserM)
+                    self.perform(#selector(delayExecution), with: nil, afterDelay: TimeInterval(3))
+                } else {
+                    print("userM is nil and cannot be saved.")
+                }
             }
-            FLToast.showToastAction(message: alertMessage as NSString)
+            self.view.makeToast(alertMessage.fl.isStringBlank() ? "检查服务器":alertMessage, duration: 3.0, position: .center)
         }
+    }
+    
+    @objc func delayExecution()
+    {
+        /**
+         * 创建数据库
+         */
+        FLDatabaseManager.shared.setup()
+        UserDefaults.standard.setValue(true, forKey: Appdelegate_RootVC_IsLogin_Str)
+        FLWindowManager.shared.changeRootVC(vcStr: Appdelegate_RootVC_Value_C_Str)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)

@@ -18,6 +18,13 @@
 			<key>orderHint</key>
 			<integer>11</integer>
 		</dict>
+		<key>HandyJSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
 		<key>Kingfisher-Kingfisher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -85,11 +92,15 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>14</integer>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>13</integer>
 		</dict>
 		<key>Toast-Swift-Toast-Swift.xcscheme</key>
 		<dict>

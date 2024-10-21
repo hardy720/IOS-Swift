@@ -30,6 +30,7 @@
 		435D1BAB2C8EE1A6001819FF /* FLChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BAA2C8EE1A6001819FF /* FLChatListTableViewCell.swift */; };
 		435D1BAD2C8FDEA3001819FF /* FLChatDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1BAC2C8FDEA3001819FF /* FLChatDetailVC.swift */; };
 		435D1D032C9148AD001819FF /* FLChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D1D022C9148AD001819FF /* FLChatCell.swift */; };
+		436E3C012CC63D1F0057641C /* FLUserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436E3C002CC63D1F0057641C /* FLUserInfoManager.swift */; };
 		437E5EA62C3C3D1D001B7945 /* BasePlainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */; };
 		438565F82C9857FB00D84A68 /* UImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438565F72C9857FB00D84A68 /* UImage+Extension.swift */; };
 		438565FA2C9928E200D84A68 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438565F92C9928E200D84A68 /* UIFont+Extension.swift */; };
@@ -123,6 +124,7 @@
 		435D1BAA2C8EE1A6001819FF /* FLChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatListTableViewCell.swift; sourceTree = "<group>"; };
 		435D1BAC2C8FDEA3001819FF /* FLChatDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatDetailVC.swift; sourceTree = "<group>"; };
 		435D1D022C9148AD001819FF /* FLChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatCell.swift; sourceTree = "<group>"; };
+		436E3C002CC63D1F0057641C /* FLUserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLUserInfoManager.swift; sourceTree = "<group>"; };
 		437E5EA52C3C3D1D001B7945 /* BasePlainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasePlainTableViewCell.swift; path = BaseClasses/View/BasePlainTableViewCell.swift; sourceTree = "<group>"; };
 		438565F72C9857FB00D84A68 /* UImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UImage+Extension.swift"; sourceTree = "<group>"; };
 		438565F92C9928E200D84A68 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				43F295922C76F20400E5A212 /* FLDatabaseManager.swift */,
 				434120482CA3B370005A0A73 /* FLAudioRecorder.swift */,
 				435245602CC24845007864F4 /* FLNetworkManager.swift */,
+				436E3C002CC63D1F0057641C /* FLUserInfoManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -746,6 +749,7 @@
 				4322EEF02C3A84A3000D20BD /* FLBaseViewController.swift in Sources */,
 				439B59CF2C9331BE004B07D6 /* FLChatListModel.swift in Sources */,
 				43DCF1D82C5BE4CA007E25D0 /* Int+Extension.swift in Sources */,
+				436E3C012CC63D1F0057641C /* FLUserInfoManager.swift in Sources */,
 				433072AB2C40F178007FADED /* SystemReferenceTypeVC.swift in Sources */,
 				435D1BAD2C8FDEA3001819FF /* FLChatDetailVC.swift in Sources */,
 				43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */,

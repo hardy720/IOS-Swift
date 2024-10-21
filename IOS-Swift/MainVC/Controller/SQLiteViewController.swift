@@ -47,9 +47,9 @@ extension SQLiteViewController
     @objc func test201()
     {
         let model = FLChatListModel.init()
-        model.avatar = "https://img1.baidu.com/it/u=1624963289,2527746346&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750"
-        model.nickName = "nickName"
-        model.lastContent = "content"
+        model.friendAvatar = "https://img1.baidu.com/it/u=1624963289,2527746346&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750"
+        model.friendName = "nickName"
+        model.lastText = "content"
         let isok = ChatListDao.init().insertChatListTable(model: model)
         FLPrint("新增是否成功:\(isok)")
     }
@@ -66,7 +66,7 @@ extension SQLiteViewController
     {
         let model = FLChatListModel.init()
         model.id = 30
-        model.nickName = "修改后"
+        model.friendName = "修改后"
         let isOk = ChatListDao.init().updateChatListTable(model: model)
         FLPrint("修改是否成功:\(isOk)")
     }
@@ -75,12 +75,11 @@ extension SQLiteViewController
     @objc func test204()
     {
         let ss = ChatListDao.init().fetchChatByID(chatID: -8000)
-        FLPrint("---\(ss!.id),--\(ss!.avatar),--\(ss!.nickName)")
         if let arr = ChatListDao.init().fetchChatListTable() {
             for item in arr {
                 FLPrint(item.id)
-                FLPrint(item.avatar)
-                FLPrint(item.nickName)
+                FLPrint(item.friendAvatar)
+                FLPrint(item.friendName)
             }
         } else {
             FLPrint("没有获取到数据")

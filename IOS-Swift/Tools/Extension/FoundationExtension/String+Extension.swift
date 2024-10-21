@@ -25,15 +25,16 @@ let Chat_ChatHome_LoginOut = "退出登录"
 
 let Chat_User_Avatar = "User_MyAvatar"
 let Chat_User_NickName = "User_MyNickName"
-let Chat_User_Id = "USERID"
+let Chat_User_Id = "User_id"
+let Chat_User_PassWord = "User_MyPassWord"
+
 let Chat_Keyboard_Hold_Speak = "按住 说话"
 let Chat_Keyboard_Release_End = "松开 结束"
 let Chat_Keyboard_Cancel_Record_Alert = "手指上划,取消发送"
 let Chat_Keyboard_Cancel_Release_Record_Alert = "手指松开,取消发送"
 let Chat_Keyboard_Too_Short_Record_Alert = "说话时间太短"
-
-
 let Chat_Keyboart_Record_Check_Permission = "请检查麦克风授权"
+
 let Test_Test_IsOpen = "Test_Test_IsOpen"
 let Test_Test_OpenTest = "Open Test"
 let Test_Test_CloseTest = "Close Test"

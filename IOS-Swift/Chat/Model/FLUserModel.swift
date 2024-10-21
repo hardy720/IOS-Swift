@@ -6,9 +6,18 @@
 //
 
 import Foundation
+import HandyJSON
 
-struct FLUserModel: Decodable
+
+class FLUserModel : HandyJSON
 {
-    let id: Int
-    let name: String
+    var id : String = ""
+    var userName : String = ""
+    var passWord : String = ""
+    var avatar : String = ""
+    required init() {
+        
+    }
 }
+
+

@@ -21,5 +21,6 @@ pod 'Kingfisher'
 pod 'SQLite.swift'
 pod 'Alamofire'
 pod 'SwiftyJSON'
+pod 'HandyJSON'
 
 end
