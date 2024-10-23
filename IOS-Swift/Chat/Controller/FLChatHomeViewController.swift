@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class FLChatHomeViewController: UIViewController
 {
@@ -60,7 +61,7 @@ class FLChatHomeViewController: UIViewController
                 model.friendAvatar = String.fl.getRandomImageUrlStr()!
                 model.friendName = "用户-00\(self!.dataArr.count)"
                 model.lastText = "我是最后一句"
-                let isok = ChatListDao.init().insertChatListTable(model: model)
+                let isok = FLChatListDao.init().insertChatListTable(model: model)
                 FLPrint("新增是否成功:\(isok)")
                 self?.initData()
                 self?.tableView?.reloadData()
@@ -84,14 +85,26 @@ class FLChatHomeViewController: UIViewController
     
     func createChartToServer(model: FLChatListModel)
     {
-        FLNetworkManager.shared.requestData(.get, URLString: "\(BASE_URL)user/login", paramaters: nil) { [self] response in
-            
+        let userModel = FLUserInfoManager.shared.getUserInfo()
+        let paramDict = [
+            "friendName":model.friendName,
+            "userId":userModel.id,
+            "friendAvatar":model.friendAvatar
+        ]
+        self.view.makeToastActivity(.center)
+        FLNetworkManager.shared.requestData(.post, URLString: "\(BASE_URL)friendList/addFriend", paramaters: paramDict) { response in
+            self.view.hideToastActivity()
+            let json = JSON(response)
+            let alertMessage = json["msg"].stringValue;
+            if json["code"].intValue == 200 {
+            }
+            self.view.makeToast(alertMessage.fl.isStringBlank() ? "检查服务器":alertMessage, duration: 3.0, position: .center)
         }
     }
     
     func initData()
     {
-        dataArr = ChatListDao.init().fetchChatListTable() ?? []
+        dataArr = FLChatListDao.init().fetchChatListTable() ?? []
     }
     
     lazy var tableView: UITableView? =
@@ -130,7 +143,7 @@ extension FLChatHomeViewController : UITableViewDataSource,UITableViewDelegate
     {
         if editingStyle == .delete {
             let model = dataArr[indexPath.row]
-            let isOk = ChatListDao.init().deleteChatListTable(id: model.id)
+            let isOk = FLChatListDao.init().deleteChatListTable(id: model.id)
             FLPrint("删除是否成功:%d",isOk)
             dataArr.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class FLChatDetailVC: UIViewController
 {
@@ -13,6 +14,7 @@ class FLChatDetailVC: UIViewController
     private var dataArr: [FLChatMsgModel] = []
     private static let cellID_type_text : String = "Chat_Detail_CellID_Text"
     private static let cellID_type_audio : String = "Chat_Detail_CellID_Audio"
+    private static let cellID_type_img : String = "Chat_Detail_CellID_Img"
 
     private var customKeyboardView : FLCustomKeyboardView? = nil
     private var isShowKeyboard : Bool = false
@@ -56,7 +58,7 @@ class FLChatDetailVC: UIViewController
     
     func initData()
     {
-        dataArr = ChatDetailDao.init().fetchChatDetailTable(userID: "\(chatModel!.id)")!
+        dataArr = FLChatDetailDao.init().fetchChatDetailTable(userID: "\(chatModel!.id)")!
         FLPrint(dataArr)
         
         if UserDefaults.standard.bool(forKey: Test_Test_IsOpen) {
@@ -87,6 +89,7 @@ class FLChatDetailVC: UIViewController
         tableView.dataSource = self
         tableView.register(ChatTextMessageCell.classForCoder(), forCellReuseIdentifier: FLChatDetailVC.cellID_type_text)
         tableView.register(ChatAudioMessageCell.classForCoder(), forCellReuseIdentifier: FLChatDetailVC.cellID_type_audio)
+        tableView.register(ChatImgMessageCell.classForCoder(), forCellReuseIdentifier: FLChatDetailVC.cellID_type_img)
         tableView.rowHeight = 75
         tableView.backgroundColor = Chat_Cell_Background_Gray
         tableView.separatorStyle = .none
@@ -191,6 +194,11 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
             cell.setModel(with: model)
             return cell
             
+        case .msg_image:
+            let cell = tableView.dequeueReusableCell(withIdentifier: FLChatDetailVC.cellID_type_img, for: indexPath) as! ChatImgMessageCell
+            cell.setModel(with: model)
+            return cell
+            
         default:
             let placeholderCell = tableView.dequeueReusableCell(withIdentifier: "PlaceholderCellIdentifier", for: indexPath)
             return placeholderCell
@@ -209,6 +217,10 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
             
         case .msg_audio:
             height = 70
+            break
+        case .msg_image:
+            height = 170
+            break
             
         default:
             break
@@ -315,9 +327,16 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
     {
         if let selectedImage = info[.originalImage] as? UIImage {
-            let imageView = UIImageView(image: selectedImage)
-            imageView.frame = CGRect(x: 50, y: 200, width: 300, height: 300)
-            self.view.addSubview(imageView)
+            FLNetworkManager.shared.uploadPicture(myImg: selectedImage, imageKey: "file", URlName: "\(BASE_URL)/upload/uploadImg") { response in
+                let json = JSON(response)
+                let message = json["msg"].stringValue;
+                if json["code"].intValue == 200 {
+                    let imgPath = json["data"].stringValue
+                    self.sendImageMsg(text: imgPath)
+                }else{
+                    
+                }
+            }
         }
         picker.dismiss(animated: true, completion: nil)
     }
@@ -342,7 +361,7 @@ extension FLChatDetailVC
             model.contentStr = text
             model.msgType = .msg_text
             model.isMe = true
-            let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+            let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
             dataArr.append(model)
             
             DispatchQueue.main.async {
@@ -367,7 +386,7 @@ extension FLChatDetailVC
         model.msgType = .msg_audio
         model.isMe = true
         model.mediaTime = "\(FLAudioRecorder.shared.recordSeconds)"
-        let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+        let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
         dataArr.append(model)
         
         DispatchQueue.main.async {
@@ -388,9 +407,9 @@ extension FLChatDetailVC
             model.nickName = userInfoModel.userName
             model.avatar = userInfoModel.avatar
             model.contentStr = text
-            model.msgType = .msg_text
+            model.msgType = .msg_image
             model.isMe = true
-            let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+            let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
             dataArr.append(model)
             
             DispatchQueue.main.async {
@@ -399,8 +418,8 @@ extension FLChatDetailVC
                 self.tableView?.insertRows(at: [indexPath], with: .bottom)
                 self.tableView?.endUpdates()
             }
-            cellScrollToBottom()
-            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
+//            cellScrollToBottom()
+//            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
         }
     }
 }
@@ -432,7 +451,7 @@ extension FLChatDetailVC
             model.nickName = userInfoModel.userName
             model.avatar = userInfoModel.avatar
         }
-        let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+        let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
         dataArr.append(model)
         
         DispatchQueue.main.async {
@@ -460,7 +479,7 @@ extension FLChatDetailVC
             model.avatar = userInfoModel.avatar
         }
         model.mediaTime = "\(i)"
-        let isOk = ChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+        let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
         dataArr.append(model)
         
         DispatchQueue.main.async {

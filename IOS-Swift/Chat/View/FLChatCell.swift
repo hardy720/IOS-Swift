@@ -335,3 +335,53 @@ class ChatAudioMessageCell: FLChatBaseCell, LGAudioPlayerDelegate
         }
     }
 }
+
+
+// MARK: - 图片Cell -
+class ChatImgMessageCell: FLChatBaseCell
+{
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?)
+    {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = Chat_Cell_Background_Gray
+        contentView.addSubview(contentImg)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setModel(with model: FLChatMsgModel)
+    {
+        /**
+         * 头像
+         */
+        super.setAvatar(with: model)
+        if model.isMe {
+            contentImg.snp.makeConstraints { make in
+                make.right.equalTo(avatarImageV.snp_leftMargin).offset(-10)
+                make.top.equalTo(avatarImageV)
+                make.width.height.equalTo(100)
+            }
+        }
+        let imgPath = "\(BASE_URL)\(model.contentStr)"
+        contentImg.kf.setImage(with: URL(string: imgPath), placeholder: UIImage(named: "placeholder.jpg"), options: nil, progressBlock: nil) { result in
+            switch result {
+            case .success(let value):
+                // 图片加载成功
+                FLPrint("Image loaded successfully: \(value.image)")
+            case .failure(let error):
+                // 图片加载失败
+                FLPrint("Failed to load image: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    var contentImg: UIImageView =
+    {
+        let imageView = UIImageView.init()
+        imageView.layer.cornerRadius = 5
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+}

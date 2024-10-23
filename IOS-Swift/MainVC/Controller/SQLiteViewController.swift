@@ -50,14 +50,14 @@ extension SQLiteViewController
         model.friendAvatar = "https://img1.baidu.com/it/u=1624963289,2527746346&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750"
         model.friendName = "nickName"
         model.lastText = "content"
-        let isok = ChatListDao.init().insertChatListTable(model: model)
-        FLPrint("新增是否成功:\(isok)")
+//        let isok = FLChatListDao.init().insertChatListTable(model: model)
+//        FLPrint("新增是否成功:\(isok)")
     }
     
     // MARK:2.0.202. 删
     @objc func test202()
     {
-        let isOk = ChatListDao.init().deleteChatListTable(id: 1)
+        let isOk = FLChatListDao.init().deleteChatListTable(id: 1)
         FLPrint("删除是否成功:\(isOk)")
     }
     
@@ -67,15 +67,15 @@ extension SQLiteViewController
         let model = FLChatListModel.init()
         model.id = 30
         model.friendName = "修改后"
-        let isOk = ChatListDao.init().updateChatListTable(model: model)
+        let isOk = FLChatListDao.init().updateChatListTable(model: model)
         FLPrint("修改是否成功:\(isOk)")
     }
     
     // MARK:2.0.204. 查
     @objc func test204()
     {
-        let ss = ChatListDao.init().fetchChatByID(chatID: -8000)
-        if let arr = ChatListDao.init().fetchChatListTable() {
+        let ss = FLChatListDao.init().fetchChatByID(chatID: -8000)
+        if let arr = FLChatListDao.init().fetchChatListTable() {
             for item in arr {
                 FLPrint(item.id)
                 FLPrint(item.friendAvatar)

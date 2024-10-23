@@ -23,6 +23,8 @@
 		434120492CA3B370005A0A73 /* FLAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434120482CA3B370005A0A73 /* FLAudioRecorder.swift */; };
 		435245612CC24845007864F4 /* FLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435245602CC24845007864F4 /* FLNetworkManager.swift */; };
 		435245632CC40D23007864F4 /* FLUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435245622CC40D23007864F4 /* FLUserModel.swift */; };
+		4356EB9E2CC8EC9E00AA192D /* FLChatListDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4356EB9D2CC8EC9E00AA192D /* FLChatListDao.swift */; };
+		4356EBA02CC8ED3B00AA192D /* FLChatDetailDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4356EB9F2CC8ED3B00AA192D /* FLChatDetailDao.swift */; };
 		43581D8F2C4B9BC6004F154C /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D8E2C4B9BC6004F154C /* DispatchQueue+Extension.swift */; };
 		43581D912C4BAE50004F154C /* FLAsyncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D902C4BAE50004F154C /* FLAsyncs.swift */; };
 		43581D932C4BC36D004F154C /* GCDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43581D922C4BC36D004F154C /* GCDViewController.swift */; };
@@ -117,6 +119,8 @@
 		434120482CA3B370005A0A73 /* FLAudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAudioRecorder.swift; sourceTree = "<group>"; };
 		435245602CC24845007864F4 /* FLNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLNetworkManager.swift; sourceTree = "<group>"; };
 		435245622CC40D23007864F4 /* FLUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLUserModel.swift; sourceTree = "<group>"; };
+		4356EB9D2CC8EC9E00AA192D /* FLChatListDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatListDao.swift; sourceTree = "<group>"; };
+		4356EB9F2CC8ED3B00AA192D /* FLChatDetailDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatDetailDao.swift; sourceTree = "<group>"; };
 		43581D8E2C4B9BC6004F154C /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		43581D902C4BAE50004F154C /* FLAsyncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAsyncs.swift; sourceTree = "<group>"; };
 		43581D922C4BC36D004F154C /* GCDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDViewController.swift; path = Controller/GCDViewController.swift; sourceTree = "<group>"; };
@@ -335,13 +339,23 @@
 		434120472CA3B348005A0A73 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				4356EB9C2CC8EC8400AA192D /* FLDatabaseManager */,
 				435D1BA72C8E9F8E001819FF /* FLWindowManager.swift */,
-				43F295922C76F20400E5A212 /* FLDatabaseManager.swift */,
 				434120482CA3B370005A0A73 /* FLAudioRecorder.swift */,
 				435245602CC24845007864F4 /* FLNetworkManager.swift */,
 				436E3C002CC63D1F0057641C /* FLUserInfoManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		4356EB9C2CC8EC8400AA192D /* FLDatabaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				43F295922C76F20400E5A212 /* FLDatabaseManager.swift */,
+				4356EB9D2CC8EC9E00AA192D /* FLChatListDao.swift */,
+				4356EB9F2CC8ED3B00AA192D /* FLChatDetailDao.swift */,
+			);
+			path = FLDatabaseManager;
 			sourceTree = "<group>";
 		};
 		435D1BA92C8EE188001819FF /* View */ = {
@@ -756,9 +770,11 @@
 				439B59CD2C933103004B07D6 /* FLChatMsgModel.swift in Sources */,
 				4322EEF52C3A88FA000D20BD /* FLHead.swift in Sources */,
 				43C570BD2C4412B400E7ECB3 /* CGPointExtensionVC.swift in Sources */,
+				4356EBA02CC8ED3B00AA192D /* FLChatDetailDao.swift in Sources */,
 				43D40A052C560974009F1260 /* NSThreadViewController.swift in Sources */,
 				439084B12C6E49D100ACA9A2 /* KeyWordViewController.swift in Sources */,
 				438A811F2C5A2A5B00774B7B /* LibraryHomeViewController.swift in Sources */,
+				4356EB9E2CC8EC9E00AA192D /* FLChatListDao.swift in Sources */,
 				438A7AA92C899781005CFCF1 /* FLPopMenu.swift in Sources */,
 				4322EEF22C3A8537000D20BD /* FLBaseNavigationController.swift in Sources */,
 				43C570BF2C4413F900E7ECB3 /* CGPoint+Extension.swift in Sources */,
