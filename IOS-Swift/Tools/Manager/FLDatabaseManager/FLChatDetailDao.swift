@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import SQLite
+import SwiftUI
 
 
 /******ChatDetailDao******/
@@ -19,7 +21,9 @@ class FLChatDetailDao
         var success = false
         FLDatabaseManager.shared.perform { con in
             do {
-                try con.run("INSERT INTO \(chatDetailTableName)\(chatID)(avatar, nickName, contentStr, lastContent,msgType,isMe,mediaTime)VALUES(?,?,?,?,?,?,?)",model.avatar,model.nickName,model.contentStr,model.lastContent,model.msgType.rawValue,model.isMe,model.mediaTime)//
+                let imgWidthDouble = Double(model.imgWidth)
+                let imgHeightDouble = Double(model.imgHeight)
+                try con.run("INSERT INTO \(chatDetailTableName)\(chatID)(avatar, nickName, contentStr, lastContent,msgType,isMe,mediaTime,imgWidth,imgHeight)VALUES(?,?,?,?,?,?,?,?,?)",model.avatar,model.nickName,model.contentStr,model.lastContent,model.msgType.rawValue,model.isMe,model.mediaTime,imgWidthDouble,imgHeightDouble)//
                 success = true
             } catch {
                 FLPrint("Insert failed: \(error)")
@@ -68,6 +72,17 @@ class FLChatDetailDao
                     item.isMe = false
                 }
                 item.mediaTime = row[7] as? String ?? ""
+                // 确保从数据库中提取的值可以安全地转换为 Double
+                if let imgWidthDouble = row[8] as? Int64, let safeMsgType = Double(exactly: imgWidthDouble) {
+                    item.imgWidth = CGFloat(imgWidthDouble)
+                }else{
+                    print("无法将 row[8] 转换为 Int64")
+                }
+                if let imgHeightDouble = row[9] as? Int64, let safeMsgType = Double(exactly: imgHeightDouble) {
+                    item.imgHeight = CGFloat(imgHeightDouble)
+                }else{
+                    print("无法将 row[9] 转换为 Int64")
+                }
                 items.append(item)
             }
             return items

@@ -358,22 +358,25 @@ class ChatImgMessageCell: FLChatBaseCell
          */
         super.setAvatar(with: model)
         if model.isMe {
-            contentImg.snp.makeConstraints { make in
+            contentImg.snp.updateConstraints { make in
                 make.right.equalTo(avatarImageV.snp_leftMargin).offset(-10)
                 make.top.equalTo(avatarImageV)
-                make.width.height.equalTo(100)
+                make.width.equalTo(model.imgWidth)
+                make.height.equalTo(model.imgHeight)
             }
         }
-        let imgPath = "\(BASE_URL)\(model.contentStr)"
-        contentImg.kf.setImage(with: URL(string: imgPath), placeholder: UIImage(named: "placeholder.jpg"), options: nil, progressBlock: nil) { result in
-            switch result {
-            case .success(let value):
-                // 图片加载成功
-                FLPrint("Image loaded successfully: \(value.image)")
-            case .failure(let error):
-                // 图片加载失败
-                FLPrint("Failed to load image: \(error.localizedDescription)")
-            }
+        
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            print("无法获取Documents目录路径")
+            return
+        }
+        let chatFolderPath = documentsDirectory.appendingPathComponent(getImgPath)
+        let filePath = chatFolderPath.appendingPathComponent(model.contentStr)
+        
+        if let image = UIImage(contentsOfFile: filePath.path) {
+            contentImg.image = image
+        } else {
+            print("无法加载图片")
         }
     }
     

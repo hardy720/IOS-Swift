@@ -96,6 +96,7 @@ var getDatabasePath: String?
 }
 
 let getRecordPath = "chat_Record_\(UserDefaults.standard.object(forKey: "USERID") ?? "0")"
+let getImgPath = "chat_Img_\(UserDefaults.standard.object(forKey: "USERID") ?? "0")"
 
 func createFolderInDocumentsDirectoryIfNeeded(folderName: String)
 {

@@ -26,4 +26,6 @@ class FLChatMsgModel
     var msgType : FLMessageType = .msg_unknown
     var isMe : Bool = false
     var mediaTime : String = ""
+    var imgWidth : CGFloat = 0
+    var imgHeight : CGFloat = 0
 }

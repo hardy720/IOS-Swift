@@ -219,7 +219,7 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
             height = 70
             break
         case .msg_image:
-            height = 170
+            height = model.imgHeight + 20
             break
             
         default:
@@ -326,13 +326,14 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     // 发送图片
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
     {
+
         if let selectedImage = info[.originalImage] as? UIImage {
+            self.sendImageMsg(image: selectedImage)
             FLNetworkManager.shared.uploadPicture(myImg: selectedImage, imageKey: "file", URlName: "\(BASE_URL)/upload/uploadImg") { response in
                 let json = JSON(response)
                 let message = json["msg"].stringValue;
                 if json["code"].intValue == 200 {
                     let imgPath = json["data"].stringValue
-                    self.sendImageMsg(text: imgPath)
                 }else{
                     
                 }
@@ -399,28 +400,56 @@ extension FLChatDetailVC
     }
     
     // 发送图片信息
-    func sendImageMsg(text: String)
+    func sendImageMsg(image: UIImage)
     {
-        if !text.fl.isStringBlank() {
-            let userInfoModel = FLUserInfoManager.shared.getUserInfo()
-            let model = FLChatMsgModel.init()
-            model.nickName = userInfoModel.userName
-            model.avatar = userInfoModel.avatar
-            model.contentStr = text
-            model.msgType = .msg_image
-            model.isMe = true
-            let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
-            dataArr.append(model)
-            
-            DispatchQueue.main.async {
-                let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
-                self.tableView?.beginUpdates()
-                self.tableView?.insertRows(at: [indexPath], with: .bottom)
-                self.tableView?.endUpdates()
-            }
-//            cellScrollToBottom()
-//            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
+        let imagePathName = Date.fl.currentDate_SSS_() + ".png"
+        let isSave = self.saveImageToDocumentsDirectory(image: image, fileName: getImgPath + "/" + imagePathName)
+        let userInfoModel = FLUserInfoManager.shared.getUserInfo()
+        let model = FLChatMsgModel.init()
+        var width = image.size.width
+        var height = image.size.height
+        if width > screenW() / 2 {
+            width = screenW() / 2
         }
+        if height > screenH() / 2 {
+            height = screenH() / 2
+        }
+        model.imgWidth = width
+        model.imgHeight = height
+        model.nickName = userInfoModel.userName
+        model.avatar = userInfoModel.avatar
+        model.contentStr = imagePathName
+        model.msgType = .msg_image
+        model.isMe = true
+        let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+        dataArr.append(model)
+        
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
+            self.tableView?.beginUpdates()
+            self.tableView?.insertRows(at: [indexPath], with: .bottom)
+            self.tableView?.endUpdates()
+        }
+        cellScrollToBottom()
+//            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
+    }
+    
+    func saveImageToDocumentsDirectory(image: UIImage, fileName: String) -> Bool 
+    {
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return false
+        }
+        let filePath = documentsDirectory.appendingPathComponent(fileName)
+        if let jpegData = image.jpegData(compressionQuality: 1.0) {
+            do {
+                try jpegData.write(to: filePath)
+                return true
+            } catch {
+                print("Failed to save image: \(error.localizedDescription)")
+                return false
+            }
+        }
+        return false
     }
 }
 

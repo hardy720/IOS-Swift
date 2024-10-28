@@ -48,7 +48,7 @@ class FLDatabaseManager
     func setup()
     {
         do {
-            try db?.run("CREATE TABLE IF NOT EXISTS \(chatListTableName) (id integer primary key autoincrement,friendId  avatar text, nickName text, lastContent text)")
+            try db?.run("CREATE TABLE IF NOT EXISTS \(chatListTableName) (id integer primary key autoincrement, avatar text, nickName text, lastContent text)")
         } catch {
             FLPrint("Failed to set up database: \(error)")
         }
@@ -57,7 +57,7 @@ class FLDatabaseManager
     func createChat(userID : String)
     {
         do {
-            try db?.run("CREATE TABLE IF NOT EXISTS \(chatDetailTableName)\(userID) (id integer primary key autoincrement, avatar text, nickName text, contentStr text,lastContent text,msgType integer,isMe integer,mediaTime text)")
+            try db?.run("CREATE TABLE IF NOT EXISTS \(chatDetailTableName)\(userID) (id integer primary key autoincrement, avatar text, nickName text, contentStr text,lastContent text,msgType integer,isMe integer,mediaTime text,imgWidth integer,imgHeight integer)")
         } catch {
             FLPrint("Failed to set up database: \(error)")
         }

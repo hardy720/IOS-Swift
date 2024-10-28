@@ -7,7 +7,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "75DF7301-EE26-4A16-A0E7-103C8CAC4AF2"
+            uuid = "294C4B51-67BF-49C7-BE5A-8EF2B907E820"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -19,131 +19,39 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2CEAE891-7100-466D-B72A-FCD2FDC4A0EB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Chat/View/FLChatCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "368"
-            endingLineNumber = "368"
-            landmarkName = "setModel(with:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2CEAE891-7100-466D-B72A-FCD2FDC4A0EB - 11d59a0d3a0960a6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IOS_Swift.ChatImgMessageCell.setModel(with: IOS_Swift.FLChatMsgModel) -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Chat/View/FLChatCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "368"
-                  endingLineNumber = "368">
-               </Location>
-               <Location
-                  uuid = "2CEAE891-7100-466D-B72A-FCD2FDC4A0EB - d3eaece86a0cd4f9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Result&lt;Kingfisher.RetrieveImageResult, Kingfisher.KingfisherError&gt;) -&gt; () in IOS_Swift.ChatImgMessageCell.setModel(with: IOS_Swift.FLChatMsgModel) -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Chat/View/FLChatCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "368"
-                  endingLineNumber = "368">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2F1A7A38-D75B-42B5-BCBE-E4203F4229C0"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Chat/View/FLChatCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
-            landmarkName = "setModel(with:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1761C5D1-13BD-49EE-BDC7-19727C1A2B8A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Chat/View/FLChatCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
-            landmarkName = "setModel(with:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "44EC8777-33C1-4AC0-9984-A8E7AE3C5645"
+            uuid = "F60E1659-6308-4218-982E-4F00545718C1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IOS-Swift/Chat/Controller/FLChatDetailVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
-            landmarkName = "sendImageMsg(text:)"
+            startingLineNumber = "419"
+            endingLineNumber = "419"
+            landmarkName = "sendImageMsg(image:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "44EC8777-33C1-4AC0-9984-A8E7AE3C5645 - 42e535d671bd4045"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in IOS_Swift.FLChatDetailVC.sendImageMsg(text: Swift.String) -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Chat/Controller/FLChatDetailVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "415"
-                  endingLineNumber = "415">
-               </Location>
-               <Location
-                  uuid = "44EC8777-33C1-4AC0-9984-A8E7AE3C5645 - 57839e3a31ccdf6d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IOS_Swift.FLChatDetailVC.sendImageMsg(text: Swift.String) -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Chat/Controller/FLChatDetailVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "415"
-                  endingLineNumber = "415">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FA84D656-6CCE-4526-A1F4-29E39AA39AA4"
+            uuid = "C55F38D9-353B-4F34-A32C-4DCDA3969896"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOS-Swift/Chat/Controller/FLChatDetailVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "initData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "30AD6B3B-B40F-477B-9BD1-7FD3995656A2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -153,6 +61,22 @@
             startingLineNumber = "180"
             endingLineNumber = "180"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "05739952-E9F6-4D8B-BD86-9EC0F2035271"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOS-Swift/Tools/Manager/FLDatabaseManager/FLChatDetailDao.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "fetchChatDetailTable(userID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -25,6 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          * 创建保存音频的文件夹
          */
         createFolderInDocumentsDirectoryIfNeeded(folderName: getRecordPath)
+        /*
+         * 创建保存图片的文件夹
+         */
+        createFolderInDocumentsDirectoryIfNeeded(folderName: getImgPath)
     }
     
     // MARK: UISceneSession Lifecycle
