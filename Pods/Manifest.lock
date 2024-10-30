@@ -6,6 +6,7 @@ PODS:
   - SQLite.swift (0.15.3):
     - SQLite.swift/standard (= 0.15.3)
   - SQLite.swift/standard (0.15.3)
+  - Starscream (4.0.8)
   - SwiftyJSON (5.0.2)
   - Toast-Swift (5.1.1)
 
@@ -15,6 +16,7 @@ DEPENDENCIES:
   - Kingfisher
   - SnapKit
   - SQLite.swift
+  - Starscream
   - SwiftyJSON
   - Toast-Swift
 
@@ -25,6 +27,7 @@ SPEC REPOS:
     - Kingfisher
     - SnapKit
     - SQLite.swift
+    - Starscream
     - SwiftyJSON
     - Toast-Swift
 
@@ -34,9 +37,10 @@ SPEC CHECKSUMS:
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SQLite.swift: 8d054987f02728cc912b0eb5a9659650573a65a2
+  Starscream: 19b5533ddb925208db698f0ac508a100b884a1b9
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   Toast-Swift: 7a03a532afe3a560d4044bc7c237e2864d295173
 
-PODFILE CHECKSUM: 0089ae0fdc2eeca7c1da7df4f83ca29b22893059
+PODFILE CHECKSUM: c9ebfc62abba3a3768d7d66f0a5588bedfe0aaff
 
 COCOAPODS: 1.15.2

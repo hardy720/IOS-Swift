@@ -22,5 +22,5 @@ pod 'SQLite.swift'
 pod 'Alamofire'
 pod 'SwiftyJSON'
 pod 'HandyJSON'
-
+pod 'Starscream'
 end
