@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>APP需要访问您的相机来拍照</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>APP需要访问您的相册来选择图片</string>
 	<key>NSMicrophoneUsageDescription</key>

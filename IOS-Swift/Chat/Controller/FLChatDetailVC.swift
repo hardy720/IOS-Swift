@@ -316,6 +316,14 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
             imagePickerController.sourceType = .photoLibrary
             present(imagePickerController, animated: true, completion: nil)
             break
+            
+        case 1:
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = .camera
+            present(imagePickerController, animated: true, completion: nil)
+            break
+
         default:
             self.view.makeToast(App_Toast_Developing, duration: 2.0, position: .center)
 
