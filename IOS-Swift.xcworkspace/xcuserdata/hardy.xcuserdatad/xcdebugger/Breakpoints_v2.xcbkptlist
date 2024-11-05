@@ -19,48 +19,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BDC7DAF9-A9BE-4DF9-9F07-E67E1747B3C8"
+            uuid = "CB7F6821-539E-4147-80F9-5F987C30A5E7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Chat/View/FLChatCell.swift"
+            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "setAvatar(with:)"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "sendHeartBeat()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D5D5B6AD-73AD-4F54-9F7F-9AEB50ABABEC"
+            uuid = "545E08CE-BF44-443B-8792-1414491B5B52"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Chat/View/FLChatCell.swift"
+            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "setAvatar(with:)"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "dictionaryToJson(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "84035AFA-7B5D-43E4-A3B4-229BC12893B5"
+            uuid = "73395C17-C9B7-47A9-821B-2EB9A12D4110"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Chat/View/FLChatCell.swift"
+            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "setAvatar(with:)"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "encryptDatadictionary(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -18,6 +18,12 @@ class FLChatHomeViewController: UIViewController
         // Do any additional setup after loading the view.
         self.initData()
         self.initUI()
+        self.connectSocket()
+    }
+    
+    func connectSocket()
+    {
+        FLWebSocketManager.shared.connect()  
     }
     
     func initUI()

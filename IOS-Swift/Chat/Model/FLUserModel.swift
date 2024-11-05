@@ -8,7 +8,6 @@
 import Foundation
 import HandyJSON
 
-
 class FLUserModel : HandyJSON
 {
     var id : String = ""
