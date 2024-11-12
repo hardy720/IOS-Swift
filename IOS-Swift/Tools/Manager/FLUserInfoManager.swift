@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CryptoKit
 
 class FLUserInfoManager
 {
@@ -52,6 +53,25 @@ class FLUserInfoManager
         defaultStand.synchronize()
     }
     
+    func saveSecretKey()
+    {
+        let key = SymmetricKey(size: .bits256)
+        // 使用 withUnsafeBytes 方法访问 SymmetricKey 的原始数据
+        let keyData: Data = key.withUnsafeBytes { Data($0) }
+        // 将原始数据转换为 Base64 编码的字符串
+        let keyBase64 = keyData.base64EncodedString()
+        
+        let defaultStand = UserDefaults.standard
+        defaultStand.setValue(keyBase64, forKey: "secret_key")
+        defaultStand.synchronize()
+    }
+    
+    func getSecretKey() -> String
+    {
+        let defaultStand = UserDefaults.standard
+        return defaultStand.object(forKey: "secret_key") as! String
+    }
+    
     func saveToken(token : String)
     {
         let defaultStand = UserDefaults.standard
@@ -74,6 +94,7 @@ class FLUserInfoManager
         defaultStand.removeObject(forKey: "passWord")
         defaultStand.removeObject(forKey: "userName")
         defaultStand.removeObject(forKey: "avatar")
+        defaultStand.removeObject(forKey: "secret_key")
         defaultStand.synchronize()
     }
 }

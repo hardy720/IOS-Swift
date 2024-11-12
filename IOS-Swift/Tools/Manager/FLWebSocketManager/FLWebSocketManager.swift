@@ -19,7 +19,7 @@ class FLWebSocketManager: NSObject, WebSocketDelegate
     private var isConnected = false
     
     // WebSocket URL
-    private let urlString = "ws://localhost:8181/api/websocket/aaa"
+    private let urlString = "ws://localhost:8181/api/websocket/"
     
     // 私有初始化方法，防止外部创建实例
     private override init() 
@@ -31,10 +31,12 @@ class FLWebSocketManager: NSObject, WebSocketDelegate
     // 设置 WebSocket 连接
     private func setupWebSocket() 
     {
-        guard let url = URL(string: urlString) else {
+        let userModel = FLUserInfoManager.shared.getUserInfo()
+        let urlStr = urlString + userModel.id
+        guard let url = URL(string: urlStr) else {
             fatalError("Invalid URL string: \(urlString)")
         }
-         
+        
         let request = URLRequest(url: url)
         // 你可以在这里配置 request 的其他属性，比如 HTTP 方法、头部信息等（如果需要的话）
         // request.httpMethod = "GET" // 默认情况下，WebSocket 使用的是类似 "GET" 的升级请求，但通常不需要显式设置
@@ -63,7 +65,9 @@ class FLWebSocketManager: NSObject, WebSocketDelegate
             isConnected = false
             stopHeartBeat()
         case .text(let string):
-            FLPrint("Received text: \(string)")
+            if let encryptedText = decrypt(base64String: string) {
+                FLPrint("Received text: \(encryptedText)")
+            }
         case .binary(let data):
             FLPrint("Received data: \(data.count)")
         case .ping(_):
@@ -126,7 +130,7 @@ class FLWebSocketManager: NSObject, WebSocketDelegate
     // 心跳方法
     private func startHeartBeat()
     {
-        heartBeatTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { [weak self] _ in
+        heartBeatTimer = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: true) { [weak self] _ in
             self?.sendHeartBeat()
         }
     }
@@ -140,23 +144,53 @@ class FLWebSocketManager: NSObject, WebSocketDelegate
     private func sendHeartBeat() 
     {
         if isConnected {
-            sendMessage("HEARTBEAT")
-            let str = self.encryptDatadictionary(["msgType":"1","content":"123"])
-            FLPrint(str!)
-        } else {
-            
+            let userModel = FLUserInfoManager.shared.getUserInfo()
+            var msg = FLWebSocketMessage.init()
+            msg.data = "ping"
+            msg.msg_Type = .HeartBeat
+            msg.msg_From = userModel.id
+            msg.msg_To = userModel.id
+            sentData(msg: msg)
         }
     }
     
-    private func encryptDatadictionary(_ dictionary: [String: Any]) -> String?
+    func sentData(msg : FLWebSocketMessage)
     {
-        let jsonString = self.dictionaryToJson(dictionary)
-        if (jsonString != nil) {
-            
+        let dict = WebSocketMessageToDictionary(message: msg)
+        if dict != nil {
+            let string = dictionaryToJson(dict!)!
+            if let encryptedText = encrypt(string: string) {
+                print("Encrypted: \(encryptedText)")
+                sendMessage(encryptedText)
+            } else {
+                print("Encryption failed")
+            }
         }
-        return jsonString
     }
     
+    
+    func stringToData(_ base64String: String) -> Data? 
+    {
+        return Data(base64Encoded: base64String)
+    }
+    
+    // 将 FLWebSocketMessage 转换为字典
+    func WebSocketMessageToDictionary(message: FLWebSocketMessage) -> [String: Any]?
+    {
+        do {
+            // 编码结构体为 JSON 数据
+            let encoder = JSONEncoder()
+            let jsonData = try encoder.encode(message)
+            
+            // 将 JSON 数据解码为字典
+            let dict = try Dictionary(fromJSONData: jsonData)
+            return dict
+        } catch {
+            FLPrint("Error converting FLWebSocketMessage to dictionary: \(error)")
+            return nil
+        }
+    }
+   
     func dictionaryToJson(_ dictionary: [String: Any]) -> String? 
     {
         do {
@@ -166,11 +200,11 @@ class FLWebSocketManager: NSObject, WebSocketDelegate
             if let jsonString = String(data: jsonData, encoding: .utf8) {
                 return jsonString
             } else {
-                print("Failed to convert Data to String")
+                FLPrint("Failed to convert Data to String")
                 return nil
             }
         } catch {
-            print("Error converting dictionary to JSON: \(error)")
+            FLPrint("Error converting dictionary to JSON: \(error)")
             return nil
         }
     }
@@ -186,6 +220,17 @@ enum FLSocketMessageType: Int, Codable
 
 struct FLWebSocketMessage: Codable 
 {
-    var msgType: FLSocketMessageType = .Unknown
+    var msg_Type: FLSocketMessageType = .Unknown
+    var msg_From : String = ""
+    var msg_To : String = ""
     var data: String = ""
+}
+
+
+// 扩展 Dictionary，方便将 JSON 数据转换为字典
+extension Dictionary where Key == String, Value == Any 
+{
+    init(fromJSONData data: Data) throws {
+        self = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+    }
 }

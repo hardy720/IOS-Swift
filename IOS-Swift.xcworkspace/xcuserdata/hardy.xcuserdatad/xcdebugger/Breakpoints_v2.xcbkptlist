@@ -19,49 +19,173 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CB7F6821-539E-4147-80F9-5F987C30A5E7"
+            uuid = "7F8DDB1C-66A8-4B84-A6A1-4ECC7EBC3D77"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager.swift"
+            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "sendHeartBeat()"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "disconnect()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "545E08CE-BF44-443B-8792-1414491B5B52"
+            uuid = "E14F5FF2-9309-42ED-B30D-ECE1D4FACECB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager.swift"
+            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "dictionaryToJson(_:)"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "sendDataMessage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "73395C17-C9B7-47A9-821B-2EB9A12D4110"
+            uuid = "2DB828CD-0EBB-4D81-9D6E-2A8C415EC147"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager.swift"
+            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "encryptDatadictionary(_:)"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "didReceive(event:client:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2DB828CD-0EBB-4D81-9D6E-2A8C415EC147 - 347ef8924b38863e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IOS_Swift.FLWebSocketManager.didReceive(event: Starscream.WebSocketEvent, client: Starscream.WebSocketClient) -&gt; ()"
+                  moduleName = "IOS-Swift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68">
+               </Location>
+               <Location
+                  uuid = "2DB828CD-0EBB-4D81-9D6E-2A8C415EC147 - 347ef8924b38863e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IOS_Swift.FLWebSocketManager.didReceive(event: Starscream.WebSocketEvent, client: Starscream.WebSocketClient) -&gt; ()"
+                  moduleName = "IOS-Swift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3DB00EB-9EB9-434F-A636-A0F553E2B2DC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "didReceive(event:client:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7788B6FE-8DD8-42B9-9EB0-77BDCBD968B5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLAESUtil.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "decrypt(base64String:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EC8E8098-ED45-4C2E-B052-D913B8F9E236"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLAESUtil.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "decrypt(base64String:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "53212632-F284-4340-BB57-A364CC823658"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLAESUtil.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "decrypt(base64String:)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "53212632-F284-4340-BB57-A364CC823658 - 860755e77724c95b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IOS_Swift.decrypt(base64String: Swift.String) -&gt; Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;"
+                  moduleName = "IOS-Swift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Tools/Manager/FLWebSocketManager/FLAESUtil.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65">
+               </Location>
+               <Location
+                  uuid = "53212632-F284-4340-BB57-A364CC823658 - 860755e77724c95b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IOS_Swift.decrypt(base64String: Swift.String) -&gt; Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;"
+                  moduleName = "IOS-Swift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Tools/Manager/FLWebSocketManager/FLAESUtil.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

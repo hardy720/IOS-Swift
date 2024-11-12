@@ -145,6 +145,7 @@ class FLLoginViewController: UIViewController
                 let userM = FLUserModel.deserialize(from: dic_info)
                 if let unwrappedUserM = userM {
                     FLUserInfoManager.shared.saveUserInfo(userM: unwrappedUserM)
+                    FLUserInfoManager.shared.saveSecretKey()
                     self.perform(#selector(delayExecution), with: nil, afterDelay: TimeInterval(3))
                 } else {
                     print("userM is nil and cannot be saved.")

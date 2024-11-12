@@ -70,6 +70,7 @@
 		43F295932C76F20400E5A212 /* FLDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295922C76F20400E5A212 /* FLDatabaseManager.swift */; };
 		43F295952C77194100E5A212 /* SingletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295942C77194100E5A212 /* SingletonViewController.swift */; };
 		43F295972C771AA100E5A212 /* FLSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295962C771AA100E5A212 /* FLSingleton.swift */; };
+		43F400102CDC71B500BC3EF1 /* FLAESUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F4000F2CDC71B500BC3EF1 /* FLAESUtil.swift */; };
 		43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B12C3D66E8007F386C /* FLExtensionHomeVC.swift */; };
 		43FF21B42C3D6B83007F386C /* FLUIKitExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B32C3D6B83007F386C /* FLUIKitExtensionVC.swift */; };
 		43FF21B62C3D6EF9007F386C /* FLFoundationExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B52C3D6EF9007F386C /* FLFoundationExtensionVC.swift */; };
@@ -171,6 +172,7 @@
 		43F295922C76F20400E5A212 /* FLDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLDatabaseManager.swift; sourceTree = "<group>"; };
 		43F295942C77194100E5A212 /* SingletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SingletonViewController.swift; path = Controller/SingletonViewController.swift; sourceTree = "<group>"; };
 		43F295962C771AA100E5A212 /* FLSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLSingleton.swift; sourceTree = "<group>"; };
+		43F4000F2CDC71B500BC3EF1 /* FLAESUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAESUtil.swift; sourceTree = "<group>"; };
 		43FF21B12C3D66E8007F386C /* FLExtensionHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLExtensionHomeVC.swift; path = Controller/FLExtensionHomeVC.swift; sourceTree = "<group>"; };
 		43FF21B32C3D6B83007F386C /* FLUIKitExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLUIKitExtensionVC.swift; path = Controller/FLUIKitExtensionVC.swift; sourceTree = "<group>"; };
 		43FF21B52C3D6EF9007F386C /* FLFoundationExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLFoundationExtensionVC.swift; path = Controller/FLFoundationExtensionVC.swift; sourceTree = "<group>"; };
@@ -346,7 +348,7 @@
 				434120482CA3B370005A0A73 /* FLAudioRecorder.swift */,
 				435245602CC24845007864F4 /* FLNetworkManager.swift */,
 				436E3C002CC63D1F0057641C /* FLUserInfoManager.swift */,
-				43C44C352CD28B7D00E9DA4A /* FLWebSocketManager.swift */,
+				43F4000E2CDC717E00BC3EF1 /* FLWebSocketManager */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -458,6 +460,15 @@
 				43E4E8A02CC0FCDD00BA4A55 /* FLLoginViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		43F4000E2CDC717E00BC3EF1 /* FLWebSocketManager */ = {
+			isa = PBXGroup;
+			children = (
+				43C44C352CD28B7D00E9DA4A /* FLWebSocketManager.swift */,
+				43F4000F2CDC71B500BC3EF1 /* FLAESUtil.swift */,
+			);
+			path = FLWebSocketManager;
 			sourceTree = "<group>";
 		};
 		43FF21B92C3E2878007F386C /* SmallTools */ = {
@@ -783,6 +794,7 @@
 				43C570BF2C4413F900E7ECB3 /* CGPoint+Extension.swift in Sources */,
 				43FF21B82C3E2460007F386C /* FLArrayExtensionVC.swift in Sources */,
 				43FF21C12C3E4001007F386C /* DateFormatter+Extension.swift in Sources */,
+				43F400102CDC71B500BC3EF1 /* FLAESUtil.swift in Sources */,
 				43921B862CBD69A700EA12B0 /* FlTestViewController.swift in Sources */,
 				435245612CC24845007864F4 /* FLNetworkManager.swift in Sources */,
 				4322EEEE2C3A8488000D20BD /* FLHomeViewController.swift in Sources */,
