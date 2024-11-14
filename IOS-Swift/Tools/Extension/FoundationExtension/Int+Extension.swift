@@ -8,6 +8,7 @@
 import Foundation
 
 let Tag_1000 = 1000
+let Web_Socket_Heart_Count = 3333360
 
 
 extension Int: FLPOPCompatible {}

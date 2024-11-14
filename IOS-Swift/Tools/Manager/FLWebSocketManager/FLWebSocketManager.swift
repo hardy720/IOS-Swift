@@ -67,6 +67,7 @@ class FLWebSocketManager: NSObject, WebSocketDelegate
         case .text(let string):
             if let encryptedText = decrypt(base64String: string) {
                 FLPrint("Received text: \(encryptedText)")
+                NotificationCenter.default.post(name: Notification.Name(WebSocket_Recived_Message_Noti), object: nil, userInfo: ["message": encryptedText])
             }
         case .binary(let data):
             FLPrint("Received data: \(data.count)")
@@ -130,7 +131,7 @@ class FLWebSocketManager: NSObject, WebSocketDelegate
     // 心跳方法
     private func startHeartBeat()
     {
-        heartBeatTimer = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: true) { [weak self] _ in
+        heartBeatTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(Web_Socket_Heart_Count), repeats: true) { [weak self] _ in
             self?.sendHeartBeat()
         }
     }
@@ -147,7 +148,7 @@ class FLWebSocketManager: NSObject, WebSocketDelegate
             let userModel = FLUserInfoManager.shared.getUserInfo()
             var msg = FLWebSocketMessage.init()
             msg.data = "ping"
-            msg.msg_Type = .HeartBeat
+            msg.chart_Type = .HeartBeat
             msg.msg_From = userModel.id
             msg.msg_To = userModel.id
             sentData(msg: msg)
@@ -208,22 +209,6 @@ class FLWebSocketManager: NSObject, WebSocketDelegate
             return nil
         }
     }
-}
-
-
-enum FLSocketMessageType: Int, Codable
-{
-    case Unknown = -1
-    case HeartBeat = 0
-    case P2P_Chat_Private = 1
-}
-
-struct FLWebSocketMessage: Codable 
-{
-    var msg_Type: FLSocketMessageType = .Unknown
-    var msg_From : String = ""
-    var msg_To : String = ""
-    var data: String = ""
 }
 
 

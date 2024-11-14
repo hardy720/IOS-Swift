@@ -18,7 +18,7 @@ class FLChatListDao
         var success = false
         FLDatabaseManager.shared.perform { con in
             do {
-                try con.run("INSERT INTO \(chatListTableName)(avatar, nickName, lastContent)VALUES(?,?,?)",model.friendAvatar,model.friendName,model.lastText)
+                try con.run("INSERT INTO \(chatListTableName)(friendId, avatar, nickName, lastContent)VALUES(?,?,?,?)",model.friendId,model.friendAvatar,model.friendName,model.lastText)
                 success = true
             } catch {
                 FLPrint("Insert failed: \(error)")
@@ -79,9 +79,14 @@ class FLChatListDao
                 } else {
                     FLPrint("ID value is too large to fit in an Int")
                 }
-                item.friendAvatar = row[1] as? String ?? ""
-                item.friendName = row[2] as? String ?? ""
-                item.lastText = row[3] as? String ?? ""
+                if let friendId = row[1] as? Int64, let safeId = Int(exactly: friendId) {
+                    item.friendId = safeId
+                } else {
+                    FLPrint("ID value is too large to fit in an Int")
+                }
+                item.friendAvatar = row[2] as? String ?? ""
+                item.friendName = row[3] as? String ?? ""
+                item.lastText = row[4] as? String ?? ""
                 items.append(item)
             }
             return items
@@ -103,9 +108,14 @@ class FLChatListDao
                 } else {
                     FLPrint("ID value is too large to fit in an Int")
                 }
-                chatModel.friendAvatar = row[1] as? String ?? ""
-                chatModel.friendName = row[2] as? String ?? ""
-                chatModel.lastText = row[3] as? String ?? ""
+                if let friendId = row[1] as? Int64, let safeId = Int(exactly: friendId) {
+                    chatModel.friendId = safeId
+                } else {
+                    FLPrint("ID value is too large to fit in an Int")
+                }
+                chatModel.friendAvatar = row[2] as? String ?? ""
+                chatModel.friendName = row[3] as? String ?? ""
+                chatModel.lastText = row[4] as? String ?? ""
             }
             return chatModel
         }

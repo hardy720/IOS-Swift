@@ -370,6 +370,25 @@ extension FLChatDetailVC
             model.contentStr = text
             model.msgType = .msg_text
             model.isMe = true
+            
+            
+            let userModel = FLUserInfoManager.shared.getUserInfo()
+            var msg = FLWebSocketMessage.init()
+            msg.data = model.contentStr
+            msg.chart_Type = .P2P_Chat_Private
+            msg.msg_From = userModel.id
+            if let chatModel = chatModel {
+                msg.msg_To = "\(chatModel.friendId)"
+            } else {
+                msg.msg_To = "Unknown ID"
+            }
+            msg.msg_Type = .msg_text
+            msg.user_Name = chatModel!.friendName
+            msg.chart_Avatar = chatModel!.friendAvatar
+            // 发送socket通讯消息。
+            FLWebSocketManager.shared.sentData(msg: msg)
+            
+            // 保存通讯消息到沙盒数据库
             let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
             dataArr.append(model)
             

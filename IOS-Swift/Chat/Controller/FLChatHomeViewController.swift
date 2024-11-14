@@ -35,6 +35,8 @@ class FLChatHomeViewController: UIViewController
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
         view.addSubview(tableView!)
+        
+        self.test1()
     }
     
     @objc func showPopMenu(_ item: UIBarButtonItem)
@@ -63,15 +65,7 @@ class FLChatHomeViewController: UIViewController
                 break
             
             case 1:
-                let model = FLChatListModel.init()
-                model.friendAvatar = String.fl.getRandomImageUrlStr()!
-                model.friendName = "用户-00\(self!.dataArr.count)"
-                model.lastText = "我是最后一句"
-                let isok = FLChatListDao.init().insertChatListTable(model: model)
-                FLPrint("新增是否成功:\(isok)")
-                self?.initData()
-                self?.tableView?.reloadData()
-                self?.createChartToServer(model: model)
+                self?.perform(#selector(self?.createUser), with: nil, afterDelay: 0.3)
                 break
             
             case 2:
@@ -89,6 +83,60 @@ class FLChatHomeViewController: UIViewController
         popMenu.show()
     }
     
+    @objc func createUser()
+    {
+        // 创建 UIAlertController 实例
+        let alertController = UIAlertController(title: "输入好友昵称", message: "", preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "请输入内容"
+        }
+        // 添加确定按钮
+        let okAction = UIAlertAction(title: "确定", style: .default) { [weak self] _ in
+            if let textFields = alertController.textFields, let textField = textFields.first {
+                // 获取输入的内容
+                let inputText = textField.text ?? "Default Nickname"
+        
+                let userModel = FLUserModel.init()
+                userModel.avatar = String.fl.getRandomImageUrlStr()!
+                userModel.userName = inputText
+                userModel.passWord = "123456"
+                self?.createUserToServer(model: userModel)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func createUserToServer(model: FLUserModel)
+    {
+        self.view.makeToastActivity(.center)
+        let paramDict = [
+            "userName":model.userName,
+            "avatar":model.avatar,
+            "passWord":model.passWord
+        ]
+        FLNetworkManager.shared.requestData(.post, URLString: "\(BASE_URL)user/addUser", paramaters: paramDict) { response in
+            let json = JSON(response)
+            let alertMessage = json["msg"].stringValue;
+            self.view.hideToastActivity()
+            if json["code"].intValue == 200 {
+                let dic_info = json["data"]
+                let chatListModel = FLChatListModel.init()
+                chatListModel.friendAvatar = dic_info["avatar"].stringValue
+                chatListModel.friendName = model.userName
+                chatListModel.lastText = "我是最后一句"
+                chatListModel.friendId = dic_info["id"].intValue
+                let isok = FLChatListDao.init().insertChatListTable(model: chatListModel)
+                FLPrint("新增是否成功:\(isok)")
+                self.initData()
+                self.tableView?.reloadData()
+            }
+        }
+    }
+    
     func createChartToServer(model: FLChatListModel)
     {
         let userModel = FLUserInfoManager.shared.getUserInfo()
@@ -97,20 +145,60 @@ class FLChatHomeViewController: UIViewController
             "userId":userModel.id,
             "friendAvatar":model.friendAvatar
         ]
-        self.view.makeToastActivity(.center)
         FLNetworkManager.shared.requestData(.post, URLString: "\(BASE_URL)friendList/addFriend", paramaters: paramDict) { response in
             self.view.hideToastActivity()
             let json = JSON(response)
             let alertMessage = json["msg"].stringValue;
             if json["code"].intValue == 200 {
+                
             }
             self.view.makeToast(alertMessage.fl.isStringBlank() ? "检查服务器":alertMessage, duration: 3.0, position: .center)
         }
     }
     
+    func creatUserInfo()
+    {
+        
+    }
+    
     func initData()
     {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWebSocketMessage(_:)), name: Notification.Name(WebSocket_Recived_Message_Noti), object: nil)
         dataArr = FLChatListDao.init().fetchChatListTable() ?? []
+    }
+    
+    @objc func handleWebSocketMessage(_ notification: Notification) 
+    {
+        if let userInfo = notification.userInfo, let messageDict = userInfo["message"] as? [String: Any] {
+            if let chartType = messageDict["chart_Type"] as? Int {
+                // 处理接收到的消息
+                FLPrint("Received message in ViewController: msg_Type=\(chartType)")
+                switch chartType {
+                case 0:
+                    // 心跳
+                    break;
+                case 1:
+                    // 单聊
+                    if let chartAvatar = messageDict["chart_Avatar"] as? String, let userName = messageDict["user_Name"] as? String, let data = messageDict["data"] as? String, let msg_From_id = messageDict["msg_From"] as? String
+                        
+                    {
+                        let chatListModel = FLChatListModel.init()
+                        chatListModel.friendAvatar = chartAvatar
+                        chatListModel.friendName = userName
+                        chatListModel.lastText = data
+                        chatListModel.friendId = Int(msg_From_id)!
+                        let isok = FLChatListDao.init().insertChatListTable(model: chatListModel)
+                        FLPrint("新增是否成功:\(isok)")
+                        self.initData()
+                        self.tableView?.reloadData()
+                    }
+                   
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
     }
     
     lazy var tableView: UITableView? =
@@ -164,5 +252,21 @@ extension FLChatHomeViewController : UITableViewDataSource,UITableViewDelegate
         FLDatabaseManager.shared.createChat(userID: "\(model.id)")
         chatDetailVC.chatModel = model
         self.navigationController?.pushViewController(chatDetailVC, animated: true)
+    }
+}
+
+
+// MARK: - Test -
+extension FLChatHomeViewController
+{
+    func test1()
+    {
+        let userModel = FLUserInfoManager.shared.getUserInfo()
+        let nameLabel = UILabel.init(frame: CGRect(x: Int(screenW())/2 - 50, y: Int(screenH())/2 - 50, width: 100, height: 100))
+        nameLabel.text = userModel.userName
+        nameLabel.backgroundColor = .red
+        nameLabel.textColor = .white
+        nameLabel.textAlignment = .center
+        self.view.addSubview(nameLabel)
     }
 }

@@ -19,173 +19,97 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7F8DDB1C-66A8-4B84-A6A1-4ECC7EBC3D77"
+            uuid = "FA537B7C-ED13-4E00-ADE3-4AE1D00516E5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
+            filePath = "IOS-Swift/Chat/Controller/FLChatHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "disconnect()"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "createChartToServer(model:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E14F5FF2-9309-42ED-B30D-ECE1D4FACECB"
+            uuid = "17084F34-3772-44EA-8618-1224CEAA41D0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
+            filePath = "IOS-Swift/Chat/Controller/FLChatHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "sendDataMessage(_:)"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "createUserToServer(model:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2DB828CD-0EBB-4D81-9D6E-2A8C415EC147"
+            uuid = "58CE4B39-37D2-490B-B73C-AECC731D85A6"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
+            filePath = "IOS-Swift/Chat/Controller/FLChatHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "didReceive(event:client:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2DB828CD-0EBB-4D81-9D6E-2A8C415EC147 - 347ef8924b38863e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IOS_Swift.FLWebSocketManager.didReceive(event: Starscream.WebSocketEvent, client: Starscream.WebSocketClient) -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "68"
-                  endingLineNumber = "68">
-               </Location>
-               <Location
-                  uuid = "2DB828CD-0EBB-4D81-9D6E-2A8C415EC147 - 347ef8924b38863e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IOS_Swift.FLWebSocketManager.didReceive(event: Starscream.WebSocketEvent, client: Starscream.WebSocketClient) -&gt; ()"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "68"
-                  endingLineNumber = "68">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C3DB00EB-9EB9-434F-A636-A0F553E2B2DC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLWebSocketManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "didReceive(event:client:)"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "createUserToServer(model:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7788B6FE-8DD8-42B9-9EB0-77BDCBD968B5"
+            uuid = "998939B6-B9F4-4B81-A5B0-471AE51A5179"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLAESUtil.swift"
+            filePath = "IOS-Swift/Chat/Controller/FLChatHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "decrypt(base64String:)"
-            landmarkType = "9">
+            startingLineNumber = "195"
+            endingLineNumber = "195"
+            landmarkName = "handleWebSocketMessage(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EC8E8098-ED45-4C2E-B052-D913B8F9E236"
+            uuid = "52D8B6D3-3183-4414-B6BE-89706650C513"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLAESUtil.swift"
+            filePath = "IOS-Swift/Chat/Controller/FLChatHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "decrypt(base64String:)"
-            landmarkType = "9">
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "handleWebSocketMessage(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "53212632-F284-4340-BB57-A364CC823658"
+            uuid = "FA8C9052-0366-4BFC-A283-5A68757F497E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS-Swift/Tools/Manager/FLWebSocketManager/FLAESUtil.swift"
+            filePath = "IOS-Swift/Chat/Controller/FLChatHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "decrypt(base64String:)"
-            landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "53212632-F284-4340-BB57-A364CC823658 - 860755e77724c95b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IOS_Swift.decrypt(base64String: Swift.String) -&gt; Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Tools/Manager/FLWebSocketManager/FLAESUtil.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65">
-               </Location>
-               <Location
-                  uuid = "53212632-F284-4340-BB57-A364CC823658 - 860755e77724c95b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IOS_Swift.decrypt(base64String: Swift.String) -&gt; Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;"
-                  moduleName = "IOS-Swift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hardy/Desktop/Hardy/%E5%AD%A6%E4%B9%A0/IOS-Swift/IOS-Swift/Tools/Manager/FLWebSocketManager/FLAESUtil.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65">
-               </Location>
-            </Locations>
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "handleWebSocketMessage(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
