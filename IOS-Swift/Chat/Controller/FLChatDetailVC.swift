@@ -24,6 +24,8 @@ class FLChatDetailVC: UIViewController
     private var isSended: Bool = true
     private var timer: Timer?
     
+    var completion: (() -> Void)?
+    
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
@@ -41,9 +43,8 @@ class FLChatDetailVC: UIViewController
         timer = nil
     }
     
-    deinit
-    {
-        
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(WebSocket_Recived_Message_Noti), object: nil)
     }
     
     override func viewDidLoad()
@@ -51,14 +52,14 @@ class FLChatDetailVC: UIViewController
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.initNoti()
         self.initData()
         self.initUI()
-        self.initNoti()
     }
     
     func initData()
     {
-        dataArr = FLChatDetailDao.init().fetchChatDetailTable(userID: "\(chatModel!.id)")!
+        dataArr = FLChatDetailDao.init().fetchChatDetailTable(userID: "\(chatModel!.friendId)")!
         FLPrint(dataArr)
         
         if UserDefaults.standard.bool(forKey: Test_Test_IsOpen) {
@@ -69,7 +70,57 @@ class FLChatDetailVC: UIViewController
         cellScrollToBottom()
     }
     
+    @objc func handleWebSocketMessage(_ notification: Notification)
+    {
+        if let userInfo = notification.userInfo, let messageDict = userInfo["message"] as? [String: Any] {
+            if let chartType = messageDict["chart_Type"] as? Int {
+                // 处理接收到的消息
+                FLPrint("Received message in ViewController: msg_Type=\(chartType)")
+                switch chartType {
+                case 0:
+                    // 心跳
+                    break;
+                case 1:
+                    // 单聊
+                    if let chartAvatar = messageDict["chart_Avatar"] as? String, let userName = messageDict["user_Name"] as? String, let data = messageDict["data"] as? String, let msg_From_id = messageDict["msg_From"] as? String,                       let msg_type = messageDict["msg_Type"] as? Int
+                    {
+                        let model = FLChatMsgModel.init()
+                        model.contentStr = data
+                        model.msgType = FLMessageType(rawValue: msg_type) ?? .msg_unknown
+                        model.isMe = false
+                        if msg_type == 2, let msg_img_height = messageDict["msg_img_height"] as? CGFloat, let msg_img_weight = messageDict["msg_img_weight"] as? CGFloat {
+                            model.imgWidth = msg_img_weight
+                            model.imgHeight = msg_img_height
+                        }
+                        model.avatar = chartAvatar
+                        model.nickName = userName
+                        dataArr.append(model)
+                        
+                        DispatchQueue.main.async {
+                            let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
+                            self.tableView?.beginUpdates()
+                            self.tableView?.insertRows(at: [indexPath], with: .bottom)
+                            self.tableView?.endUpdates()
+                        }
+                        cellScrollToBottom()
+                    }
+                   
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+    }
     
+    func updateChartList(model: FLChatListModel)
+    {
+//        let chatListModel = FLChatListModel.init()
+//        chatListModel.lastText = msg
+        
+        let isok = FLChatListDao.init().insertChatListTable(model: model)
+        completion?()
+    }
     
     func initUI()
     {
@@ -136,6 +187,8 @@ extension FLChatDetailVC
 {
     func initNoti()
     {
+        // 获得socket通讯数据
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWebSocketMessage(_:)), name: Notification.Name(WebSocket_Recived_Message_Noti), object: nil)
         // 注册键盘显示通知
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name:UIResponder.keyboardWillShowNotification, object: nil)
         // 注册键盘隐藏通知
@@ -334,14 +387,15 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     // 发送图片
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
     {
-
         if let selectedImage = info[.originalImage] as? UIImage {
-            self.sendImageMsg(image: selectedImage)
+            self.view.makeToastActivity(.center)
             FLNetworkManager.shared.uploadPicture(myImg: selectedImage, imageKey: "file", URlName: "\(BASE_URL)/upload/uploadImg") { response in
+                self.view.hideToastActivity()
                 let json = JSON(response)
                 let message = json["msg"].stringValue;
                 if json["code"].intValue == 200 {
                     let imgPath = json["data"].stringValue
+                    self.sendImageMsg(imgPath: imgPath, image: selectedImage)
                 }else{
                     
                 }
@@ -371,7 +425,6 @@ extension FLChatDetailVC
             model.msgType = .msg_text
             model.isMe = true
             
-            
             let userModel = FLUserInfoManager.shared.getUserInfo()
             var msg = FLWebSocketMessage.init()
             msg.data = model.contentStr
@@ -383,23 +436,28 @@ extension FLChatDetailVC
                 msg.msg_To = "Unknown ID"
             }
             msg.msg_Type = .msg_text
-            msg.user_Name = chatModel!.friendName
-            msg.chart_Avatar = chatModel!.friendAvatar
+            msg.user_Name = userInfoModel.userName
+            msg.chart_Avatar = userInfoModel.avatar
             // 发送socket通讯消息。
             FLWebSocketManager.shared.sentData(msg: msg)
             
             // 保存通讯消息到沙盒数据库
-            let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+            let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.friendId)", model: model)
             dataArr.append(model)
-            
             DispatchQueue.main.async {
                 let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
                 self.tableView?.beginUpdates()
                 self.tableView?.insertRows(at: [indexPath], with: .bottom)
                 self.tableView?.endUpdates()
+                self.cellScrollToBottom()
+                self.customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - self.keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
             }
-            cellScrollToBottom()
-            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
+            let listModel = FLChatListModel.init()
+            listModel.lastText = text
+            listModel.friendId = chatModel!.friendId
+            listModel.friendAvatar = chatModel!.friendAvatar
+            listModel.friendName = chatModel!.friendName
+            updateChartList(model: listModel)
         }
     }
     
@@ -427,10 +485,10 @@ extension FLChatDetailVC
     }
     
     // 发送图片信息
-    func sendImageMsg(image: UIImage)
+    func sendImageMsg(imgPath: String, image:UIImage)
     {
-        let imagePathName = Date.fl.currentDate_SSS_() + ".png"
-        let isSave = self.saveImageToDocumentsDirectory(image: image, fileName: getImgPath + "/" + imagePathName)
+//        let imagePathName = Date.fl.currentDate_SSS_() + ".png"
+//        let isSave = self.saveImageToDocumentsDirectory(image: image, fileName: getImgPath + "/" + imagePathName)
         let userInfoModel = FLUserInfoManager.shared.getUserInfo()
         let model = FLChatMsgModel.init()
         var width = image.size.width
@@ -439,16 +497,16 @@ extension FLChatDetailVC
             width = screenW() / 2
         }
         if height > screenH() / 2 {
-            height = screenH() / 2
+            height = screenH() / 2 - 50
         }
         model.imgWidth = width
         model.imgHeight = height
         model.nickName = userInfoModel.userName
         model.avatar = userInfoModel.avatar
-        model.contentStr = imagePathName
+        model.contentStr = imgPath
         model.msgType = .msg_image
         model.isMe = true
-        let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
+        let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.friendId)", model: model)
         dataArr.append(model)
         
         DispatchQueue.main.async {
@@ -456,9 +514,33 @@ extension FLChatDetailVC
             self.tableView?.beginUpdates()
             self.tableView?.insertRows(at: [indexPath], with: .bottom)
             self.tableView?.endUpdates()
+            self.cellScrollToBottom()
         }
-        cellScrollToBottom()
-//            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
+        
+        let userModel = FLUserInfoManager.shared.getUserInfo()
+        var msg = FLWebSocketMessage.init()
+        msg.data = model.contentStr
+        msg.chart_Type = .P2P_Chat_Private
+        msg.msg_From = userModel.id
+        if let chatModel = chatModel {
+            msg.msg_To = "\(chatModel.friendId)"
+        } else {
+            msg.msg_To = "Unknown ID"
+        }
+        msg.msg_Type = .msg_image
+        msg.msg_img_height = height
+        msg.msg_img_weight = width
+        msg.user_Name = userInfoModel.userName
+        msg.chart_Avatar = userInfoModel.avatar
+        // 发送socket通讯消息。
+        FLWebSocketManager.shared.sentData(msg: msg)
+        
+        let listModel = FLChatListModel.init()
+        listModel.lastText = "[图片]"
+        listModel.friendId = chatModel!.friendId
+        listModel.friendAvatar = chatModel!.friendAvatar
+        listModel.friendName = chatModel!.friendName
+        updateChartList(model: listModel)
     }
     
     func saveImageToDocumentsDirectory(image: UIImage, fileName: String) -> Bool 

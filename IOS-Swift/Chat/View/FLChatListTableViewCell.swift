@@ -33,7 +33,7 @@ class FLChatListTableViewCell: UITableViewCell
             }
         }
         nickNameLabel.text = model.friendName
-        timeLabel.text = "2024年9月10日 凌晨 13:14"
+        timeLabel.text = model.updateTime
         lastContentLabel.text = model.lastText
     }
     
@@ -60,7 +60,8 @@ class FLChatListTableViewCell: UITableViewCell
         }
         
         lastContentLabel.snp.makeConstraints { make in
-            make.left.right.equalTo(nickNameLabel)
+            make.left.equalTo(nickNameLabel)
+            make.right.equalTo(timeLabel)
             make.bottom.equalTo(avatarImage)
             make.height.equalTo(20)
         }

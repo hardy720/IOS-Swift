@@ -18,10 +18,26 @@ class FLChatListDao
         var success = false
         FLDatabaseManager.shared.perform { con in
             do {
-                try con.run("INSERT INTO \(chatListTableName)(friendId, avatar, nickName, lastContent)VALUES(?,?,?,?)",model.friendId,model.friendAvatar,model.friendName,model.lastText)
+                let currentDate = Date()
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                formatter.timeZone = TimeZone.current
+                let currentTimestamp = formatter.string(from: currentDate)
+                try con.run("""
+                        INSERT INTO \(chatListTableName) (friendId, avatar, nickName, lastContent,updatedAt)
+                        VALUES (?, ?, ?, ?, ?)
+                        ON CONFLICT(friendId) DO UPDATE SET
+                                avatar = EXCLUDED.avatar,
+                                nickName = EXCLUDED.nickName,
+                                lastContent = EXCLUDED.lastContent,
+                                updatedAt = ?
+                        """, model.friendId, model.friendAvatar, model.friendName, model.lastText,
+                            currentTimestamp,
+                            currentTimestamp
+                )
                 success = true
             } catch {
-                FLPrint("Insert failed: \(error)")
+                FLPrint("Insert/Update failed: \(error)")
             }
         }
         return success
@@ -52,8 +68,8 @@ class FLChatListDao
         var success = false
         FLDatabaseManager.shared.perform { con in
             do {
-                let sql = "UPDATE \(chatListTableName) SET avatar=?, nickName=?, lastContent=? WHERE id =?"
-                try con.run(sql, model.friendAvatar,model.friendName,model.lastText,model.id)
+                let sql = "UPDATE \(chatListTableName) SET avatar=?, nickName=?, lastContent=?,updatedAt=CURRENT_TIMESTAMP WHERE friendId =?"
+                try con.run(sql, model.friendAvatar,model.friendName,model.lastText,model.friendId)
                 success = true
             } catch {
                 FLPrint("update failed: \(error)")
@@ -87,6 +103,7 @@ class FLChatListDao
                 item.friendAvatar = row[2] as? String ?? ""
                 item.friendName = row[3] as? String ?? ""
                 item.lastText = row[4] as? String ?? ""
+                item.updateTime = row[5] as? String ?? ""
                 items.append(item)
             }
             return items

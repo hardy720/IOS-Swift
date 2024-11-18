@@ -19,6 +19,7 @@ enum FLMessageType : Int,Codable
 class FLChatMsgModel
 {
     var id : Int = 0
+    var friendId: Int = -1
     var avatar : String = ""
     var nickName : String = ""
     var contentStr : String = ""
@@ -46,4 +47,6 @@ struct FLWebSocketMessage: Codable
     var msg_Type : FLMessageType = .msg_unknown
     var user_Name : String = ""
     var chart_Avatar : String = ""
+    var msg_img_height : CGFloat = 0
+    var msg_img_weight : CGFloat = 0
 }

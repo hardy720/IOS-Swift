@@ -45,21 +45,45 @@ class FLDatabaseManager
         return result
     }
     
+    // 创建聊天列表数据库
     func setup()
     {
         do {
-            try db?.run("CREATE TABLE IF NOT EXISTS \(chatListTableName) (id integer primary key autoincrement, friendId integer, avatar text, nickName text, lastContent text)")
+            try db?.run("""
+                CREATE TABLE IF NOT EXISTS \(chatListTableName) (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    friendId INTEGER UNIQUE,
+                    avatar TEXT,
+                    nickName TEXT,
+                    lastContent TEXT,
+                    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
         } catch {
             FLPrint("Failed to set up database: \(error)")
         }
     }
     
+    // 创建聊天详情数据库
     func createChat(userID : String)
     {
         do {
-            try db?.run("CREATE TABLE IF NOT EXISTS \(chatDetailTableName)\(userID) (id integer primary key autoincrement, avatar text, nickName text, contentStr text,lastContent text,msgType integer,isMe integer,mediaTime text,imgWidth integer,imgHeight integer)")
+            try db?.run("CREATE TABLE IF NOT EXISTS \(chatDetailTableName)\(userID) (id integer primary key autoincrement,friendId integer, avatar text, nickName text, contentStr text,lastContent text,msgType integer,isMe integer,mediaTime text,imgWidth integer,imgHeight integer)")
         } catch {
             FLPrint("Failed to set up database: \(error)")
+        }
+    }
+    
+    // 检查数据库表格是否存在.
+    func tableExists(tableName: String) -> Bool
+    {
+        do {
+            // 尝试执行一个查询，该查询会返回所有名为给定名称的表
+            let exists = try db?.scalar("SELECT name FROM sqlite_master WHERE type='table' AND name=?", tableName) != nil
+            return exists
+        } catch {
+            print("Error checking if table exists: \(error)")
+            return false
         }
     }
 }

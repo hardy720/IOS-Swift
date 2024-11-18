@@ -18,7 +18,18 @@ class FLChatHomeViewController: UIViewController
         // Do any additional setup after loading the view.
         self.initData()
         self.initUI()
+        self.initNoti()
         self.connectSocket()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(WebSocket_Recived_Message_Noti), object: nil)
     }
     
     func connectSocket()
@@ -28,15 +39,13 @@ class FLChatHomeViewController: UIViewController
     
     func initUI()
     {
-        self.title = "聊天"
+        let userModel = FLUserInfoManager.shared.getUserInfo()
+        self.title = userModel.userName
         view.backgroundColor = .white
         
         let rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "icon_more_add"), style: .done, target: self, action: #selector(showPopMenu))
         navigationItem.rightBarButtonItem = rightBarButtonItem
-        
         view.addSubview(tableView!)
-        
-        self.test1()
     }
     
     @objc func showPopMenu(_ item: UIBarButtonItem)
@@ -127,7 +136,6 @@ class FLChatHomeViewController: UIViewController
                 let chatListModel = FLChatListModel.init()
                 chatListModel.friendAvatar = dic_info["avatar"].stringValue
                 chatListModel.friendName = model.userName
-                chatListModel.lastText = "我是最后一句"
                 chatListModel.friendId = dic_info["id"].intValue
                 let isok = FLChatListDao.init().insertChatListTable(model: chatListModel)
                 FLPrint("新增是否成功:\(isok)")
@@ -163,7 +171,6 @@ class FLChatHomeViewController: UIViewController
     
     func initData()
     {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleWebSocketMessage(_:)), name: Notification.Name(WebSocket_Recived_Message_Noti), object: nil)
         dataArr = FLChatListDao.init().fetchChatListTable() ?? []
     }
     
@@ -179,15 +186,35 @@ class FLChatHomeViewController: UIViewController
                     break;
                 case 1:
                     // 单聊
-                    if let chartAvatar = messageDict["chart_Avatar"] as? String, let userName = messageDict["user_Name"] as? String, let data = messageDict["data"] as? String, let msg_From_id = messageDict["msg_From"] as? String
-                        
+                    if let chartAvatar = messageDict["chart_Avatar"] as? String, let userName = messageDict["user_Name"] as? String, let data = messageDict["data"] as? String, let msg_From_id = messageDict["msg_From"] as? String,
+                       let msg_type = messageDict["msg_Type"] as? Int
                     {
                         let chatListModel = FLChatListModel.init()
                         chatListModel.friendAvatar = chartAvatar
                         chatListModel.friendName = userName
-                        chatListModel.lastText = data
+                        if msg_type == 2 {
+                            chatListModel.lastText = "[图片]"
+                        }else{
+                            chatListModel.lastText = data
+                        }
                         chatListModel.friendId = Int(msg_From_id)!
                         let isok = FLChatListDao.init().insertChatListTable(model: chatListModel)
+                        
+                        if !FLDatabaseManager.shared.tableExists(tableName: "\(chatDetailTableName)\(msg_From_id)") {
+                            FLDatabaseManager.shared.createChat(userID: "\(msg_From_id)")
+                        }
+                        let model = FLChatMsgModel.init()
+                        model.contentStr = data
+                        model.msgType = FLMessageType(rawValue: msg_type) ?? .msg_unknown
+                        model.isMe = false
+                        model.avatar = chartAvatar
+                        model.nickName = userName
+                        if msg_type == 2, let msg_img_height = messageDict["msg_img_height"] as? CGFloat, let msg_img_weight = messageDict["msg_img_weight"] as? CGFloat {
+                            model.imgWidth = msg_img_weight
+                            model.imgHeight = msg_img_height
+                        }
+                        _ = FLChatDetailDao.init().insertChatListTable(chatID: msg_From_id, model: model)
+                        
                         FLPrint("新增是否成功:\(isok)")
                         self.initData()
                         self.tableView?.reloadData()
@@ -238,6 +265,7 @@ extension FLChatHomeViewController : UITableViewDataSource,UITableViewDelegate
         if editingStyle == .delete {
             let model = dataArr[indexPath.row]
             let isOk = FLChatListDao.init().deleteChatListTable(id: model.id)
+            let isOk1 = FLChatDetailDao.init().dropChat(chatTableName: "\(chatDetailTableName)\(model.friendId)")
             FLPrint("删除是否成功:%d",isOk)
             dataArr.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -249,8 +277,14 @@ extension FLChatHomeViewController : UITableViewDataSource,UITableViewDelegate
     {
         let model = dataArr[indexPath.row]
         let chatDetailVC = FLChatDetailVC.init()
-        FLDatabaseManager.shared.createChat(userID: "\(model.id)")
+        if !FLDatabaseManager.shared.tableExists(tableName: "\(chatDetailTableName)\(model.friendId)") {
+            FLDatabaseManager.shared.createChat(userID: "\(model.friendId)")
+        }
         chatDetailVC.chatModel = model
+        chatDetailVC.completion = { [weak self] in
+            self?.initData()
+            self?.tableView?.reloadData()
+        }
         self.navigationController?.pushViewController(chatDetailVC, animated: true)
     }
 }
@@ -268,5 +302,16 @@ extension FLChatHomeViewController
         nameLabel.textColor = .white
         nameLabel.textAlignment = .center
         self.view.addSubview(nameLabel)
+    }
+}
+
+
+// MARK: - 通知管理 -
+extension FLChatHomeViewController
+{
+    func initNoti()
+    {
+        // 获得socket通讯数据
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWebSocketMessage(_:)), name: Notification.Name(WebSocket_Recived_Message_Noti), object: nil)
     }
 }
