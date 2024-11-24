@@ -344,7 +344,7 @@ class ChatImgMessageCell: FLChatBaseCell
     {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = Chat_Cell_Background_Gray
-        contentView.addSubview(contentImg)
+        self.contentView.addSubview(contentImg)
     }
     
     required init?(coder: NSCoder) {
@@ -384,25 +384,13 @@ class ChatImgMessageCell: FLChatBaseCell
                 FLPrint("Failed to load image: \(error.localizedDescription)")
             }
         }
-        
-//        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-//            print("无法获取Documents目录路径")
-//            return
-//        }
-//        let chatFolderPath = documentsDirectory.appendingPathComponent(getImgPath)
-//        let filePath = chatFolderPath.appendingPathComponent(model.contentStr)
-//        
-//        if let image = UIImage(contentsOfFile: filePath.path) {
-//            contentImg.image = image
-//        } else {
-//            print("无法加载图片")
-//        }
     }
     
     var contentImg: UIImageView =
     {
         let imageView = UIImageView.init()
         imageView.layer.cornerRadius = 5
+        imageView.backgroundColor = .red
         imageView.layer.masksToBounds = true
         return imageView
     }()

@@ -27,8 +27,8 @@ class FLChatMsgModel
     var msgType : FLMessageType = .msg_unknown
     var isMe : Bool = false
     var mediaTime : String = ""
-    var imgWidth : CGFloat = 0
-    var imgHeight : CGFloat = 0
+    var imgWidth : Int = 0
+    var imgHeight : Int = 0
 }
 
 enum FLSocketMessageType: Int, Codable
@@ -47,6 +47,6 @@ struct FLWebSocketMessage: Codable
     var msg_Type : FLMessageType = .msg_unknown
     var user_Name : String = ""
     var chart_Avatar : String = ""
-    var msg_img_height : CGFloat = 0
-    var msg_img_weight : CGFloat = 0
+    var msg_img_height : Int = 0
+    var msg_img_weight : Int = 0
 }

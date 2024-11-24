@@ -209,7 +209,7 @@ class FLChatHomeViewController: UIViewController
                         model.isMe = false
                         model.avatar = chartAvatar
                         model.nickName = userName
-                        if msg_type == 2, let msg_img_height = messageDict["msg_img_height"] as? CGFloat, let msg_img_weight = messageDict["msg_img_weight"] as? CGFloat {
+                        if msg_type == 2, let msg_img_height = messageDict["msg_img_height"] as? Int, let msg_img_weight = messageDict["msg_img_weight"] as? Int {
                             model.imgWidth = msg_img_weight
                             model.imgHeight = msg_img_height
                         }

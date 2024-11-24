@@ -88,7 +88,7 @@ class FLChatDetailVC: UIViewController
                         model.contentStr = data
                         model.msgType = FLMessageType(rawValue: msg_type) ?? .msg_unknown
                         model.isMe = false
-                        if msg_type == 2, let msg_img_height = messageDict["msg_img_height"] as? CGFloat, let msg_img_weight = messageDict["msg_img_weight"] as? CGFloat {
+                        if msg_type == 2, let msg_img_height = messageDict["msg_img_height"] as? Int, let msg_img_weight = messageDict["msg_img_weight"] as? Int {
                             model.imgWidth = msg_img_weight
                             model.imgHeight = msg_img_height
                         }
@@ -272,7 +272,7 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
             height = 70
             break
         case .msg_image:
-            height = model.imgHeight + 20
+            height = CGFloat(model.imgHeight + 20)
             break
             
         default:
@@ -499,8 +499,8 @@ extension FLChatDetailVC
         if height > screenH() / 2 {
             height = screenH() / 2 - 50
         }
-        model.imgWidth = width
-        model.imgHeight = height
+        model.imgWidth = Int(width)
+        model.imgHeight = Int(height)
         model.nickName = userInfoModel.userName
         model.avatar = userInfoModel.avatar
         model.contentStr = imgPath
@@ -528,8 +528,8 @@ extension FLChatDetailVC
             msg.msg_To = "Unknown ID"
         }
         msg.msg_Type = .msg_image
-        msg.msg_img_height = height
-        msg.msg_img_weight = width
+        msg.msg_img_height = Int(height)
+        msg.msg_img_weight = Int(width)
         msg.user_Name = userInfoModel.userName
         msg.chart_Avatar = userInfoModel.avatar
         // 发送socket通讯消息。

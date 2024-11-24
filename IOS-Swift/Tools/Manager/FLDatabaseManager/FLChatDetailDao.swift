@@ -97,13 +97,13 @@ class FLChatDetailDao
                 }
                 item.mediaTime = row[8] as? String ?? ""
                 // 确保从数据库中提取的值可以安全地转换为 Double
-                if let imgWidthDouble = row[9] as? Int64, let safeMsgType = Double(exactly: imgWidthDouble) {
-                    item.imgWidth = CGFloat(imgWidthDouble)
+                if let imgWidthDouble = row[9] as? Int64, let safeMsgType = Int(exactly: imgWidthDouble) {
+                    item.imgWidth = Int(imgWidthDouble)
                 }else{
                     print("无法将 row[8] 转换为 Int64")
                 }
-                if let imgHeightDouble = row[10] as? Int64, let safeMsgType = Double(exactly: imgHeightDouble) {
-                    item.imgHeight = CGFloat(imgHeightDouble)
+                if let imgHeightDouble = row[10] as? Int64, let safeMsgType = Int(exactly: imgHeightDouble) {
+                    item.imgHeight = Int(CGFloat(imgHeightDouble))
                 }else{
                     print("无法将 row[9] 转换为 Int64")
                 }
