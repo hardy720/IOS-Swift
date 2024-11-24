@@ -22,10 +22,9 @@ class FLChatHomeViewController: UIViewController
         self.connectSocket()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) 
+    {
         super.viewWillAppear(animated)
-        
-
     }
     
     deinit {
@@ -197,7 +196,10 @@ class FLChatHomeViewController: UIViewController
                         }else{
                             chatListModel.lastText = data
                         }
+                        let getMsgListModel = FLChatListDao.init().fetchChatByFriendID(friendID: Int(msg_From_id)!)
+
                         chatListModel.friendId = Int(msg_From_id)!
+                        chatListModel.messageAlert = (getMsgListModel?.messageAlert ?? 0) + 1
                         let isok = FLChatListDao.init().insertChatListTable(model: chatListModel)
                         
                         if !FLDatabaseManager.shared.tableExists(tableName: "\(chatDetailTableName)\(msg_From_id)") {

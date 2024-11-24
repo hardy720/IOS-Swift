@@ -36,6 +36,13 @@ class FLChatDetailVC: UIViewController
         super.viewIsAppearing(animated)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.chatModel?.messageAlert = 0
+        let isOk = FLChatListDao.init().updateChatListTable(model: chatModel!)
+        completion?()
+    }
+    
     override func viewDidDisappear(_ animated: Bool)
     {
         super.viewDidDisappear(animated)
@@ -115,9 +122,6 @@ class FLChatDetailVC: UIViewController
     
     func updateChartList(model: FLChatListModel)
     {
-//        let chatListModel = FLChatListModel.init()
-//        chatListModel.lastText = msg
-        
         let isok = FLChatListDao.init().insertChatListTable(model: model)
         completion?()
     }
@@ -129,7 +133,7 @@ class FLChatDetailVC: UIViewController
         view.addSubview(tableView!)
         customKeyboardView = FLCustomKeyboardView.init(frame: CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom, width: screenW(), height: Chat_Custom_Keyboard_Height))
         customKeyboardView?.delegate = self
-        customKeyboardView?.userId = "\(chatModel?.id)"
+        customKeyboardView?.userId = String(describing: chatModel?.id)
         view.addSubview(customKeyboardView!)
     }
     
@@ -154,7 +158,7 @@ class FLChatDetailVC: UIViewController
 // MARK: - 录音 -
 extension FLChatDetailVC
 {
-
+    
 }
 
 // MARK: - 工具
@@ -487,8 +491,6 @@ extension FLChatDetailVC
     // 发送图片信息
     func sendImageMsg(imgPath: String, image:UIImage)
     {
-//        let imagePathName = Date.fl.currentDate_SSS_() + ".png"
-//        let isSave = self.saveImageToDocumentsDirectory(image: image, fileName: getImgPath + "/" + imagePathName)
         let userInfoModel = FLUserInfoManager.shared.getUserInfo()
         let model = FLChatMsgModel.init()
         var width = image.size.width

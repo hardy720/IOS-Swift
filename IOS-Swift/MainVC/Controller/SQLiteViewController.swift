@@ -74,7 +74,7 @@ extension SQLiteViewController
     // MARK:2.0.204. 查
     @objc func test204()
     {
-        let ss = FLChatListDao.init().fetchChatByID(chatID: -8000)
+        let ss = FLChatListDao.init().fetchChatByFriendID(friendID: -8000)
         if let arr = FLChatListDao.init().fetchChatListTable() {
             for item in arr {
                 FLPrint(item.id)

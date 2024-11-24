@@ -77,10 +77,8 @@ class FLChatBaseCell: UITableViewCell
         avatarImageV.kf.setImage(with: URL(string: model.avatar), placeholder: UIImage(named: "placeholder.jpg"), options: nil, progressBlock: nil) { result in
             switch result {
             case .success(let value):
-                // 图片加载成功
                 FLPrint("Image loaded successfully: \(value.image)")
             case .failure(let error):
-                // 图片加载失败
                 FLPrint("Failed to load image: \(error.localizedDescription)")
             }
         }

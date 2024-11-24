@@ -56,6 +56,7 @@ class FLDatabaseManager
                     avatar TEXT,
                     nickName TEXT,
                     lastContent TEXT,
+                    messageAlert INTEGER,
                     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
@@ -68,7 +69,7 @@ class FLDatabaseManager
     func createChat(userID : String)
     {
         do {
-            try db?.run("CREATE TABLE IF NOT EXISTS \(chatDetailTableName)\(userID) (id integer primary key autoincrement,friendId integer, avatar text, nickName text, contentStr text,lastContent text,msgType integer,isMe integer,mediaTime text,imgWidth integer,imgHeight integer)")
+            try db?.run("CREATE TABLE IF NOT EXISTS \(chatDetailTableName)\(userID) (id integer primary key autoincrement,friendId integer,avatar text,nickName text, contentStr text,lastContent text,msgType integer,isMe integer,mediaTime text,imgWidth integer,imgHeight integer)")
         } catch {
             FLPrint("Failed to set up database: \(error)")
         }

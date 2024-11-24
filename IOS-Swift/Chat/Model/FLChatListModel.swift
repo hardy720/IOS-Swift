@@ -15,4 +15,5 @@ class FLChatListModel
     var lastText: String = ""
     var friendName: String = ""
     var updateTime: String = ""
+    var messageAlert: Int = 0
 }

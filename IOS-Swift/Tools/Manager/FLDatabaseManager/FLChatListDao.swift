@@ -24,14 +24,16 @@ class FLChatListDao
                 formatter.timeZone = TimeZone.current
                 let currentTimestamp = formatter.string(from: currentDate)
                 try con.run("""
-                        INSERT INTO \(chatListTableName) (friendId, avatar, nickName, lastContent,updatedAt)
-                        VALUES (?, ?, ?, ?, ?)
+                        INSERT INTO \(chatListTableName) (friendId, avatar, nickName, lastContent,messageAlert,updatedAt)
+                        VALUES (?, ?, ?, ?, ?, ?)
                         ON CONFLICT(friendId) DO UPDATE SET
                                 avatar = EXCLUDED.avatar,
                                 nickName = EXCLUDED.nickName,
                                 lastContent = EXCLUDED.lastContent,
+                                messageAlert = EXCLUDED.messageAlert,
                                 updatedAt = ?
                         """, model.friendId, model.friendAvatar, model.friendName, model.lastText,
+                            model.messageAlert,
                             currentTimestamp,
                             currentTimestamp
                 )
@@ -68,8 +70,8 @@ class FLChatListDao
         var success = false
         FLDatabaseManager.shared.perform { con in
             do {
-                let sql = "UPDATE \(chatListTableName) SET avatar=?, nickName=?, lastContent=?,updatedAt=CURRENT_TIMESTAMP WHERE friendId =?"
-                try con.run(sql, model.friendAvatar,model.friendName,model.lastText,model.friendId)
+                let sql = "UPDATE \(chatListTableName) SET avatar=?, nickName=?, messageAlert=?,lastContent=?,updatedAt=CURRENT_TIMESTAMP WHERE friendId =?"
+                try con.run(sql, model.friendAvatar,model.friendName,model.messageAlert,model.lastText,model.friendId)
                 success = true
             } catch {
                 FLPrint("update failed: \(error)")
@@ -103,7 +105,12 @@ class FLChatListDao
                 item.friendAvatar = row[2] as? String ?? ""
                 item.friendName = row[3] as? String ?? ""
                 item.lastText = row[4] as? String ?? ""
-                item.updateTime = row[5] as? String ?? ""
+                if let messageAlert = row[5] as? Int64, let safeId = Int(exactly: messageAlert) {
+                    item.messageAlert = safeId
+                } else {
+                    FLPrint("ID value is too large to fit in an Int")
+                }
+                item.updateTime = row[6] as? String ?? ""
                 items.append(item)
             }
             return items
@@ -112,12 +119,12 @@ class FLChatListDao
     
     /**
      * 查询
-     * 根据ID查询
+     * 根据FriendID查询
      */
-    func fetchChatByID(chatID:Int) -> FLChatListModel?
+    func fetchChatByFriendID(friendID:Int) -> FLChatListModel?
     {
         return FLDatabaseManager.shared.perform { con in
-            let stmt = try! con.prepare("SELECT * FROM \(chatListTableName) WHERE id = ?").bind(chatID)
+            let stmt = try! con.prepare("SELECT * FROM \(chatListTableName) WHERE friendId = ?").bind(friendID)
             let chatModel = FLChatListModel.init()
             if let row = stmt.next() {
                 if let id = row[0] as? Int64, let safeId = Int(exactly: id) {
@@ -133,6 +140,12 @@ class FLChatListDao
                 chatModel.friendAvatar = row[2] as? String ?? ""
                 chatModel.friendName = row[3] as? String ?? ""
                 chatModel.lastText = row[4] as? String ?? ""
+                if let messageAlert = row[5] as? Int64, let safeId = Int(exactly: messageAlert) {
+                    chatModel.messageAlert = safeId
+                } else {
+                    FLPrint("ID value is too large to fit in an Int")
+                }
+                chatModel.updateTime = row[6] as? String ?? ""
             }
             return chatModel
         }

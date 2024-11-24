@@ -17,6 +17,7 @@ class FLChatListTableViewCell: UITableViewCell
         self.contentView.addSubview(nickNameLabel)
         self.contentView.addSubview(timeLabel)
         self.contentView.addSubview(lastContentLabel)
+        self.contentView.addSubview(messageAlertLabel)
         self.initLayout()
     }
     
@@ -35,6 +36,12 @@ class FLChatListTableViewCell: UITableViewCell
         nickNameLabel.text = model.friendName
         timeLabel.text = model.updateTime
         lastContentLabel.text = model.lastText
+        if model.messageAlert > 0 {
+            messageAlertLabel.isHidden = false
+            messageAlertLabel.text = "\(model.messageAlert)"
+        }else{
+            messageAlertLabel.isHidden = true
+        }
     }
     
     func initLayout()
@@ -64,6 +71,12 @@ class FLChatListTableViewCell: UITableViewCell
             make.right.equalTo(timeLabel)
             make.bottom.equalTo(avatarImage)
             make.height.equalTo(20)
+        }
+        
+        messageAlertLabel.snp.makeConstraints { make in
+            make.top.equalTo(avatarImage).offset(-10)
+            make.right.equalTo(avatarImage).offset(10)
+            make.width.height.equalTo(16)
         }
     }
     
@@ -101,6 +114,19 @@ class FLChatListTableViewCell: UITableViewCell
         label.font = UIFont.systemFont(ofSize: 17)
         label.textColor = Text_Light_Gray
         label.textAlignment = .left
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    var messageAlertLabel : UILabel =
+    {
+        let label = UILabel.init()
+        label.font = UIFont.systemFont(ofSize: 11)
+        label.backgroundColor = .red
+        label.textColor = .white
+        label.textAlignment = .center
+        label.layer.cornerRadius = 8
+        label.layer.masksToBounds = true
         label.numberOfLines = 1
         return label
     }()
