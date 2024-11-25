@@ -36,11 +36,15 @@ class FLChatListTableViewCell: UITableViewCell
         nickNameLabel.text = model.friendName
         timeLabel.text = model.updateTime
         lastContentLabel.text = model.lastText
-        if model.messageAlert > 0 {
+        if model.messageAlert > 0 && model.messageAlert < 100{
             messageAlertLabel.isHidden = false
             messageAlertLabel.text = "\(model.messageAlert)"
         }else{
-            messageAlertLabel.isHidden = true
+            if model.messageAlert >= 100 {
+                messageAlertLabel.text = "99+"
+            }else{
+                messageAlertLabel.isHidden = true
+            }
         }
     }
     
@@ -76,7 +80,8 @@ class FLChatListTableViewCell: UITableViewCell
         messageAlertLabel.snp.makeConstraints { make in
             make.top.equalTo(avatarImage).offset(-10)
             make.right.equalTo(avatarImage).offset(10)
-            make.width.height.equalTo(16)
+            make.width.equalTo(20)
+            make.height.equalTo(18)
         }
     }
     
@@ -121,7 +126,7 @@ class FLChatListTableViewCell: UITableViewCell
     var messageAlertLabel : UILabel =
     {
         let label = UILabel.init()
-        label.font = UIFont.systemFont(ofSize: 11)
+        label.font = UIFont.systemFont(ofSize: 9)
         label.backgroundColor = .red
         label.textColor = .white
         label.textAlignment = .center

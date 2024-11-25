@@ -356,14 +356,14 @@ class ChatImgMessageCell: FLChatBaseCell
          */
         super.setAvatar(with: model)
         if model.isMe {
-            contentImg.snp.updateConstraints { make in
+            contentImg.snp.remakeConstraints { make in
                 make.right.equalTo(avatarImageV.snp_leftMargin).offset(-20)
                 make.top.equalTo(avatarImageV)
                 make.width.equalTo(model.imgWidth)
                 make.height.equalTo(model.imgHeight)
             }
         }else{
-            contentImg.snp.updateConstraints { make in
+            contentImg.snp.remakeConstraints { make in
                 make.left.equalTo(avatarImageV.snp_rightMargin).offset(20)
                 make.top.equalTo(avatarImageV)
                 make.width.equalTo(model.imgWidth)

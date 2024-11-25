@@ -36,11 +36,10 @@ class FLChatDetailVC: UIViewController
         super.viewIsAppearing(animated)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) 
+    {
         super.viewWillDisappear(animated)
-        self.chatModel?.messageAlert = 0
-        let isOk = FLChatListDao.init().updateChatListTable(model: chatModel!)
-        completion?()
+        self.clearMessageAlert()
     }
     
     override func viewDidDisappear(_ animated: Bool)
@@ -173,6 +172,13 @@ extension FLChatDetailVC
             }
         }
     }
+    
+    func clearMessageAlert()
+    {
+        self.chatModel?.messageAlert = 0
+        let isOk = FLChatListDao.init().updateChatListTable(model: chatModel!)
+        completion?()
+    }
 }
 
 // MARK: - 按钮事件 -
@@ -197,6 +203,13 @@ extension FLChatDetailVC
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name:UIResponder.keyboardWillShowNotification, object: nil)
         // 注册键盘隐藏通知
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        // 监听进入后台
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    }
+    
+    @objc func applicationDidEnterBackground()
+    {
+        self.clearMessageAlert()
     }
     
     // 键盘显示
@@ -447,8 +460,8 @@ extension FLChatDetailVC
             
             // 保存通讯消息到沙盒数据库
             let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.friendId)", model: model)
-            dataArr.append(model)
             DispatchQueue.main.async {
+                self.dataArr.append(model)
                 let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
                 self.tableView?.beginUpdates()
                 self.tableView?.insertRows(at: [indexPath], with: .bottom)
