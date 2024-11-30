@@ -38,6 +38,7 @@ public let fWindowSafeAreaInset =
 // 聊天页面自定义键盘宽度和高度
 let Chat_Cell_Text_Width = screenW() - 200
 let Chat_Custom_Keyboard_Height : CGFloat = 70
+let Chat_Custom_Keyboard_Input_Margin : CGFloat = 50
 let Chat_Custom_Keyboard_AddView_Height : CGFloat = 100
 let Chat_Cell_Audio_Max_Width = screenW() / 2
 

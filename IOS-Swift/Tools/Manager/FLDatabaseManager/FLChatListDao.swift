@@ -80,6 +80,27 @@ class FLChatListDao
         return success
     }
     
+    func updateChatListMessageAlert(model: FLChatListModel) -> Bool
+    {
+         var success = false
+        FLDatabaseManager.shared.perform { con in
+             do {
+                 let sql = """
+                 UPDATE \(chatListTableName)
+                 SET
+                     messageAlert = ?,
+                     updatedAt = CURRENT_TIMESTAMP
+                 WHERE friendId = ?
+                 """
+                 try con.run(sql, model.messageAlert, model.friendId)
+                 success = true
+             } catch {
+                 FLPrint("update failed: \(error)")
+             }
+         }
+         return success
+     }
+    
     
     /**
      * 查

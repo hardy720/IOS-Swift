@@ -200,7 +200,7 @@ class FLChatHomeViewController: UIViewController
 
                         chatListModel.friendId = Int(msg_From_id)!
                         chatListModel.messageAlert = (getMsgListModel?.messageAlert ?? 0) + 1
-                        let isok = FLChatListDao.init().insertChatListTable(model: chatListModel)
+                        let isok = FLChatListDao.init().updateChatListTable(model: chatListModel)
                         
                         if !FLDatabaseManager.shared.tableExists(tableName: "\(chatDetailTableName)\(msg_From_id)") {
                             FLDatabaseManager.shared.createChat(userID: "\(msg_From_id)")

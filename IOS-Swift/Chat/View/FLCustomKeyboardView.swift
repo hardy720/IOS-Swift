@@ -25,17 +25,31 @@ protocol FLCustomKeyboardViewDelegate : AnyObject
     func moreAddIndex(index:Int)
 }
 
+
+enum FLInputViewState {
+    case textInput
+    case voiceInput
+    case moreOptions
+}
+
 class FLCustomKeyboardView: UIView
 {
     weak var delegate: FLCustomKeyboardViewDelegate?
     private var isVoiceBtn = false
-    private var isShowAddView = false
+    var isShowAddView = false
     var recordeAnimationView : FLRecordAnimationView?
     var userId : String?
+    
+    var currentState: FLInputViewState = .textInput {
+        didSet {
+            self.initLayout()
+        }
+    }
     
     lazy var backView : UIView = {
         let backView = UIView()
         backView.backgroundColor = Chat_CustomKeyBoard_Back_Gray
+        backView.backgroundColor = .green
         return backView
     }()
     
@@ -48,6 +62,7 @@ class FLCustomKeyboardView: UIView
     lazy var itemBackView : UIView = {
         let backView = UIView()
         backView.backgroundColor = Chat_CustomKeyBoard_Back_Gray
+        backView.backgroundColor = .red
         return backView
     }()
     
@@ -88,6 +103,7 @@ class FLCustomKeyboardView: UIView
         super.init(frame: frame)
         setupUI()
         initRecord()
+        initNoti()
     }
         
     private func setupUI()
@@ -104,32 +120,51 @@ class FLCustomKeyboardView: UIView
     
     private func initLayout()
     {
+        let size = inputTextView.text.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(Chart_Keyboard_TextView_font)), size: CGSize(width: inputTextView.frame.size.width - 10, height: CGFloat(MAXFLOAT)))
+        var itemBackViewHeight = 0
+        switch currentState {
+        case .textInput:
+            if inputTextView.text.fl.isStringBlank() {
+                itemBackViewHeight = Int(Chat_Custom_Keyboard_Height)
+            }else{
+                itemBackViewHeight = Int(size.height + Chat_Custom_Keyboard_Input_Margin)
+            }
+            break
+        case .voiceInput:
+            itemBackViewHeight = Int(Chat_Custom_Keyboard_Height)
+//            recordButton.frame = CGRectMake(0, 0, inputTextView.frame.size.width, inputTextView.frame.size.height)
+            break
+        case .moreOptions:
+            break
+        }
+        
+
         backView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalTo(self)
         }
         
         itemBackView.snp.updateConstraints { make in
             make.top.left.right.equalTo(self)
-            make.height.equalTo(60)
-        }
-        
-        voiceButton.snp.updateConstraints { make in
-            make.left.equalTo(20)
-            make.top.equalTo(10)
-            make.height.width.equalTo(40)
+            make.height.equalTo(itemBackViewHeight)
         }
         
         inputTextView.snp.updateConstraints { make in
-            make.left.equalTo(voiceButton.snp_rightMargin).offset(15)
+            make.left.equalTo(60)
             make.top.equalTo(15)
-            make.bottom.equalTo(-15)
+            make.height.equalTo(size.height + 20)
             make.right.equalTo(-60)
         }
         
+        voiceButton.snp.updateConstraints { make in
+            make.left.equalTo(15)
+            make.bottom.equalTo(inputTextView)
+            make.height.width.equalTo(35)
+        }
+        
         addButton.snp.updateConstraints { make in
-            make.centerY.equalTo(inputTextView)
+            make.bottom.equalTo(voiceButton)
             make.right.equalTo(itemBackView).offset(-10)
-            make.height.width.equalTo(40)
+            make.height.width.equalTo(35)
         }
         
         addView.snp.updateConstraints { make in
@@ -144,7 +179,30 @@ class FLCustomKeyboardView: UIView
     }
 }
 
-// MARK: - Delegate -
+// MARK: - 通知 -
+extension FLCustomKeyboardView
+{
+    func initNoti()
+    {
+        // 注册键盘显示通知
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name:UIResponder.keyboardWillShowNotification, object: nil)
+        // 注册键盘隐藏通知
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // 键盘显示
+    @objc func keyboardWillShow(_ notification: Notification)
+    {
+        
+    }
+    
+    // 键盘隐藏
+    @objc func keyboardWillHide(_ notification: Notification)
+    {
+        self.frame = CGRect(x: 0, y: screenH() - self.frame.size.height - fWindowSafeAreaInset().bottom, width: screenW(), height:self.frame.size.height)
+    }
+}
+
 extension FLCustomKeyboardView: UITextViewDelegate,FLSoundRecorderDelegate,FLAddViewDelegate
 {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
@@ -165,10 +223,8 @@ extension FLCustomKeyboardView: UITextViewDelegate,FLSoundRecorderDelegate,FLAdd
     func textViewDidChange(_ textView: UITextView)
     {
         let size = textView.text.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(Chart_Keyboard_TextView_font)), size: CGSize(width: textView.frame.size.width - 10, height: CGFloat(MAXFLOAT)))
-        if size.height > self.frame.size.height - 30 {
-            delegate?.didChangeTVHeight(30)
+            delegate?.didChangeTVHeight(size.height)
             initLayout()
-        }
     }
     
     // 录音
@@ -206,6 +262,7 @@ extension FLCustomKeyboardView
     @objc func handleVoiceButtonTap(_ button: UIButton)
     {
         if isVoiceBtn {
+            self.currentState = .textInput
             button.setImage(UIImage(named: "icon_chat_keyboard_voice_hl"), for: .normal)
             isVoiceBtn = false
             inputTextView.becomeFirstResponder()
@@ -213,10 +270,10 @@ extension FLCustomKeyboardView
         }else{
             button.setImage(UIImage(named: "icon_chat_keyboard"), for: .normal)
             isVoiceBtn = true
-            inputTextView.addSubview(recordButton)
-            recordButton.frame = CGRectMake(0, 0, inputTextView.frame.size.width, inputTextView.frame.size.height)
-            self.endEditing(true)
             delegate?.recordChangeCustomKeyboardViewFrame()
+            self.currentState = .voiceInput
+            inputTextView.addSubview(recordButton)
+            self.endEditing(true)
         }
     }
     

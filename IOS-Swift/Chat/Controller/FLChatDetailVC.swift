@@ -173,10 +173,11 @@ extension FLChatDetailVC
         }
     }
     
+    // 未读消息数量清零.
     func clearMessageAlert()
     {
         self.chatModel?.messageAlert = 0
-        let isOk = FLChatListDao.init().updateChatListTable(model: chatModel!)
+        let isOk = FLChatListDao.init().updateChatListMessageAlert(model: chatModel!)
         completion?()
     }
 }
@@ -216,24 +217,27 @@ extension FLChatDetailVC
     @objc func keyboardWillShow(_ notification: Notification)
     {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            isShowKeyboard = true
+            self.isSended = true
             keyboardHeight = keyboardSize.height
-            customKeyboardView?.frame.origin.y = screenH() - keyboardHeight - Chat_Custom_Keyboard_Height
-            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - keyboardHeight - Chat_Custom_Keyboard_Height)
+            var keyBoard_Y : Double = screenH() - (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height) - keyboardHeight
+            var kerboard_Height = (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height)
+            if isShowAddView {
+                customKeyboardView?.addView.isHidden = true
+                isShowAddView = false
+                keyBoard_Y = keyBoard_Y + Chat_Custom_Keyboard_AddView_Height
+                kerboard_Height = kerboard_Height - Chat_Custom_Keyboard_AddView_Height
+            }
+            customKeyboardView?.frame = CGRect(x: 0, y: keyBoard_Y, width: screenW(), height:kerboard_Height)
+            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - keyboardHeight - (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height))
             cellScrollToBottom()
-        }
-        isShowKeyboard = true
-        self.isSended = true
-        if isShowAddView {
-            customKeyboardView?.addView.isHidden = true
-            isShowAddView = false
         }
     }
     
     // 键盘隐藏
     @objc func keyboardWillHide(_ notification: Notification)
     {
-        customKeyboardView?.frame.origin.y = screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom
-        tableView?.frame = CGRect(x: 0, y: 0, width: screenW(), height: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom)
+        tableView?.frame = CGRect(x: 0, y: 0, width: screenW(), height: screenH() - (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height) - fWindowSafeAreaInset().bottom)
         cellScrollToBottom()
         isShowKeyboard = false
     }
@@ -320,12 +324,16 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     // 发送文字消息
     func didChangeText(_ text: String)
     {
+        self.customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - self.keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
+        self.tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - keyboardHeight - (self.customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height))
         sendTextMsg(text: text)
     }
     
     func didChangeTVHeight(_ height: CGFloat)
     {
-        customKeyboardView?.frame = CGRect(x: 0, y: (customKeyboardView?.frame.origin.y)! - height, width: screenW(), height: (customKeyboardView?.frame.size.height)! + height)
+        customKeyboardView?.frame = CGRect(x: 0, y: screenH() - keyboardHeight - (height + Chat_Custom_Keyboard_Input_Margin), width: screenW(), height:height + Chat_Custom_Keyboard_Input_Margin)
+        tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - keyboardHeight - (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height))
+        cellScrollToBottom()
     }
     
     // 开始录音
@@ -355,6 +363,9 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
             customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom , width: screenW(), height: Chat_Custom_Keyboard_Height)
             isShowAddView = false
             tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom)
+        }else{
+            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom , width: screenW(), height: Chat_Custom_Keyboard_Height)
+            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom)
         }
     }
     
@@ -364,12 +375,14 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     {
         if isShowKeyboard || !isShowAddView {
             view.endEditing(true)
-            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_AddView_Height - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom, width: screenW(), height: Chat_Custom_Keyboard_Height + Chat_Custom_Keyboard_AddView_Height)
+            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_AddView_Height - (customKeyboardView?.frame.size.height)! - fWindowSafeAreaInset().bottom, width: screenW(), height: (customKeyboardView?.frame.size.height)! + Chat_Custom_Keyboard_AddView_Height)
             isShowAddView = true
             customKeyboardView?.addView.isHidden = false
-            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - Chat_Custom_Keyboard_Height - Chat_Custom_Keyboard_AddView_Height - fWindowSafeAreaInset().bottom)
+            customKeyboardView?.addView.isHidden = false
+            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height) - fWindowSafeAreaInset().bottom)
             cellScrollToBottom()
         }else{
+            customKeyboardView?.frame.size.height = (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height) - Chat_Custom_Keyboard_AddView_Height
             customKeyboardView?.inputTextView.becomeFirstResponder()
             customKeyboardView?.addView.isHidden = true
             isShowAddView = false
@@ -460,14 +473,13 @@ extension FLChatDetailVC
             
             // 保存通讯消息到沙盒数据库
             let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.friendId)", model: model)
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 self.dataArr.append(model)
                 let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
                 self.tableView?.beginUpdates()
                 self.tableView?.insertRows(at: [indexPath], with: .bottom)
                 self.tableView?.endUpdates()
                 self.cellScrollToBottom()
-                self.customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - self.keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
             }
             let listModel = FLChatListModel.init()
             listModel.lastText = text
@@ -490,15 +502,33 @@ extension FLChatDetailVC
         model.isMe = true
         model.mediaTime = "\(FLAudioRecorder.shared.recordSeconds)"
         let isOk = FLChatDetailDao.init().insertChatListTable(chatID: "\(chatModel!.id)", model: model)
-        dataArr.append(model)
+        
+        
+        let userModel = FLUserInfoManager.shared.getUserInfo()
+        var msg = FLWebSocketMessage.init()
+        msg.data = model.contentStr
+        msg.chart_Type = .P2P_Chat_Private
+        msg.msg_From = userModel.id
+        if let chatModel = chatModel {
+            msg.msg_To = "\(chatModel.friendId)"
+        } else {
+            msg.msg_To = "Unknown ID"
+        }
+        msg.msg_Type = .msg_text
+        msg.user_Name = userInfoModel.userName
+        msg.chart_Avatar = userInfoModel.avatar
+        // 发送socket通讯消息。
+        FLWebSocketManager.shared.sentData(msg: msg)
+        
         
         DispatchQueue.main.async {
+            self.dataArr.append(model)
             let indexPath = IndexPath(row: self.dataArr.count - 1, section: 0)
             self.tableView?.beginUpdates()
             self.tableView?.insertRows(at: [indexPath], with: .bottom)
             self.tableView?.endUpdates()
+            self.cellScrollToBottom()
         }
-        cellScrollToBottom()
     }
     
     // 发送图片信息
