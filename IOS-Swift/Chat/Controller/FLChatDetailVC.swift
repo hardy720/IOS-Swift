@@ -375,10 +375,8 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     {
         if isShowKeyboard || !isShowAddView {
             view.endEditing(true)
-            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_AddView_Height - (customKeyboardView?.frame.size.height)! - fWindowSafeAreaInset().bottom, width: screenW(), height: (customKeyboardView?.frame.size.height)! + Chat_Custom_Keyboard_AddView_Height)
+//            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - (customKeyboardView?.frame.size.height)! - fWindowSafeAreaInset().bottom, width: screenW(), height: (customKeyboardView?.frame.size.height)!)
             isShowAddView = true
-            customKeyboardView?.addView.isHidden = false
-            customKeyboardView?.addView.isHidden = false
             tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height) - fWindowSafeAreaInset().bottom)
             cellScrollToBottom()
         }else{

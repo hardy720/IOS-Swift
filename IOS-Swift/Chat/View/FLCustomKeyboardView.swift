@@ -49,7 +49,6 @@ class FLCustomKeyboardView: UIView
     lazy var backView : UIView = {
         let backView = UIView()
         backView.backgroundColor = Chat_CustomKeyBoard_Back_Gray
-        backView.backgroundColor = .green
         return backView
     }()
     
@@ -62,7 +61,6 @@ class FLCustomKeyboardView: UIView
     lazy var itemBackView : UIView = {
         let backView = UIView()
         backView.backgroundColor = Chat_CustomKeyBoard_Back_Gray
-        backView.backgroundColor = .red
         return backView
     }()
     
@@ -120,39 +118,78 @@ class FLCustomKeyboardView: UIView
     
     private func initLayout()
     {
-        let size = inputTextView.text.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(Chart_Keyboard_TextView_font)), size: CGSize(width: inputTextView.frame.size.width - 10, height: CGFloat(MAXFLOAT)))
+        backView.snp.updateConstraints { make in
+            make.top.left.right.bottom.equalTo(self)
+        }
+        
         var itemBackViewHeight = 0
+        var inputHeight = 0
         switch currentState {
         case .textInput:
             if inputTextView.text.fl.isStringBlank() {
                 itemBackViewHeight = Int(Chat_Custom_Keyboard_Height)
+                inputHeight = 40
             }else{
-                itemBackViewHeight = Int(size.height + Chat_Custom_Keyboard_Input_Margin)
+                itemBackViewHeight = Int(getInputSize().height + Chat_Custom_Keyboard_Input_Margin)
+                inputHeight = Int(getInputSize().height + 20)
+            }
+            itemBackView.snp.updateConstraints { make in
+                make.top.left.right.equalTo(self)
+                make.height.equalTo(itemBackViewHeight)
+            }
+            
+            inputTextView.snp.updateConstraints { make in
+                make.left.equalTo(60)
+                make.top.equalTo(15)
+                make.height.equalTo(inputHeight)
+                make.right.equalTo(-60)
             }
             break
         case .voiceInput:
             itemBackViewHeight = Int(Chat_Custom_Keyboard_Height)
-//            recordButton.frame = CGRectMake(0, 0, inputTextView.frame.size.width, inputTextView.frame.size.height)
+            inputHeight = 40
+            itemBackView.snp.updateConstraints { make in
+                make.top.left.right.equalTo(self)
+                make.height.equalTo(itemBackViewHeight)
+            }
+            
+            inputTextView.snp.updateConstraints { make in
+                make.left.equalTo(60)
+                make.top.equalTo(15)
+                make.height.equalTo(inputHeight)
+                make.right.equalTo(-60)
+            }
+            
+            recordButton.snp.makeConstraints { make in
+                make.left.equalTo(60)
+                make.top.equalTo(15)
+                make.height.equalTo(inputHeight)
+                make.right.equalTo(-60)            }
             break
         case .moreOptions:
+            if inputTextView.text.fl.isStringBlank() {
+                itemBackViewHeight = Int(Chat_Custom_Keyboard_Height)
+                inputHeight = 40
+            }else{
+                itemBackViewHeight = Int(getInputSize().height) + Int(Chat_Custom_Keyboard_Input_Margin)
+                inputHeight = Int(getInputSize().height + 20)
+            }
+            itemBackView.snp.updateConstraints { make in
+                make.top.left.right.equalTo(self)
+                make.height.equalTo(itemBackViewHeight)
+            }
+            
+            inputTextView.snp.updateConstraints { make in
+                make.left.equalTo(60)
+                make.top.equalTo(15)
+                make.height.equalTo(inputHeight)
+                make.right.equalTo(-60)
+            }
+            addView.snp.updateConstraints { make in
+                make.bottom.left.right.equalTo(self).offset(-10)
+                make.top.equalTo(itemBackView.snp_bottomMargin).offset(10)
+            }
             break
-        }
-        
-
-        backView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalTo(self)
-        }
-        
-        itemBackView.snp.updateConstraints { make in
-            make.top.left.right.equalTo(self)
-            make.height.equalTo(itemBackViewHeight)
-        }
-        
-        inputTextView.snp.updateConstraints { make in
-            make.left.equalTo(60)
-            make.top.equalTo(15)
-            make.height.equalTo(size.height + 20)
-            make.right.equalTo(-60)
         }
         
         voiceButton.snp.updateConstraints { make in
@@ -165,11 +202,6 @@ class FLCustomKeyboardView: UIView
             make.bottom.equalTo(voiceButton)
             make.right.equalTo(itemBackView).offset(-10)
             make.height.width.equalTo(35)
-        }
-        
-        addView.snp.updateConstraints { make in
-            make.bottom.left.right.equalTo(self).offset(-10)
-            make.top.equalTo(itemBackView.snp_bottomMargin).offset(10)
         }
     }
     
@@ -199,7 +231,11 @@ extension FLCustomKeyboardView
     // 键盘隐藏
     @objc func keyboardWillHide(_ notification: Notification)
     {
-        self.frame = CGRect(x: 0, y: screenH() - self.frame.size.height - fWindowSafeAreaInset().bottom, width: screenW(), height:self.frame.size.height)
+        if currentState == .voiceInput {
+            self.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom, width: screenW(), height:self.frame.size.height)
+        }else{
+            self.frame = CGRect(x: 0, y: screenH() - self.frame.size.height - fWindowSafeAreaInset().bottom, width: screenW(), height:self.frame.size.height)
+        }
     }
 }
 
@@ -222,9 +258,10 @@ extension FLCustomKeyboardView: UITextViewDelegate,FLSoundRecorderDelegate,FLAdd
     
     func textViewDidChange(_ textView: UITextView)
     {
-        let size = textView.text.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(Chart_Keyboard_TextView_font)), size: CGSize(width: textView.frame.size.width - 10, height: CGFloat(MAXFLOAT)))
-            delegate?.didChangeTVHeight(size.height)
+        if !isInputMaxHeight() {
+            delegate?.didChangeTVHeight(getInputSize().height)
             initLayout()
+        }
     }
     
     // 录音
@@ -262,17 +299,20 @@ extension FLCustomKeyboardView
     @objc func handleVoiceButtonTap(_ button: UIButton)
     {
         if isVoiceBtn {
-            self.currentState = .textInput
             button.setImage(UIImage(named: "icon_chat_keyboard_voice_hl"), for: .normal)
+            self.frame.size.height = getInputSize().height + Chat_Custom_Keyboard_Input_Margin
+            inputTextView.isHidden = false
+            self.currentState = .textInput
             isVoiceBtn = false
             inputTextView.becomeFirstResponder()
             recordButton.removeFromSuperview()
         }else{
             button.setImage(UIImage(named: "icon_chat_keyboard"), for: .normal)
             isVoiceBtn = true
+            itemBackView.addSubview(recordButton)
             delegate?.recordChangeCustomKeyboardViewFrame()
             self.currentState = .voiceInput
-            inputTextView.addSubview(recordButton)
+            inputTextView.isHidden = true
             self.endEditing(true)
         }
     }
@@ -283,10 +323,13 @@ extension FLCustomKeyboardView
             voiceButton.setImage(UIImage(named: "icon_chat_keyboard_voice_hl"), for: .normal)
             isVoiceBtn = false
             recordButton.removeFromSuperview()
-        }else{
-            
         }
+        inputTextView.isHidden = false
+        addView.isHidden = false
+        self.frame = CGRect(x: 0, y: screenH() - getInputSize().height - Chat_Custom_Keyboard_AddView_Height - Chat_Custom_Keyboard_Input_Margin - fWindowSafeAreaInset().bottom, width: screenW(), height: getInputSize().height + Chat_Custom_Keyboard_AddView_Height + Chat_Custom_Keyboard_Input_Margin)
+
         delegate?.startShowAdd()
+        currentState = .moreOptions
     }
     
     // 设置声音大小的图片
@@ -339,6 +382,24 @@ extension FLCustomKeyboardView
         self.recordeAnimationView?.recordImageV?.isHidden = isRecord
         self.recordeAnimationView?.cancelImageV?.isHidden = isCancel
         self.recordeAnimationView?.redCancelLabel?.isHidden = isCancel
+    }
+    
+    func isInputMaxHeight() -> Bool
+    {
+        var isOk = false
+        if getInputSize().height > screenH()/5 {
+            isOk = true
+        }
+        return isOk
+    }
+    
+    func getInputSize() -> CGSize
+    {
+        var size = inputTextView.text.fl.rectSize(font: UIFont.systemFont(ofSize: CGFloat(Chart_Keyboard_TextView_font)), size: CGSize(width: inputTextView.frame.size.width - 10, height: CGFloat(MAXFLOAT)))
+        if size.height > screenH() / 5 {
+            size.height = screenH() / 5
+        }
+        return size
     }
 }
 
