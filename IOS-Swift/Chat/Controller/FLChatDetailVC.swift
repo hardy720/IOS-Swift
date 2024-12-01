@@ -17,9 +17,6 @@ class FLChatDetailVC: UIViewController
     private static let cellID_type_img : String = "Chat_Detail_CellID_Img"
 
     private var customKeyboardView : FLCustomKeyboardView? = nil
-    private var isShowKeyboard : Bool = false
-    private var isShowAddView : Bool = false
-
     private var keyboardHeight : CGFloat = 0
     private var isSended: Bool = true
     private var timer: Timer?
@@ -187,9 +184,7 @@ extension FLChatDetailVC
 {
     @objc func tableViewTap()
     {
-        if isShowKeyboard {
-            self.view.endEditing(true)
-        }
+        self.view.endEditing(true)
     }
 }
 
@@ -217,29 +212,14 @@ extension FLChatDetailVC
     @objc func keyboardWillShow(_ notification: Notification)
     {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            isShowKeyboard = true
             self.isSended = true
-            keyboardHeight = keyboardSize.height
-            var keyBoard_Y : Double = screenH() - (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height) - keyboardHeight
-            var kerboard_Height = (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height)
-            if isShowAddView {
-                customKeyboardView?.addView.isHidden = true
-                isShowAddView = false
-                keyBoard_Y = keyBoard_Y + Chat_Custom_Keyboard_AddView_Height
-                kerboard_Height = kerboard_Height - Chat_Custom_Keyboard_AddView_Height
-            }
-            customKeyboardView?.frame = CGRect(x: 0, y: keyBoard_Y, width: screenW(), height:kerboard_Height)
-            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - keyboardHeight - (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height))
-            cellScrollToBottom()
         }
     }
     
     // 键盘隐藏
     @objc func keyboardWillHide(_ notification: Notification)
     {
-        tableView?.frame = CGRect(x: 0, y: 0, width: screenW(), height: screenH() - (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height) - fWindowSafeAreaInset().bottom)
-        cellScrollToBottom()
-        isShowKeyboard = false
+
     }
 }
 
@@ -322,17 +302,15 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     }
     
     // 发送文字消息
-    func didChangeText(_ text: String)
+    func keyBoardsendMsgWithString(_ text: String)
     {
-        self.customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - self.keyboardHeight, width: screenW(), height: Chat_Custom_Keyboard_Height)
-        self.tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - keyboardHeight - (self.customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height))
+//        self.tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - keyboardHeight - (self.customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height))
         sendTextMsg(text: text)
     }
     
-    func didChangeTVHeight(_ height: CGFloat)
+    func keyBoardPositionChange(_ positionHeight: CGFloat) 
     {
-        customKeyboardView?.frame = CGRect(x: 0, y: screenH() - keyboardHeight - (height + Chat_Custom_Keyboard_Input_Margin), width: screenW(), height:height + Chat_Custom_Keyboard_Input_Margin)
-        tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - keyboardHeight - (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height))
+        self.tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - positionHeight)
         cellScrollToBottom()
     }
     
@@ -359,36 +337,18 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     
     func recordChangeCustomKeyboardViewFrame() 
     {
-        if isShowAddView {
-            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom , width: screenW(), height: Chat_Custom_Keyboard_Height)
-            isShowAddView = false
-            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom)
-        }else{
-            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom , width: screenW(), height: Chat_Custom_Keyboard_Height)
-            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom)
-        }
-    }
-    
-    
-    // 增加功能图片，视频。
-    func startShowAdd()
-    {
-        if isShowKeyboard || !isShowAddView {
-            view.endEditing(true)
-//            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - (customKeyboardView?.frame.size.height)! - fWindowSafeAreaInset().bottom, width: screenW(), height: (customKeyboardView?.frame.size.height)!)
-            isShowAddView = true
-            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height) - fWindowSafeAreaInset().bottom)
-            cellScrollToBottom()
-        }else{
-            customKeyboardView?.frame.size.height = (customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height) - Chat_Custom_Keyboard_AddView_Height
-            customKeyboardView?.inputTextView.becomeFirstResponder()
-            customKeyboardView?.addView.isHidden = true
-            isShowAddView = false
-        }
+//        if isShowAddView {
+//            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom , width: screenW(), height: Chat_Custom_Keyboard_Height)
+//            isShowAddView = false
+//            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom)
+//        }else{
+//            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom , width: screenW(), height: Chat_Custom_Keyboard_Height)
+//            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom)
+//        }
     }
     
     // 发送消息更多功能
-    func moreAddIndex(index: Int)
+    func moreFunctionWithIndex(index: Int)
     {
         switch index {
         case 0:

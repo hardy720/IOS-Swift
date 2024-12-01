@@ -10,8 +10,8 @@ import UIKit
 protocol FLCustomKeyboardViewDelegate : AnyObject
 {
     // 文字消息
-    func didChangeText(_ text: String)
-    func didChangeTVHeight(_ height: CGFloat)
+    func keyBoardsendMsgWithString(_ text: String)
+    func keyBoardPositionChange(_ positionHeight: CGFloat)
     
     // 录音消息
     func startRecording()
@@ -20,9 +20,8 @@ protocol FLCustomKeyboardViewDelegate : AnyObject
     func FinishRecord()
     func recordChangeCustomKeyboardViewFrame()
     
-    // 增加的另外的功能.
-    func startShowAdd()
-    func moreAddIndex(index:Int)
+    // 更多功能
+    func moreFunctionWithIndex(index:Int)
 }
 
 
@@ -39,6 +38,8 @@ class FLCustomKeyboardView: UIView
     var isShowAddView = false
     var recordeAnimationView : FLRecordAnimationView?
     var userId : String?
+    private var keyboardHeight : CGFloat = 0
+
     
     var currentState: FLInputViewState = .textInput {
         didSet {
@@ -225,7 +226,13 @@ extension FLCustomKeyboardView
     // 键盘显示
     @objc func keyboardWillShow(_ notification: Notification)
     {
-        
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            keyboardHeight = keyboardSize.height
+            self.frame = CGRect(x: 0, y: screenH() - getInputSize().height - Chat_Custom_Keyboard_Input_Margin - keyboardSize.height, width: screenW(), height:getInputSize().height + Chat_Custom_Keyboard_Input_Margin)
+            currentState = .textInput
+            isShowAddView = false
+            delegate?.keyBoardPositionChange(self.frame.size.height + keyboardHeight)
+        }
     }
     
     // 键盘隐藏
@@ -236,6 +243,7 @@ extension FLCustomKeyboardView
         }else{
             self.frame = CGRect(x: 0, y: screenH() - self.frame.size.height - fWindowSafeAreaInset().bottom, width: screenW(), height:self.frame.size.height)
         }
+        delegate?.keyBoardPositionChange(self.frame.size.height + fWindowSafeAreaInset().bottom)
     }
 }
 
@@ -244,12 +252,17 @@ extension FLCustomKeyboardView: UITextViewDelegate,FLSoundRecorderDelegate,FLAdd
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
     {
         if text == "\n" {
+            if textView.text.fl.isStringBlank() {
+                return false
+            }
             FLPrint("Return key pressed")
             // 如果不需要在文本视图中插入换行符，则返回 false
             // 这会阻止文本视图自动添加新行
-            delegate?.didChangeText(textView.text)
-            textView.text = ""
+            delegate?.keyBoardsendMsgWithString(textView.text)
+            inputTextView.text = ""
+            self.frame = CGRect(x: 0, y: screenH() - keyboardHeight - Chat_Custom_Keyboard_Height, width: screenW(), height:Chat_Custom_Keyboard_Height)
             initLayout()
+            delegate?.keyBoardPositionChange(Chat_Custom_Keyboard_Height + keyboardHeight)
             return false
         }
         // 如果不是回车键，则允许更改文本
@@ -259,8 +272,9 @@ extension FLCustomKeyboardView: UITextViewDelegate,FLSoundRecorderDelegate,FLAdd
     func textViewDidChange(_ textView: UITextView)
     {
         if !isInputMaxHeight() {
-            delegate?.didChangeTVHeight(getInputSize().height)
+            self.frame = CGRect(x: 0, y: screenH() - keyboardHeight - (getInputSize().height + Chat_Custom_Keyboard_Input_Margin), width: screenW(), height:getInputSize().height + Chat_Custom_Keyboard_Input_Margin)
             initLayout()
+            delegate?.keyBoardPositionChange(keyboardHeight + (getInputSize().height + Chat_Custom_Keyboard_Input_Margin))
         }
     }
     
@@ -286,9 +300,9 @@ extension FLCustomKeyboardView: UITextViewDelegate,FLSoundRecorderDelegate,FLAdd
     }
 
     // 发送消息更多功能：图片、视频...
-    func clickAddIndex(index: Int)
+    func clickMoreIndex(index: Int)
     {
-        delegate?.moreAddIndex(index: index)
+        delegate?.moreFunctionWithIndex(index: index)
     }
 }
 
@@ -298,23 +312,24 @@ extension FLCustomKeyboardView
     // 键盘录音切换
     @objc func handleVoiceButtonTap(_ button: UIButton)
     {
+        isShowAddView = false
         if isVoiceBtn {
             button.setImage(UIImage(named: "icon_chat_keyboard_voice_hl"), for: .normal)
-            self.frame.size.height = getInputSize().height + Chat_Custom_Keyboard_Input_Margin
             inputTextView.isHidden = false
-            self.currentState = .textInput
             isVoiceBtn = false
             inputTextView.becomeFirstResponder()
             recordButton.removeFromSuperview()
+            self.currentState = .textInput
         }else{
             button.setImage(UIImage(named: "icon_chat_keyboard"), for: .normal)
             isVoiceBtn = true
             itemBackView.addSubview(recordButton)
-            delegate?.recordChangeCustomKeyboardViewFrame()
+            self.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom , width: screenW(), height: Chat_Custom_Keyboard_Height)
             self.currentState = .voiceInput
             inputTextView.isHidden = true
-            self.endEditing(true)
+            inputTextView.resignFirstResponder()
         }
+        delegate?.keyBoardPositionChange(self.frame.size.height + fWindowSafeAreaInset().bottom)
     }
     
     @objc func handleAddButtonTap(_ button: UIButton)
@@ -324,12 +339,18 @@ extension FLCustomKeyboardView
             isVoiceBtn = false
             recordButton.removeFromSuperview()
         }
-        inputTextView.isHidden = false
-        addView.isHidden = false
-        self.frame = CGRect(x: 0, y: screenH() - getInputSize().height - Chat_Custom_Keyboard_AddView_Height - Chat_Custom_Keyboard_Input_Margin - fWindowSafeAreaInset().bottom, width: screenW(), height: getInputSize().height + Chat_Custom_Keyboard_AddView_Height + Chat_Custom_Keyboard_Input_Margin)
-
-        delegate?.startShowAdd()
-        currentState = .moreOptions
+        if isShowAddView {
+            isShowAddView = false
+            inputTextView.becomeFirstResponder()
+            self.frame = CGRect(x: 0, y: screenH() - getInputSize().height - Chat_Custom_Keyboard_Input_Margin, width: screenW(), height: getInputSize().height + Chat_Custom_Keyboard_Input_Margin)
+        }else{
+            isShowAddView = true
+            inputTextView.isHidden = false
+            inputTextView.resignFirstResponder()
+            self.frame = CGRect(x: 0, y: screenH() - getInputSize().height - Chat_Custom_Keyboard_AddView_Height - Chat_Custom_Keyboard_Input_Margin - fWindowSafeAreaInset().bottom, width: screenW(), height: getInputSize().height + Chat_Custom_Keyboard_AddView_Height + Chat_Custom_Keyboard_Input_Margin)
+            currentState = .moreOptions
+        }
+        delegate?.keyBoardPositionChange(self.frame.size.height + fWindowSafeAreaInset().bottom)
     }
     
     // 设置声音大小的图片
@@ -722,7 +743,7 @@ class FLRecordAnimationView : UIView
 
 protocol FLAddViewDelegate : AnyObject
 {
-    func clickAddIndex(index: Int)
+    func clickMoreIndex(index: Int)
 }
 
 // MARK - 图片，视频等 -
@@ -775,7 +796,7 @@ class FLAddView : UIView
     @objc func itemBtnClick(_ btn: UIButton)
     {
         
-        delegate?.clickAddIndex(index: btn.tag - Tag_1000)
+        delegate?.clickMoreIndex(index: btn.tag - Tag_1000)
     }
     
     required init?(coder: NSCoder)
