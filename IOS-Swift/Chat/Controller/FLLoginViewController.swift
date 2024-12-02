@@ -136,7 +136,15 @@ class FLLoginViewController: UIViewController
     
     @objc func commitBtnClick()
     {
-        let paramDict = ["userName":nameTF.text!,"passWord":passWordTF.text!]
+        if nameTF.text == "@@@" {
+            FLUserInfoManager.shared.setTestAccount(isTest: true)
+            FLUserInfoManager.shared.saveUserInfo(userM: FLUserInfoManager.shared.getTestData())
+            FLUserInfoManager.shared.saveSecretKey()
+            self.perform(#selector(delayExecution), with: nil, afterDelay: TimeInterval(3))
+            return
+        }
+        FLUserInfoManager.shared.setTestAccount(isTest: false)
+        let paramDict = ["userName":nameTF.text,"passWord":passWordTF.text]
         FLNetworkManager.shared.requestData(.get, URLString: "\(BASE_URL)user/login", paramaters: paramDict) { [self] response in
             let json = JSON(response)
             let alertMessage = json["msg"].stringValue;

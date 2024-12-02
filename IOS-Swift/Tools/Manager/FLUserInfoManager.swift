@@ -12,7 +12,6 @@ class FLUserInfoManager
 {
     // 单例实例
     static let shared = FLUserInfoManager()
-    
     // 私有初始化器，防止外部创建实例
     private init() {}
     
@@ -96,5 +95,30 @@ class FLUserInfoManager
         defaultStand.removeObject(forKey: "avatar")
         defaultStand.removeObject(forKey: "secret_key")
         defaultStand.synchronize()
+    }
+}
+
+// MARK: - 测试账号管理 -
+extension FLUserInfoManager
+{
+    func getTestData() -> FLUserModel {
+        let testUser = FLUserModel.init()
+        testUser.id = "100"
+        testUser.userName = "TestUser"
+        testUser.avatar = "https://img1.baidu.com/it/u=1071314572,2676229994&fm=253&fmt=auto&app=138&f=JPEG?w=667&h=500"
+        testUser.passWord = "123456"
+        return testUser
+    }
+    
+    func isTestAccount() -> Bool
+    {
+        let defaultStand = UserDefaults.standard
+        return defaultStand.bool(forKey: "IsTestAccount")
+    }
+    
+    func setTestAccount(isTest : Bool)
+    {
+        let defaultStand = UserDefaults.standard
+        defaultStand.set(isTest, forKey: "IsTestAccount")
     }
 }

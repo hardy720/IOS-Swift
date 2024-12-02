@@ -73,7 +73,11 @@ class FLChatHomeViewController: UIViewController
                 break
             
             case 1:
-                self?.perform(#selector(self?.createUser), with: nil, afterDelay: 0.3)
+                if FLUserInfoManager.shared.isTestAccount() {
+                    self?.createTestChatList()
+                }else{
+                    self?.perform(#selector(self?.createUser), with: nil, afterDelay: 0.3)
+                }
                 break
             
             case 2:
@@ -103,7 +107,6 @@ class FLChatHomeViewController: UIViewController
             if let textFields = alertController.textFields, let textField = textFields.first {
                 // 获取输入的内容
                 let inputText = textField.text ?? "Default Nickname"
-        
                 let userModel = FLUserModel.init()
                 userModel.avatar = String.fl.getRandomImageUrlStr()!
                 userModel.userName = inputText
@@ -142,6 +145,18 @@ class FLChatHomeViewController: UIViewController
                 self.tableView?.reloadData()
             }
         }
+    }
+    
+    func createTestChatList() 
+    {
+        let chatListModel = FLChatListModel.init()
+        chatListModel.friendAvatar = "https://pic.rmb.bdstatic.com/bjh/events/c1e0c639d8e35ee85ec722988ec059e38721.png@h_1280"
+        chatListModel.friendName = "TestFriend"
+        chatListModel.friendId = 200
+        let isok = FLChatListDao.init().insertChatListTable(model: chatListModel)
+        FLPrint("新增是否成功:\(isok)")
+        self.initData()
+        self.tableView?.reloadData()
     }
     
     func createChartToServer(model: FLChatListModel)
