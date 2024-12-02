@@ -334,10 +334,15 @@ class ChatAudioMessageCell: FLChatBaseCell, LGAudioPlayerDelegate
     }
 }
 
+protocol ChatImgMessageCellDelegate : AnyObject
+{
+    func ChatCellImageClick(cell: FLChatBaseCell)
+}
 
 // MARK: - 图片Cell -
 class ChatImgMessageCell: FLChatBaseCell
 {
+    weak var delegate: ChatImgMessageCellDelegate?
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?)
     {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -384,12 +389,20 @@ class ChatImgMessageCell: FLChatBaseCell
         }
     }
     
-    var contentImg: UIImageView =
+    lazy var contentImg: UIImageView =
     {
         let imageView = UIImageView.init()
         imageView.layer.cornerRadius = 5
         imageView.backgroundColor = .red
         imageView.layer.masksToBounds = true
+        imageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(cellImageTap))
+        imageView.addGestureRecognizer(tap)
         return imageView
     }()
+    
+    @objc func cellImageTap()
+    {
+        delegate?.ChatCellImageClick(cell: self)
+    }
 }

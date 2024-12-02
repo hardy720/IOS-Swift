@@ -224,8 +224,21 @@ extension FLChatDetailVC
 }
 
 // MARK: - delegate
-extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKeyboardViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate
+extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKeyboardViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ChatImgMessageCellDelegate
 {
+    func ChatCellImageClick(cell: FLChatBaseCell) 
+    {
+        if let indexPath = self.tableView?.indexPath(for: cell) {
+            let model = dataArr[indexPath.row]
+            let imagVC = FLShowImageViewController.init()
+            imagVC.imagePathString = model.contentStr
+            imagVC.modalPresentationStyle = .fullScreen
+            self.present(imagVC, animated: false)
+        } else {
+            FLPrint("Failed to get index path for the cell.")
+        }
+    }
+    
     /**
      * tableViewDelegate
      */
@@ -251,6 +264,7 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
         case .msg_image:
             let cell = tableView.dequeueReusableCell(withIdentifier: FLChatDetailVC.cellID_type_img, for: indexPath) as! ChatImgMessageCell
             cell.setModel(with: model)
+            cell.delegate = self
             return cell
             
         default:
@@ -304,7 +318,6 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     // 发送文字消息
     func keyBoardsendMsgWithString(_ text: String)
     {
-//        self.tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - keyboardHeight - (self.customKeyboardView?.frame.size.height ?? Chat_Custom_Keyboard_Height))
         sendTextMsg(text: text)
     }
     
@@ -337,14 +350,7 @@ extension FLChatDetailVC : UITableViewDataSource,UITableViewDelegate,FLCustomKey
     
     func recordChangeCustomKeyboardViewFrame() 
     {
-//        if isShowAddView {
-//            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom , width: screenW(), height: Chat_Custom_Keyboard_Height)
-//            isShowAddView = false
-//            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom)
-//        }else{
-//            customKeyboardView?.frame = CGRect(x: 0, y: screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom , width: screenW(), height: Chat_Custom_Keyboard_Height)
-//            tableView?.frame = CGRectMake(0, 0, screenW(), screenH() - Chat_Custom_Keyboard_Height - fWindowSafeAreaInset().bottom)
-//        }
+
     }
     
     // 发送消息更多功能
@@ -489,6 +495,35 @@ extension FLChatDetailVC
         }
     }
     
+    func scaleImageSizeToFitScreen(imageSize: CGSize, screenSize: CGSize, scaleRatio: CGFloat = 1.0) -> CGSize 
+    {
+        // 根据宽高比判断是按照宽度还是高度进行缩放
+        let imageRatio = imageSize.width / imageSize.height
+        let screenRatio = screenSize.width / screenSize.height
+        
+        var targetSize: CGSize
+        if imageRatio > screenRatio {
+            // 图片较宽，根据宽度调整
+            let scaleWidth = screenSize.width * scaleRatio
+            let scaleHeight = scaleWidth / imageRatio
+            targetSize = CGSize(width: scaleWidth, height: scaleHeight)
+        } else {
+            // 图片较高，根据高度调整
+            let scaleHeight = screenSize.height * scaleRatio
+            let scaleWidth = scaleHeight * imageRatio
+            targetSize = CGSize(width: scaleWidth, height: scaleHeight)
+        }
+        
+        // 确保缩放后的尺寸不超过屏幕尺寸
+        let maxWidth = screenSize.width * scaleRatio
+        let maxHeight = screenSize.height * scaleRatio
+        
+        return CGSize(
+            width: min(targetSize.width, maxWidth),
+            height: min(targetSize.height, maxHeight)
+        )
+    }
+    
     // 发送图片信息
     func sendImageMsg(imgPath: String, image:UIImage)
     {
@@ -496,12 +531,16 @@ extension FLChatDetailVC
         let model = FLChatMsgModel.init()
         var width = image.size.width
         var height = image.size.height
-        if width > screenW() / 2 {
-            width = screenW() / 2
-        }
-        if height > screenH() / 2 {
-            height = screenH() / 2 - 50
-        }
+        
+        let scaledSize = scaleImageSizeToFitScreen(imageSize: CGSize(width: width, height: height), screenSize: CGSize(width: screenW(), height: screenH()), scaleRatio: 0.5)
+        width = scaledSize.width
+        height = scaledSize.height
+//        if width > screenW() / 2 {
+//            width = screenW() / 2
+//        }
+//        if height > screenH() / 2 {
+//            height = screenH() / 2 - 50
+//        }
         model.imgWidth = Int(width)
         model.imgHeight = Int(height)
         model.nickName = userInfoModel.userName

@@ -8,9 +8,12 @@
 import Foundation
 import Alamofire
 
-let BASE_URL = "http://localhost:8181/api/"
-let BASE_URL_IMAGE = "http://localhost:8181/api/"
-
+// 内网
+//let BASE_URL = "http://localhost:8181/api/"
+//let BASE_URL_IMAGE = "http://localhost:8181/api/"
+// 外网
+let BASE_URL_IMAGE = "https://3r98j05800.zicp.fun/api/"
+let BASE_URL = "https://3r98j05800.zicp.fun/api/"
 // 网络请求管理类
 class FLNetworkManager
 {

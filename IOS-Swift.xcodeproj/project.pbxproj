@@ -51,6 +51,7 @@
 		43C570BD2C4412B400E7ECB3 /* CGPointExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C570BC2C4412B400E7ECB3 /* CGPointExtensionVC.swift */; };
 		43C570BF2C4413F900E7ECB3 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C570BE2C4413F900E7ECB3 /* CGPoint+Extension.swift */; };
 		43C570C12C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C570C02C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift */; };
+		43CC28982CFD9570007836B4 /* FLShowImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CC28972CFD9570007836B4 /* FLShowImageViewController.swift */; };
 		43D40A052C560974009F1260 /* NSThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D40A042C560974009F1260 /* NSThreadViewController.swift */; };
 		43D40A072C5639E4009F1260 /* OperationQueuesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */; };
 		43DCF1D82C5BE4CA007E25D0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCF1D72C5BE4CA007E25D0 /* Int+Extension.swift */; };
@@ -149,6 +150,7 @@
 		43C570BC2C4412B400E7ECB3 /* CGPointExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CGPointExtensionVC.swift; path = Controller/CGPointExtensionVC.swift; sourceTree = "<group>"; };
 		43C570BE2C4413F900E7ECB3 /* CGPoint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
 		43C570C02C441B3600E7ECB3 /* DispatchQueueExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DispatchQueueExtensionVC.swift; path = Controller/DispatchQueueExtensionVC.swift; sourceTree = "<group>"; };
+		43CC28972CFD9570007836B4 /* FLShowImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLShowImageViewController.swift; sourceTree = "<group>"; };
 		43D40A042C560974009F1260 /* NSThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSThreadViewController.swift; path = Controller/NSThreadViewController.swift; sourceTree = "<group>"; };
 		43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OperationQueuesVC.swift; path = Controller/OperationQueuesVC.swift; sourceTree = "<group>"; };
 		43DCF1D72C5BE4CA007E25D0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 				43F2958E2C76E18100E5A212 /* FLChatHomeViewController.swift */,
 				435D1BAC2C8FDEA3001819FF /* FLChatDetailVC.swift */,
 				43E4E8A02CC0FCDD00BA4A55 /* FLLoginViewController.swift */,
+				43CC28972CFD9570007836B4 /* FLShowImageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -782,6 +785,7 @@
 				435D1BAD2C8FDEA3001819FF /* FLChatDetailVC.swift in Sources */,
 				43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */,
 				439B59CD2C933103004B07D6 /* FLChatMsgModel.swift in Sources */,
+				43CC28982CFD9570007836B4 /* FLShowImageViewController.swift in Sources */,
 				4322EEF52C3A88FA000D20BD /* FLHead.swift in Sources */,
 				43C570BD2C4412B400E7ECB3 /* CGPointExtensionVC.swift in Sources */,
 				4356EBA02CC8ED3B00AA192D /* FLChatDetailDao.swift in Sources */,
