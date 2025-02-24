@@ -72,6 +72,7 @@
 		43F295952C77194100E5A212 /* SingletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295942C77194100E5A212 /* SingletonViewController.swift */; };
 		43F295972C771AA100E5A212 /* FLSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F295962C771AA100E5A212 /* FLSingleton.swift */; };
 		43F400102CDC71B500BC3EF1 /* FLAESUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F4000F2CDC71B500BC3EF1 /* FLAESUtil.swift */; };
+		43F7CAFE2D6C5B9E0016739C /* OptionalVSNilVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F7CAFD2D6C5B9E0016739C /* OptionalVSNilVC.swift */; };
 		43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B12C3D66E8007F386C /* FLExtensionHomeVC.swift */; };
 		43FF21B42C3D6B83007F386C /* FLUIKitExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B32C3D6B83007F386C /* FLUIKitExtensionVC.swift */; };
 		43FF21B62C3D6EF9007F386C /* FLFoundationExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF21B52C3D6EF9007F386C /* FLFoundationExtensionVC.swift */; };
@@ -175,6 +176,7 @@
 		43F295942C77194100E5A212 /* SingletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SingletonViewController.swift; path = Controller/SingletonViewController.swift; sourceTree = "<group>"; };
 		43F295962C771AA100E5A212 /* FLSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLSingleton.swift; sourceTree = "<group>"; };
 		43F4000F2CDC71B500BC3EF1 /* FLAESUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAESUtil.swift; sourceTree = "<group>"; };
+		43F7CAFD2D6C5B9E0016739C /* OptionalVSNilVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionalVSNilVC.swift; path = Controller/OptionalVSNilVC.swift; sourceTree = "<group>"; };
 		43FF21B12C3D66E8007F386C /* FLExtensionHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLExtensionHomeVC.swift; path = Controller/FLExtensionHomeVC.swift; sourceTree = "<group>"; };
 		43FF21B32C3D6B83007F386C /* FLUIKitExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLUIKitExtensionVC.swift; path = Controller/FLUIKitExtensionVC.swift; sourceTree = "<group>"; };
 		43FF21B52C3D6EF9007F386C /* FLFoundationExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FLFoundationExtensionVC.swift; path = Controller/FLFoundationExtensionVC.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				433072A22C3FD21B007FADED /* SummaryHomeVC.swift */,
 				439084B02C6E49D100ACA9A2 /* KeyWordViewController.swift */,
 				43A4D0EA2C783B420029FFB0 /* ExceptionViewController.swift */,
+				43F7CAFD2D6C5B9E0016739C /* OptionalVSNilVC.swift */,
 				433072A42C40D32E007FADED /* StructDetailVC.swift */,
 				433072A62C40EBAB007FADED /* SystemTypeVC.swift */,
 				433072A82C40F15D007FADED /* SystemValueTypeVC.swift */,
@@ -785,6 +788,7 @@
 				435D1BAD2C8FDEA3001819FF /* FLChatDetailVC.swift in Sources */,
 				43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */,
 				439B59CD2C933103004B07D6 /* FLChatMsgModel.swift in Sources */,
+				43F7CAFE2D6C5B9E0016739C /* OptionalVSNilVC.swift in Sources */,
 				43CC28982CFD9570007836B4 /* FLShowImageViewController.swift in Sources */,
 				4322EEF52C3A88FA000D20BD /* FLHead.swift in Sources */,
 				43C570BD2C4412B400E7ECB3 /* CGPointExtensionVC.swift in Sources */,
