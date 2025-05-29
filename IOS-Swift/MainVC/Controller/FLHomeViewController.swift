@@ -53,7 +53,7 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
     private func initData()
     {
         delegate = self
-        dataArray = ["Extension","Summary","LibraryStudy","Test"];
+        dataArray = ["Extension","Summary","LibraryStudy","SwiftUI","Test"];
     }
     
     func didSelectCell(at indexPath: IndexPath) {
@@ -68,24 +68,15 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
             self.navigationController?.pushViewController(LibraryHomeViewController.init(), animated: true)
             break
         case 3:
+            self.navigationController?.pushViewController(FLSwiftUIViewController.init(), animated: true)
+            break
+        case 4:
             self.navigationController?.pushViewController(FlTestViewController.init(), animated: true)
             break
         default:
             break
         }
     }
-    
-   
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension FLHomeViewController
