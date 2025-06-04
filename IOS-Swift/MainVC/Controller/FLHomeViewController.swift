@@ -29,7 +29,7 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
     
     @objc func showPopMenu(_ item: UIBarButtonItem)
     {
-        let popData = [(icon:"icon_chat_switch",title:"切换状态")]
+        let popData = [(icon:"icon_chat_switch",title:Appdelegate_HomeVC_SwitchStatus),(icon:"icon_chat_switch",title:Appdelegate_HomeVC_HelloTalk)]
         let parameters:[FLPopMenuConfigure] =
         [
             .PopMenuTextColor(UIColor.black),
@@ -45,6 +45,9 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
                 } else {
                     FLWindowManager.shared.changeRootVC(vcStr: Appdelegate_RootVC_Value_A_Str)
                 }
+            }
+            if index == 1 {
+                FLWindowManager.shared.goToHelloTalk()
             }
         }
         popMenu.show()

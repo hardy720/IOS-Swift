@@ -54,6 +54,7 @@
 		43CC28982CFD9570007836B4 /* FLShowImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CC28972CFD9570007836B4 /* FLShowImageViewController.swift */; };
 		43D40A052C560974009F1260 /* NSThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D40A042C560974009F1260 /* NSThreadViewController.swift */; };
 		43D40A072C5639E4009F1260 /* OperationQueuesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */; };
+		43D774162DE852A00049F109 /* FLHelloTalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D774152DE852A00049F109 /* FLHelloTalkViewController.swift */; };
 		43DCF1D82C5BE4CA007E25D0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCF1D72C5BE4CA007E25D0 /* Int+Extension.swift */; };
 		43E4AFEE2CA2778600623EE1 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E4AFED2CA2778600623EE1 /* UITableView+Extension.swift */; };
 		43E4E8A12CC0FCDD00BA4A55 /* FLLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E4E8A02CC0FCDD00BA4A55 /* FLLoginViewController.swift */; };
@@ -155,6 +156,7 @@
 		43CC28972CFD9570007836B4 /* FLShowImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLShowImageViewController.swift; sourceTree = "<group>"; };
 		43D40A042C560974009F1260 /* NSThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSThreadViewController.swift; path = Controller/NSThreadViewController.swift; sourceTree = "<group>"; };
 		43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OperationQueuesVC.swift; path = Controller/OperationQueuesVC.swift; sourceTree = "<group>"; };
+		43D774152DE852A00049F109 /* FLHelloTalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLHelloTalkViewController.swift; sourceTree = "<group>"; };
 		43DCF1D72C5BE4CA007E25D0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		43E4AFED2CA2778600623EE1 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		43E4E8A02CC0FCDD00BA4A55 /* FLLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLLoginViewController.swift; sourceTree = "<group>"; };
@@ -399,6 +401,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		43D774172DE852B90049F109 /* HelloTalk1 */ = {
+			isa = PBXGroup;
+			children = (
+				43D774182DE852CB0049F109 /* VC */,
+			);
+			path = HelloTalk1;
+			sourceTree = "<group>";
+		};
+		43D774182DE852CB0049F109 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				43D774152DE852A00049F109 /* FLHelloTalkViewController.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
 		43F151312C392EFA003584DD = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +442,7 @@
 		43F1513C2C392EFA003584DD /* IOS-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				43D774172DE852B90049F109 /* HelloTalk1 */,
 				43F2958C2C76E14200E5A212 /* Chat */,
 				4322EEF32C3A88C7000D20BD /* Tools */,
 				4322EEE52C3A7EA6000D20BD /* Other */,
@@ -791,6 +810,7 @@
 				433072AB2C40F178007FADED /* SystemReferenceTypeVC.swift in Sources */,
 				435D1BAD2C8FDEA3001819FF /* FLChatDetailVC.swift in Sources */,
 				43FF21B22C3D66E8007F386C /* FLExtensionHomeVC.swift in Sources */,
+				43D774162DE852A00049F109 /* FLHelloTalkViewController.swift in Sources */,
 				439B59CD2C933103004B07D6 /* FLChatMsgModel.swift in Sources */,
 				43F7CAFE2D6C5B9E0016739C /* OptionalVSNilVC.swift in Sources */,
 				43CC28982CFD9570007836B4 /* FLShowImageViewController.swift in Sources */,

@@ -39,7 +39,7 @@ class FLSwiftUIViewController: FLBaseViewController {
     func unsafeUnwrap()
     {
         var name: String? = nil
-        print(name!) // ⚠️ Static Analyzer 会标记此处为 "Force unwrapped nil"
+//        print(name!) // ⚠️ Static Analyzer 会标记此处为 "Force unwrapped nil"
     }
     
     

@@ -74,4 +74,11 @@ class FLWindowManager: NSObject
         UserDefaults.standard.setValue(vcStr, forKey: Appdelegate_RootVC_Key_Str)
         self.setRootVC()
     }
+    
+    func goToHelloTalk()
+    {
+        let nav = FLBaseNavigationController(rootViewController:FLHelloTalkViewController.init())
+        self.window!.rootViewController = nav
+        self.window!.makeKeyAndVisible()
+    }
 }

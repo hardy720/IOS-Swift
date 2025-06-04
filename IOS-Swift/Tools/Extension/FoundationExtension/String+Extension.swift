@@ -19,6 +19,7 @@ let Appdelegate_RootVC_Value_B_Str = "B"
 let Appdelegate_RootVC_Value_C_Str = "C"
 
 let Appdelegate_HomeVC_SwitchStatus = "切换状态"
+let Appdelegate_HomeVC_HelloTalk = "HelloTalk"
 let Appdelegate_RootVC_IsLogin_Str = "Appdelegate_RootVC_IsUserLogin"
 let Chat_ChatHome_NewChat = "新建聊天"
 let Chat_ChatHome_LoginOut = "退出登录"
