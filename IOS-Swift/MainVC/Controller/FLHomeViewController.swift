@@ -56,7 +56,7 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
     private func initData()
     {
         delegate = self
-        dataArray = ["Extension","Summary","LibraryStudy","SwiftUI","Test"];
+        dataArray = ["Extension","Summary","LibraryStudy","Playground","SwiftUI","Test"];
     }
     
     func didSelectCell(at indexPath: IndexPath) {
@@ -71,9 +71,11 @@ class FLHomeViewController: FLBaseViewController, FLBaseViewControllerDelegate {
             self.navigationController?.pushViewController(LibraryHomeViewController.init(), animated: true)
             break
         case 3:
-            self.navigationController?.pushViewController(FLSwiftUIViewController.init(), animated: true)
             break
         case 4:
+            self.navigationController?.pushViewController(FLSwiftUIViewController.init(), animated: true)
+            break
+        case 5:
             self.navigationController?.pushViewController(FlTestViewController.init(), animated: true)
             break
         default:

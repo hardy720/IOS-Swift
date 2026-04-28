@@ -157,7 +157,7 @@ class FLHelloTalkViewController: UIViewController {
             try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            print("音频会话配置失败: \(error)")
+            FLPrint("音频会话配置失败: \(error)")
             return
         }
         
@@ -179,7 +179,7 @@ class FLHelloTalkViewController: UIViewController {
         do {
             try audioEngine.start()
         } catch {
-            print("音频引擎启动失败: \(error)")
+            FLPrint("音频引擎启动失败: \(error)")
             return
         }
         

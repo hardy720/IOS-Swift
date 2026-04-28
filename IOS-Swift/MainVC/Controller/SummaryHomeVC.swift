@@ -22,7 +22,7 @@ class SummaryHomeVC: FLBaseViewController{
     {
         headDataArray = ["一、语言基础","二、多线程","三、开发模式"]
         dataArray = [
-            ["引用类型和值类型","泛型","关键字","异常处理","Optional vs OC 的 nil（强制解包/可选链的安全哲学）详解"],
+            ["引用类型和值类型","泛型","关键字","异常处理","Optional vs OC 的 nil（强制解包/可选链的安全哲学）详解","闭包 (Closure)","协议（Protocol）与扩展（Extension）"],
             ["Grand Central Dispatch(GCD)","NSThread","Operation Queues","并发编程模式(如Actor模式)"],
             ["单例模式"]
         ]
@@ -64,6 +64,16 @@ extension SummaryHomeVC
     @objc func test105()
     {
         self.navigationController?.pushViewController(OptionalVSNilVC.init(), animated: true)
+    }
+    
+    @objc func test106()
+    {
+        self.navigationController?.pushViewController(ClosureViewController.init(), animated: true)
+    }
+    
+    @objc func test107()
+    {
+        self.navigationController?.pushViewController(ProtocolAndExtensionVC.init(), animated: true)
     }
     
     // MARK: 2.01. GCD.
