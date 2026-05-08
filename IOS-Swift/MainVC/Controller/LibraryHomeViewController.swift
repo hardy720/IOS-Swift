@@ -22,7 +22,9 @@ class LibraryHomeViewController: FLBaseViewController,FLBaseViewControllerDelega
         dataArray =
         [
             "Kingfisher",
-            "SQLite.swift"
+            "SQLite.swift",
+            "SwiftyJSON",
+            "Swift Package Manager (SPM)和CocoaPods"
         ]
     }
     
@@ -39,6 +41,12 @@ class LibraryHomeViewController: FLBaseViewController,FLBaseViewControllerDelega
             break
         case 1:
             self.navigationController?.pushViewController(SQLiteViewController.init(), animated: true)
+            break
+        case 2:
+            self.navigationController?.pushViewController(SwiftyJSONViewController.init(), animated: true)
+            break
+        case 3:
+            self.navigationController?.pushViewController(SPMAndCocoapodsVC.init(), animated: true)
             break
         default:
             break

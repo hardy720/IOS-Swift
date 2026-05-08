@@ -49,6 +49,8 @@
 		439B59CD2C933103004B07D6 /* FLChatMsgModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439B59CC2C933103004B07D6 /* FLChatMsgModel.swift */; };
 		439B59CF2C9331BE004B07D6 /* FLChatListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439B59CE2C9331BE004B07D6 /* FLChatListModel.swift */; };
 		43A4D0EB2C783B420029FFB0 /* ExceptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A4D0EA2C783B420029FFB0 /* ExceptionViewController.swift */; };
+		43B6ED102FAC2AD90079727C /* SPMAndCocoapodsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B6ED0F2FAC2AD90079727C /* SPMAndCocoapodsVC.swift */; };
+		43B6ED122FAC33BF0079727C /* SwiftyJSONViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B6ED112FAC33BF0079727C /* SwiftyJSONViewController.swift */; };
 		43C44C362CD28B7D00E9DA4A /* FLWebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C44C352CD28B7D00E9DA4A /* FLWebSocketManager.swift */; };
 		43C570BD2C4412B400E7ECB3 /* CGPointExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C570BC2C4412B400E7ECB3 /* CGPointExtensionVC.swift */; };
 		43C570BF2C4413F900E7ECB3 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C570BE2C4413F900E7ECB3 /* CGPoint+Extension.swift */; };
@@ -163,6 +165,8 @@
 		439B59CC2C933103004B07D6 /* FLChatMsgModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatMsgModel.swift; sourceTree = "<group>"; };
 		439B59CE2C9331BE004B07D6 /* FLChatListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLChatListModel.swift; sourceTree = "<group>"; };
 		43A4D0EA2C783B420029FFB0 /* ExceptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExceptionViewController.swift; path = Controller/ExceptionViewController.swift; sourceTree = "<group>"; };
+		43B6ED0F2FAC2AD90079727C /* SPMAndCocoapodsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SPMAndCocoapodsVC.swift; path = Controller/SPMAndCocoapodsVC.swift; sourceTree = "<group>"; };
+		43B6ED112FAC33BF0079727C /* SwiftyJSONViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwiftyJSONViewController.swift; path = Controller/SwiftyJSONViewController.swift; sourceTree = "<group>"; };
 		43C44C352CD28B7D00E9DA4A /* FLWebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLWebSocketManager.swift; sourceTree = "<group>"; };
 		43C570BC2C4412B400E7ECB3 /* CGPointExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CGPointExtensionVC.swift; path = Controller/CGPointExtensionVC.swift; sourceTree = "<group>"; };
 		43C570BE2C4413F900E7ECB3 /* CGPoint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
@@ -322,6 +326,8 @@
 				43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */,
 				43F295942C77194100E5A212 /* SingletonViewController.swift */,
 				438A811E2C5A2A5B00774B7B /* LibraryHomeViewController.swift */,
+				43B6ED112FAC33BF0079727C /* SwiftyJSONViewController.swift */,
+				43B6ED0F2FAC2AD90079727C /* SPMAndCocoapodsVC.swift */,
 				438A81202C5A2C1B00774B7B /* KingfisherViewController.swift */,
 				43F295902C76E5DD00E5A212 /* SQLiteViewController.swift */,
 			);
@@ -889,7 +895,9 @@
 				43FF21B42C3D6B83007F386C /* FLUIKitExtensionVC.swift in Sources */,
 				433072A52C40D32E007FADED /* StructDetailVC.swift in Sources */,
 				43A4D0EB2C783B420029FFB0 /* ExceptionViewController.swift in Sources */,
+				43B6ED122FAC33BF0079727C /* SwiftyJSONViewController.swift in Sources */,
 				433072A12C3FC23E007FADED /* Array+Extension.swift in Sources */,
+				43B6ED102FAC2AD90079727C /* SPMAndCocoapodsVC.swift in Sources */,
 				43F548F72FAB296D00AE1C43 /* SwiftUIViewPractice6.swift in Sources */,
 				43C44C362CD28B7D00E9DA4A /* FLWebSocketManager.swift in Sources */,
 				438565F82C9857FB00D84A68 /* UImage+Extension.swift in Sources */,
