@@ -59,6 +59,7 @@
 		43D40A052C560974009F1260 /* NSThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D40A042C560974009F1260 /* NSThreadViewController.swift */; };
 		43D40A072C5639E4009F1260 /* OperationQueuesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */; };
 		43D774162DE852A00049F109 /* FLHelloTalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D774152DE852A00049F109 /* FLHelloTalkViewController.swift */; };
+		43DB5D032FD808B400A94BC3 /* LiquidUILog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DB5D022FD808B400A94BC3 /* LiquidUILog.swift */; };
 		43DCF1D82C5BE4CA007E25D0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCF1D72C5BE4CA007E25D0 /* Int+Extension.swift */; };
 		43E4AFEE2CA2778600623EE1 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E4AFED2CA2778600623EE1 /* UITableView+Extension.swift */; };
 		43E4E8A12CC0FCDD00BA4A55 /* FLLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E4E8A02CC0FCDD00BA4A55 /* FLLoginViewController.swift */; };
@@ -175,6 +176,7 @@
 		43D40A042C560974009F1260 /* NSThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSThreadViewController.swift; path = Controller/NSThreadViewController.swift; sourceTree = "<group>"; };
 		43D40A062C5639E4009F1260 /* OperationQueuesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OperationQueuesVC.swift; path = Controller/OperationQueuesVC.swift; sourceTree = "<group>"; };
 		43D774152DE852A00049F109 /* FLHelloTalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLHelloTalkViewController.swift; sourceTree = "<group>"; };
+		43DB5D022FD808B400A94BC3 /* LiquidUILog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidUILog.swift; sourceTree = "<group>"; };
 		43DCF1D72C5BE4CA007E25D0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		43E4AFED2CA2778600623EE1 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		43E4E8A02CC0FCDD00BA4A55 /* FLLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLLoginViewController.swift; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 		43FF21B92C3E2878007F386C /* SmallTools */ = {
 			isa = PBXGroup;
 			children = (
+				43DB5D022FD808B400A94BC3 /* LiquidUILog.swift */,
 				43FF21BA2C3E28B1007F386C /* FLPrint.swift */,
 				43581D902C4BAE50004F154C /* FLAsyncs.swift */,
 			);
@@ -904,6 +907,7 @@
 				434120492CA3B370005A0A73 /* FLAudioRecorder.swift in Sources */,
 				4322EEFF2C3AE52E000D20BD /* UIColor+Extension.swift in Sources */,
 				433072A92C40F15D007FADED /* SystemValueTypeVC.swift in Sources */,
+				43DB5D032FD808B400A94BC3 /* LiquidUILog.swift in Sources */,
 				43FF21BF2C3E3353007F386C /* Date+Extension.swift in Sources */,
 				43F548FB2FAB328300AE1C43 /* SwiftUIViewPractice8.swift in Sources */,
 				43581D932C4BC36D004F154C /* GCDViewController.swift in Sources */,
@@ -1091,6 +1095,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UZC6A6C7FR;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "IOS-Swift/Other/Info.plist";
@@ -1107,6 +1122,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shengaike.IOS-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1123,6 +1140,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UZC6A6C7FR;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "IOS-Swift/Other/Info.plist";
@@ -1139,6 +1167,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shengaike.IOS-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

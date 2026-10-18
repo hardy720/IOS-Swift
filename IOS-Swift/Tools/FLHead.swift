@@ -7,7 +7,32 @@
 
 import UIKit
 
-class FLHead: NSObject 
+public func SynNSLog11(_ format: String,
+                     _ args: CVarArg...,
+                     file: String = #file,
+                     line: Int = #line,
+                     function: String = #function) {
+    let now = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+    let timeString = dateFormatter.string(from: now)
+
+    let fileName = (file as NSString).lastPathComponent
+        .replacingOccurrences(of: ".swift", with: "")
+        .replacingOccurrences(of: ".m", with: "")
+
+    let content: String
+    if args.isEmpty {
+        content = format
+    } else {
+        content = String(format: format, arguments: args)
+    }
+
+    let logString = "\(timeString) [\(fileName):\(function):\(line)] \(content)\n"
+    LiquidUILog.instance.LogToFile(logString)
+}
+
+class FLHead: NSObject
 {
 
 }
